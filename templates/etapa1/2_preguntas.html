@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="bg-white p-4 rounded shadow-sm border">
+    <h2 class="mb-3 text-primary">2. Pregunta Principal y Preguntas Secundarias</h2>
+    <hr>
+
+    <div class="alert alert-primary shadow-sm" role="alert">
+        <h4 class="alert-heading fw-bold">Pregunta Principal de Investigación</h4>
+        <p class="fs-5 mb-0">
+            ¿Cuáles son los patrones financieros, sectoriales, temporales y geográficos determinantes que condicionan la probabilidad de supervivencia empresarial de las unidades productivas en Colombia frente al contexto global y regional durante el periodo 2018–2025?
+        </p>
+    </div>
+
+    <h4 class="mt-4 mb-3">Preguntas Secundarias</h4>
+    <div class="list-group shadow-sm mb-4">
+        <div class="list-group-item">
+            <h6 class="text-secondary fw-bold">1. Dimensión Financiera y Operativa</h6>
+            <p class="mb-1">¿Existe un umbral crítico en la razón de endeudamiento y el nivel de liquidez a partir del cual el riesgo de cancelación de matrícula o liquidación se incrementa exponencialmente?</p>
+            <small class="text-muted"><strong>Técnica de Minería:</strong> Clasificación y Reglas de Asociación.</small>
+        </div>
+        <div class="list-group-item">
+            <h6 class="text-secondary fw-bold">2. Dimensión Temporal y Coyuntural</h6>
+            <p class="mb-1">¿Cómo impactó la crisis post-pandemia el ciclo de vida de las Mipymes según su año de constitución frente a las métricas internacionales de resiliencia?</p>
+            <small class="text-muted"><strong>Técnica de Minería:</strong> Series Temporales y Agrupamiento (Clustering) por cohortes.</small>
+        </div>
+        <div class="list-group-item">
+            <h6 class="text-secondary fw-bold">3. Dimensión Geográfica / Regional</h6>
+            <p class="mb-1">¿De qué manera la ubicación municipal (Cundinamarca / Bogotá) y la densidad empresarial influyen en el agrupamiento de empresas con mayor tasa de supervivencia?</p>
+            <small class="text-muted"><strong>Técnica de Minería:</strong> Clustering Espacial (K-Means / DBSCAN).</small>
+        </div>
+    </div>
+
+    <div class="card border-dark">
+        <div class="card-header bg-dark text-white">Conocimiento Esperado a Partir de los Datos</div>
+        <div class="card-body">
+            <ul>
+                <li><strong>Modelo de Predicción de Riesgo:</strong> Clasificador capaz de estimar la probabilidad de cierre antes de 5 años.</li>
+                <li><strong>Perfiles de Resiliencia:</strong> Descubrimiento de clusters de empresas con alta durabilidad basada en estructura de activos.</li>
+                <li><strong>Patrones Sectoriales:</strong> Reglas que asocien sectores CIIU específicos con estabilidad financiera regional.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="bg-white p-4 rounded shadow-sm border">
+    <h2 class="mb-3 text-primary">1. Problema y Contexto</h2>
+    <hr>
+    
+    <div class="card mb-4 border-0 bg-light">
+        <div class="card-body">
+            <h4 class="card-title text-dark">Contexto General del Tema</h4>
+            <p class="card-text">
+                La creación y supervivencia de empresas es un motor esencial para el desarrollo económico y la generación de empleo. No obstante, el fenómeno conocido como el <strong>"Valle de la Muerte"</strong> provoca que un alto porcentaje de Mipymes fracasen en sus primeros 3 a 5 años de operación. Analizar las causas detrás de la liquidez, cancelación mercantil o insolvencia requiere una perspectiva integral que combine datos financieros, variables macroeconómicas y factores geográficos.
+            </p>
+        </div>
+    </div>
+
+    <h4 class="mt-4 mb-3">Análisis Multi-Escala del Fenómeno</h4>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card border-info h-100 shadow-sm">
+                <div class="card-header bg-info text-white fw-bold">Nivel Global</div>
+                <div class="card-body">
+                    <p class="card-text small">
+                        Según la OECD y el Banco Mundial, la tasa de supervivencia global a 5 años ronda entre el 40% y 50%. La adopción tecnológica, choques de cadenas de suministro y el acceso a financiamiento internacional determinan la tasa de supervivencia de firmas en mercados emergentes.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-warning h-100 shadow-sm">
+                <div class="card-header bg-warning text-dark fw-bold">Nivel Nacional (Colombia)</div>
+                <div class="card-body">
+                    <p class="card-text small">
+                        De acuerdo con Confecámaras y Supersociedades, aproximadamente el 70% de las microempresas en Colombia se liquida antes del quinto año. Altas tasas de informalidad, la carga tributaria y la volatilidad del dólar (TRM) condicionan la durabilidad del tejido empresarial.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-success h-100 shadow-sm">
+                <div class="card-header bg-success text-white fw-bold">Nivel Regional (Bogotá - Sabana)</div>
+                <div class="card-body">
+                    <p class="card-text small">
+                        En la región Bogotá y Cundinamarca (Chía, Cota, Tocancipá, Zipaquirá), la concentración de empresas genera un ecosistema dinámico pero competitivo, existiendo brechas profundas de supervivencia entre municipios agroindustriales y polos de desarrollo de servicios.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="bg-white p-4 rounded shadow-sm border">
+    <h2 class="mb-3 text-primary">3. Necesidades de Información</h2>
+    <hr>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <ul class="list-group shadow-sm">
+                <li class="list-group-item"><strong>Entidades Involucradas:</strong> Mipymes, Sociedades Comerciales, Cámaras de Comercio, Superintendencia de Sociedades, DANE, Banco Mundial.</li>
+                <li class="list-group-item"><strong>Periodo de Análisis:</strong> 2018 a 2025 (Escenarios Pre y Post Pandemia).</li>
+                <li class="list-group-item"><strong>Cobertura Geográfica:</strong> Global (Países seleccionados LATAM/OECD), Nacional (Colombia), Regional (Bogotá - Cundinamarca).</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <ul class="list-group shadow-sm">
+                <li class="list-group-item"><strong>Unidad de Análisis:</strong> Empresa o Establecimiento comercial matriculado.</li>
+                <li class="list-group-item"><strong>Nivel de Granularidad:</strong> Microdatos individuales por empresa agregables por municipio DIVIPOLA y sector CIIU.</li>
+            </ul>
+        </div>
+    </div>
+
+    <h4 class="mt-4 mb-3">Matriz de Variables para Comparación Multi-Escala</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Variable</th>
+                    <th>Nivel (Global/Nac/Reg)</th>
+                    <th>Tipo</th>
+                    <th>Justificación Analítica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>Estado_Mercantil</code></td>
+                    <td>Nacional / Regional</td>
+                    <td>Categórica</td>
+                    <td>Variable Target (Activa, Cancelada, Liquidada).</td>
+                </tr>
+                <tr>
+                    <td><code>Ano_Constitucion</code></td>
+                    <td>Global / Nac / Reg</td>
+                    <td>Temporal</td>
+                    <td>Determina la edad de la empresa y cohorte de supervivencia.</td>
+                </tr>
+                <tr>
+                    <td><code>Activo_Total</code></td>
+                    <td>Nacional / Regional</td>
+                    <td>Numérica</td>
+                    <td>Evalúa la escala financiera y tamaño inicial de la firma.</td>
+                </tr>
+                <tr>
+                    <td><code>Razon_Endeudamiento</code></td>
+                    <td>Global / Nacional</td>
+                    <td>Numérica</td>
+                    <td>Pasivo / Activo. Mide apalancamiento y riesgo de insolvencia.</td>
+                </tr>
+                <tr>
+                    <td><code>Sector_CIIU</code></td>
+                    <td>Global / Nac / Reg</td>
+                    <td>Categórica</td>
+                    <td>Permite comparar estabilidad por sector económico.</td>
+                </tr>
+                <tr>
+                    <td><code>Cod_Municipio_DANE</code></td>
+                    <td>Nacional / Regional</td>
+                    <td>Geográfica</td>
+                    <td>Clave para agregación espacial en Cundinamarca / Colombia.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
