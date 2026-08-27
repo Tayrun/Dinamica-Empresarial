@@ -3,82 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinámica Empresarial y Supervivencia</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Bitácora Técnica - Dinámica Empresarial</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .navbar-brand { font-weight: bold; }
+        .footer { background-color: #212529; color: white; padding: 20px 0; margin-top: 40px; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+<body>
 
-    <!-- Header / Hero -->
-    <header class="bg-slate-900 text-white py-16 px-6">
-        <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Dinámica Empresarial y Supervivencia</h1>
-            <p class="mt-4 text-lg text-slate-300">
-                Análisis de los ciclos de entrada, crecimiento, permanencia y salida de las organizaciones en el mercado.
-            </p>
-        </div>
-    </header>
-
-    <!-- Contenido Principal -->
-    <main class="max-w-4xl mx-auto p-6 space-y-10">
-
-        <!-- Sección Concepto -->
-        <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
-            <h2 class="text-2xl font-bold text-slate-900 mb-4">¿Qué es la Dinámica Empresarial?</h2>
-            <p class="text-slate-600 leading-relaxed">
-                Representa el proceso continuo de renovación económica donde nacen nuevas empresas, compiten por cuota de mercado, escalan mediante la innovación y eficiencia, o abandonan la industria ante barreras estructurales o financieras.
-            </p>
-        </section>
-
-        <!-- Indicadores y Factores -->
-        <section class="grid md:grid-cols-2 gap-6">
-            
-            <div class="bg-indigo-50 border border-indigo-100 p-6 rounded-xl flex flex-col justify-between">
-                <div>
-                    <span class="text-xs uppercase font-semibold tracking-wider text-indigo-600">Métrica Global</span>
-                    <h3 class="text-xl font-bold text-slate-900 mt-1">Supervivencia a 5 Años</h3>
-                    <p class="mt-2 text-slate-600 text-sm">
-                        Promedio de empresas que logran superar el periodo crítico inicial de operación.
-                    </p>
-                </div>
-                <div class="mt-6 text-4xl font-extrabold text-indigo-600">
-                    {{ data.tasa_supervivencia_5_anios }}
-                </div>
-            </div>
-
-            <div class="bg-white border border-slate-200 p-6 rounded-xl shadow-sm">
-                <h3 class="text-xl font-bold text-slate-900 mb-4">Pilares de Supervivencia</h3>
-                <ul class="space-y-3">
-                    {% for factor in data.factores_clave %}
-                    <li class="flex items-start text-sm text-slate-700">
-                        <span class="mr-2 text-indigo-500 font-bold">•</span>
-                        {{ factor }}
+    <!-- MENÚ NAVEGABLE PRINCIPAL -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">📊 Bitácora Minería de Datos</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('home') }}">Inicio</a>
                     </li>
-                    {% endfor %}
+                    
+                    <!-- SUBMENÚ OBLIGATORIO ETAPA 1 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-warning font-weight-bold" href="#" id="navbarEtapa1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Etapa 1
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarEtapa1">
+                            <li><a class="dropdown-item" href="{{ url_for('etapa1_problema') }}">1. Problema y contexto</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('etapa1_preguntas') }}">2. Pregunta principal y preguntas secundarias</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('etapa1_necesidades') }}">3. Necesidades de información</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('etapa1_fuentes') }}">4. Fuentes de datos</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('etapa1_dataset') }}">5. Dataset</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('etapa1_diccionario') }}">6. Diccionario de datos</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('etapa1_calidad') }}">7. Calidad inicial de los datos</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('etapa1_limitaciones') }}">8. Limitaciones y consideraciones</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
+        </div>
+    </nav>
 
-        </section>
-
-        <!-- Ciclo de Vida -->
-        <section class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
-            <h2 class="text-2xl font-bold text-slate-900 mb-6">Etapas del Ciclo Empresarial</h2>
-            <div class="grid sm:grid-cols-3 gap-4 text-center">
-                <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
-                    <h4 class="font-bold text-slate-800">1. Entrada</h4>
-                    <p class="text-xs text-slate-500 mt-1">Barreras de acceso, capital semilla y propuesta de valor.</p>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
-                    <h4 class="font-bold text-slate-800">2. Consolidación</h4>
-                    <p class="text-xs text-slate-500 mt-1">Gestión operativa, punto de equilibrio y retención.</p>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
-                    <h4 class="font-bold text-slate-800">3. Madurez o Salida</h4>
-                    <p class="text-xs text-slate-500 mt-1">Innovación continua vs. liquidación/absorción.</p>
-                </div>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container my-5">
+        {% block content %}
+        <div class="p-5 mb-4 bg-white rounded-3 shadow-sm border">
+            <div class="container-fluid py-3">
+                <h1 class="display-5 fw-bold text-primary">Dinámica Empresarial y Supervivencia de Empresas</h1>
+                <p class="col-md-10 fs-5 text-muted">
+                    Plataforma técnica y bitácora de documentación para el proyecto de Minería de Datos. Este sistema consolida el análisis multi-escala (Global, Nacional en Colombia y Regional en Cundinamarca/Bogotá) sobre la durabilidad, resiliencia y factores de quiebra empresarial.
+                </p>
+                <hr class="my-4">
+                <h5>Integrantes del Grupo / Proyecto:</h5>
+                <ul class="list-unstyled text-secondary">
+                    <li>🔹 <strong>Tema asignado:</strong> Dinámica Empresarial y Supervivencia de Empresas</li>
+                    <li>🔹 <strong>Asignatura:</strong> Minería de Datos</li>
+                </ul>
+                <a class="btn btn-primary btn-lg mt-3" href="{{ url_for('etapa1_problema') }}" role="button">Ver Etapa 1: Problema y Contexto &raquo;</a>
             </div>
-        </section>
-
+        </div>
+        {% endblock %}
     </main>
 
+    <footer class="footer text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 Proyecto Minería de Datos - Universidad / Facultad de Ingeniería</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

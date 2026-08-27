@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="bg-white p-4 rounded shadow-sm border">
+    <h2 class="mb-3 text-primary">8. Limitaciones y Consideraciones</h2>
+    <hr>
+
+    <div class="list-group shadow-sm">
+        <div class="list-group-item">
+            <h5 class="text-danger fw-bold">1. Sesgo de Sobrevivencia por Informalidad</h5>
+            <p class="mb-1 text-muted">Las bases oficiales de Cámaras de Comercio y Supersociedades omiten las empresas informales, generando un sesgo hacia unidades productivas de mayor tamaño e infraestructura inicial.</p>
+        </div>
+        <div class="list-group-item">
+            <h5 class="text-warning fw-bold">2. Diferencias en la Granularidad Geográfica</h5>
+            <p class="mb-1 text-muted">Mientras los datos locales/nacionales permiten un análisis a nivel de municipio (DIVIPOLA), la información global del Banco Mundial está agregada por país, requiriendo estandarización en fases posteriores.</p>
+        </div>
+        <div class="list-group-item">
+            <h5 class="text-primary fw-bold">3. Protección de Datos (Habeas Data)</h5>
+            <p class="mb-1 text-muted">En cumplimiento de la Ley 1581 de 2012, el número de identificación tributaria (NIT) y nombres de propietarios fueron anonimizados previo al procesamiento en la aplicación web.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

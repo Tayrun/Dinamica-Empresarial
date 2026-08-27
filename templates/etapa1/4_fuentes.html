@@ -1,0 +1,65 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="bg-white p-4 rounded shadow-sm border">
+    <h2 class="mb-3 text-primary">4. Fuentes de Datos</h2>
+    <hr>
+    <p class="text-muted">Documentación de fuentes primarias, secundarias y terciarias por nivel de cobertura.</p>
+
+    <!-- Fuente Secundaria -->
+    <div class="card mb-3 border-secondary">
+        <div class="card-header bg-secondary text-white fw-bold">1. Fuente Secundaria (Nacional/Regional) - Supersociedades (SIREM)</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Institución:</strong> Superintendencia de Sociedades</p>
+                    <p><strong>URL:</strong> <a href="https://www.datos.gov.co" target="_blank">datos.gov.co</a> / SIREM</p>
+                    <p><strong>Periodo:</strong> 2018 - 2024 | <strong>Formato:</strong> CSV / XLSX</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Registros Aprox.:</strong> > 45,000 estados financieros por año</p>
+                    <p><strong>Variables:</strong> NIT, Activos, Pasivos, Utilidad, CIIU, Ciudad.</p>
+                    <p><strong>Pertinencia:</strong> Confiabilidad oficial para balances reales.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fuente Primaria -->
+    <div class="card mb-3 border-primary">
+        <div class="card-header bg-primary text-white fw-bold">2. Fuente Primaria (Regional) - Encuesta Directa Mipymes Sabana Centro</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Responsable:</strong> Trabajo de campo / Formulario Digital</p>
+                    <p><strong>Tipo:</strong> Primaria (Encuesta / Sensores de captura web)</p>
+                    <p><strong>Periodo:</strong> 2026 | <strong>Formato:</strong> JSON / REST API</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Registros Aprox.:</strong> 350 muestras</p>
+                    <p><strong>Variables:</strong> Causal de riesgo, acceso a crédito, uso de canal digital.</p>
+                    <p><strong>Pertinencia:</strong> Aporta variables cualitativas no presentes en estados financieros.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fuente Terciaria -->
+    <div class="card mb-3 border-dark">
+        <div class="card-header bg-dark text-white fw-bold">3. Fuente Terciaria (Global) - Banco Mundial / GEM Data</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Institución:</strong> World Bank Open Data</p>
+                    <p><strong>URL:</strong> <a href="https://databank.worldbank.org" target="_blank">databank.worldbank.org</a></p>
+                    <p><strong>Cobertura:</strong> Global (120+ Países) | <strong>Formato:</strong> CSV API</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Variables:</strong> Business Entry Rate, Insolvency Index, GDP growth.</p>
+                    <p><strong>Pertinencia:</strong> Marco de referencia internacional.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
