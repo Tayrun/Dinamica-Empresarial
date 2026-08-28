@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "layout.html" %}
 
 {% block content %}
 <div class="bg-white p-4 rounded shadow-sm border">
@@ -9,27 +9,26 @@
         <table class="table table-striped table-hover table-sm align-middle">
             <thead class="table-dark">
                 <tr>
-                    <th>Nombre Variable</th>
-                    <th>Descripción</th>
+                    <th>Variable</th>
                     <th>Tipo</th>
-                    <th>Unidad</th>
-                    <th>Dominio / Valores</th>
-                    <th>Fuente</th>
+                    <th>¿Por qué la necesitamos?</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td><code>ID_Empresa</code></td><td>Identificador único de la empresa</td><td>Texto (ID)</td><td>N/A</td><td>Alfanumérico (ej. EMP-80012)</td><td>Interno/RUES</td></tr>
-                <tr><td><code>Fecha_Constitucion</code></td><td>Fecha de constitución formal</td><td>Temporal</td><td>YYYY-MM-DD</td><td>1980-01-01 a 2025-12-31</td><td>RUES</td></tr>
-                <tr><td><code>Ano_Corte</code></td><td>Año reportado del balance</td><td>Temporal</td><td>Año</td><td>2018 - 2025</td><td>Supersociedades</td></tr>
-                <tr><td><code>Estado_Mercantil</code></td><td>Condición operativa (Target)</td><td>Categórica</td><td>N/A</td><td>[Activa, Cancelada, Liquidada]</td><td>RUES</td></tr>
-                <tr><td><code>Sector_CIIU</code></td><td>Código de actividad económica</td><td>Categórica</td><td>CIIU Rev 4</td><td>4 dígitos (ej. 6201)</td><td>DANE</td></tr>
-                <tr><td><code>Tamano_Empresa</code></td><td>Clasificación legal Mipyme</td><td>Categórica Ordinal</td><td>N/A</td><td>[Micro, Pequeña, Mediana, Grande]</td><td>Supersociedades</td></tr>
-                <tr><td><code>Activo_Total</code></td><td>Valor total de los activos</td><td>Numérica Continua</td><td>COP ($)</td><td>>= 0</td><td>Supersociedades</td></tr>
-                <tr><td><code>Pasivo_Total</code></td><td>Obligaciones con terceros</td><td>Numérica Continua</td><td>COP ($)</td><td>>= 0</td><td>Supersociedades</td></tr>
-                <tr><td><code>Ingresos_Operacionales</code></td><td>Ventas netas anuales</td><td>Numérica Continua</td><td>COP ($)</td><td>>= 0</td><td>Supersociedades</td></tr>
-                <tr><td><code>Numero_Empleados</code></td><td>Personal contratado</td><td>Numérica Discreta</td><td>Personas</td><td>>= 1</td><td>Encuesta/SIREM</td></tr>
-                <tr><td><code>Cod_Municipio_DANE</code></td><td>Código DIVIPOLA municipal</td><td>Geográfica</td><td>DIVIPOLA</td><td>5 dígitos (ej. 25175)</td><td>DANE</td></tr>
-                <tr><td><code>Pais_Matriz</code></td><td>País de origen</td><td>Geográfica</td><td>ISO-3</td><td>COL, USA, MEX, ESP...</td><td>World Bank</td></tr>
+                <tr><td><code>ID empresa</code></td><td>Categórica / identificador</td><td>Identificar cada registro</td></tr>
+                <tr><td><code>Año de creación</code></td><td>Temporal</td><td>Calcular antigüedad y analizar tendencias</td></tr>
+                <tr><td><code>Año de cierre</code></td><td>Temporal</td><td>Analizar supervivencia</td></tr>
+                <tr><td><code>Estado de la empresa</code></td><td>Categórica</td><td>Activa, cerrada, etc.</td></tr>
+                <tr><td><code>Sector económico</code></td><td>Categórica</td><td>Comparar comportamiento entre sectores</td></tr>
+                <tr><td><code>Tamaño de empresa</code></td><td>Categórica / numérica</td><td>Analizar diferencias por tamaño</td></tr>
+                <tr><td><code>Número de empleados</code></td><td>Numérica</td><td>Indicador de dimensión empresarial</td></tr>
+                <tr><td><code>Antigüedad</code></td><td>Numérica</td><td>Medir supervivencia</td></tr>
+                <tr><td><code>País</code></td><td>Geográfica / categórica</td><td>Nivel global</td></tr>
+                <tr><td><code>Departamento</code></td><td>Geográfica / categórica</td><td>Nivel nacional / regional</td></tr>
+                <tr><td><code>Municipio o ciudad</code></td><td>Geográfica</td><td>Mayor granularidad</td></tr>
+                <tr><td><code>Año de observación</code></td><td>Temporal</td><td>Analizar evolución</td></tr>
+                <tr><td><code>Ingresos o indicador económico</code></td><td>Numérica</td><td>Analizar relación con permanencia</td></tr>
+                <tr><td><code>PIB / indicador territorial</code></td><td>Numérica</td><td>Contextualizar condiciones económicas</td></tr>
             </tbody>
         </table>
     </div>
