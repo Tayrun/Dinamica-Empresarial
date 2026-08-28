@@ -1,43 +1,17 @@
-{% extends "index.html" %}
+{% extends "layout.html" %}
 
 {% block content %}
-<div class="bg-white p-4 rounded shadow-sm border">
-    <h2 class="mb-3 text-primary">7. Calidad Inicial de los Datos</h2>
+<div class="bg-white p-4 rounded shadow-sm border text-center my-4">
+    <h2 class="text-primary text-start mb-3">7. Diagnóstico de Calidad</h2>
     <hr>
-
-    <div class="row g-3">
-        <div class="col-md-6">
-            <div class="card border-warning h-100">
-                <div class="card-header bg-warning text-dark fw-bold">Valores Faltantes (Nulls)</div>
-                <div class="card-body">
-                    <ul>
-                        <li><code>Numero_Empleados</code>: Presenta un 18.2% de nulos en microempresas no sujetas a reporte exhaustivo.</li>
-                        <li><code>Ingresos_Operacionales</code>: 3.5% de datos nulos en firmas en etapa de liquidación.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card border-danger h-100">
-                <div class="card-header bg-danger text-white fw-bold">Inconsistencias y Atípicos</div>
-                <div class="card-body">
-                    <ul>
-                        <li><strong>Pasivos Negativos:</strong> 38 registros con pasivos &lt; 0 por errores de captura contable.</li>
-                        <li><strong>Incoherencia Temporal:</strong> Fechas de constitución registradas posteriores al reporte de balance.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="card border-info">
-                <div class="card-header bg-info text-white fw-bold">Trazabilidad de la Información</div>
-                <div class="card-body">
-                    <p class="mb-0">
-                        Los datos originales no han sido alterados en la fuente primaria. Se conservan en formato `.csv` en el repositorio bajo versión original y las reglas de transformación y diagnóstico fueron automatizadas con scripts en Python (Pandas).
-                    </p>
-                </div>
-            </div>
-        </div>
+    
+    <div class="py-5">
+        <div class="display-1 mb-3">🙀🔍😸</div>
+        <h3 class="fw-bold text-dark mb-2">Diagnóstico de Calidad de Datos</h3>
+        <p class="text-muted fs-5">
+            Los michis están inspeccionando la calidad de los datos (valores nulos, inconsistencias y duplicados).
+        </p>
+        <span class="badge bg-info text-white fs-6 px-3 py-2">Próximamente</span>
     </div>
 </div>
 {% endblock %}
