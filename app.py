@@ -2,12 +2,9 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-# Ruta principal (Home)
 @app.route('/')
 def home():
     return render_template('index.html')
-
-# --- RUTAS ETAPA 1 ---
 
 @app.route('/etapa1/1-problema-contexto')
 def etapa1_problema():
