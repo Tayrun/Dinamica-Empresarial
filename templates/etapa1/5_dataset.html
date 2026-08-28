@@ -1,80 +1,17 @@
-{% extends "index.html" %}
+{% extends "layout.html" %}
 
 {% block content %}
-<div class="bg-white p-4 rounded shadow-sm border">
-    <h2 class="mb-3 text-primary">5. Dataset Inicial Consolidado</h2>
+<div class="bg-white p-4 rounded shadow-sm border text-center my-4">
+    <h2 class="text-primary text-start mb-3">5. Dataset Inicial</h2>
     <hr>
-
-    <div class="row text-center mb-4 g-3">
-        <div class="col-md-3">
-            <div class="p-3 border bg-light rounded shadow-sm">
-                <h2 class="text-primary fw-bold">12,450</h2>
-                <span class="text-muted small">Registros Consolidados</span>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="p-3 border bg-light rounded shadow-sm">
-                <h2 class="text-success fw-bold">12</h2>
-                <span class="text-muted small">Variables Totales</span>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="p-3 border bg-light rounded shadow-sm">
-                <h2 class="text-warning fw-bold">4</h2>
-                <span class="text-muted small">Variables Numéricas</span>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="p-3 border bg-light rounded shadow-sm">
-                <h2 class="text-info fw-bold">4</h2>
-                <span class="text-muted small">Categóricas / Temp / Geog</span>
-            </div>
-        </div>
-    </div>
-
-    <h4 class="mt-4 mb-3">Verificación de Requisitos Mínimos</h4>
-    <div class="table-responsive">
-        <table class="table table-bordered align-middle">
-            <thead class="table-secondary">
-                <tr>
-                    <th>Requisito</th>
-                    <th>Estado en Dataset</th>
-                    <th>Cumplimiento</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Mínimo 10.000 Registros</td>
-                    <td>12.450 registros consolidados de empresas</td>
-                    <td><span class="badge bg-success">Cumplido</span></td>
-                </tr>
-                <tr>
-                    <td>Mínimo 10 Variables</td>
-                    <td>12 variables seleccionadas</td>
-                    <td><span class="badge bg-success">Cumplido</span></td>
-                </tr>
-                <tr>
-                    <td>Mínimo 3 Variables Numéricas</td>
-                    <td><code>Activo_Total</code>, <code>Pasivo_Total</code>, <code>Ingresos_Operacionales</code>, <code>Empleados</code></td>
-                    <td><span class="badge bg-success">Cumplido</span></td>
-                </tr>
-                <tr>
-                    <td>Mínimo 3 Variables Categóricas</td>
-                    <td><code>Estado_Mercantil</code>, <code>Sector_CIIU</code>, <code>Tamano_Empresa</code>, <code>Tipo_Societario</code></td>
-                    <td><span class="badge bg-success">Cumplido</span></td>
-                </tr>
-                <tr>
-                    <td>Mínimo 1 Variable Temporal</td>
-                    <td><code>Fecha_Constitucion</code>, <code>Ano_Corte</code></td>
-                    <td><span class="badge bg-success">Cumplido</span></td>
-                </tr>
-                <tr>
-                    <td>Mínimo 1 Variable Geográfica</td>
-                    <td><code>Cod_Municipio_DANE</code>, <code>Pais_Matriz</code></td>
-                    <td><span class="badge bg-success">Cumplido</span></td>
-                </tr>
-            </tbody>
-        </table>
+    
+    <div class="py-5">
+        <div class="display-1 mb-3">🐱🐾🐱</div>
+        <h3 class="fw-bold text-dark mb-2">Sección en Construcción</h3>
+        <p class="text-muted fs-5">
+            Aquí cargaremos la vista previa del dataset inicial una vez completada la recolección de datos.
+        </p>
+        <span class="badge bg-warning text-dark fs-6 px-3 py-2">Pendiente de Contenido</span>
     </div>
 </div>
 {% endblock %}
