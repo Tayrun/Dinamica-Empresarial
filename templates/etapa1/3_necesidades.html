@@ -7,68 +7,52 @@
 
     <div class="row g-3 mb-4">
         <div class="col-md-6">
-            <ul class="list-group shadow-sm">
-                <li class="list-group-item"><strong>Entidades Involucradas:</strong> Mipymes, Sociedades Comerciales, Cámaras de Comercio, Superintendencia de Sociedades, DANE, Banco Mundial.</li>
-                <li class="list-group-item"><strong>Periodo de Análisis:</strong> 2018 a 2025 (Escenarios Pre y Post Pandemia).</li>
-                <li class="list-group-item"><strong>Cobertura Geográfica:</strong> Global (Países seleccionados LATAM/OECD), Nacional (Colombia), Regional (Bogotá - Cundinamarca).</li>
-            </ul>
+            <div class="card border-secondary h-100">
+                <div class="card-header bg-secondary text-white fw-bold">Parámetros del Análisis</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Unidad de Análisis:</strong> Una empresa o establecimiento registrado observando sus características y estado durante el periodo[cite: 1].</li>
+                    <li class="list-group-item"><strong>Periodo de Análisis:</strong> 2018 a 2025 (Escenarios Pre y Post Pandemia)[cite: 1].</li>
+                    <li class="list-group-item"><strong>Estructura Geográfica:</strong> Global &rarr; Colombia &rarr; Cundinamarca &rarr; Bogotá[cite: 1].</li>
+                </ul>
+            </div>
         </div>
         <div class="col-md-6">
-            <ul class="list-group shadow-sm">
-                <li class="list-group-item"><strong>Unidad de Análisis:</strong> Empresa o Establecimiento comercial matriculado.</li>
-                <li class="list-group-item"><strong>Nivel de Granularidad:</strong> Microdatos individuales por empresa agregables por municipio DIVIPOLA y sector CIIU.</li>
-            </ul>
+            <div class="card border-secondary h-100">
+                <div class="card-header bg-secondary text-white fw-bold">Entidades Involucradas</div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Mipymes, Sociedades Comerciales, Cámaras de Comercio, Superintendencia de Sociedades, DANE y Banco Mundial[cite: 1].
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <h4 class="mt-4 mb-3">Matriz de Variables para Comparación Multi-Escala</h4>
+    <h4 class="mt-4 mb-3">Matriz de Variables Relevantes</h4>
     <div class="table-responsive">
-        <table class="table table-bordered table-striped align-middle">
+        <table class="table table-striped table-bordered align-middle">
             <thead class="table-dark">
                 <tr>
                     <th>Variable</th>
-                    <th>Nivel (Global/Nac/Reg)</th>
                     <th>Tipo</th>
-                    <th>Justificación Analítica</th>
+                    <th>¿Por qué la necesitamos?</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><code>Estado_Mercantil</code></td>
-                    <td>Nacional / Regional</td>
-                    <td>Categórica</td>
-                    <td>Variable Target (Activa, Cancelada, Liquidada).</td>
-                </tr>
-                <tr>
-                    <td><code>Ano_Constitucion</code></td>
-                    <td>Global / Nac / Reg</td>
-                    <td>Temporal</td>
-                    <td>Determina la edad de la empresa y cohorte de supervivencia.</td>
-                </tr>
-                <tr>
-                    <td><code>Activo_Total</code></td>
-                    <td>Nacional / Regional</td>
-                    <td>Numérica</td>
-                    <td>Evalúa la escala financiera y tamaño inicial de la firma.</td>
-                </tr>
-                <tr>
-                    <td><code>Razon_Endeudamiento</code></td>
-                    <td>Global / Nacional</td>
-                    <td>Numérica</td>
-                    <td>Pasivo / Activo. Mide apalancamiento y riesgo de insolvencia.</td>
-                </tr>
-                <tr>
-                    <td><code>Sector_CIIU</code></td>
-                    <td>Global / Nac / Reg</td>
-                    <td>Categórica</td>
-                    <td>Permite comparar estabilidad por sector económico.</td>
-                </tr>
-                <tr>
-                    <td><code>Cod_Municipio_DANE</code></td>
-                    <td>Nacional / Regional</td>
-                    <td>Geográfica</td>
-                    <td>Clave para agregación espacial en Cundinamarca / Colombia.</td>
-                </tr>
+                <tr><td><code>ID empresa</code></td><td>Categórica / Identificador</td><td>Identificar cada registro[cite: 1].</td></tr>
+                <tr><td><code>Año de creación</code></td><td>Temporal</td><td>Calcular antigüedad y analizar tendencias[cite: 1].</td></tr>
+                <tr><td><code>Año de cierre</code></td><td>Temporal</td><td>Analizar supervivencia[cite: 1].</td></tr>
+                <tr><td><code>Estado de la empresa</code></td><td>Categórica</td><td>Activa, cerrada, etc[cite: 1].</td></tr>
+                <tr><td><code>Sector económico</code></td><td>Categórica</td><td>Comparar comportamiento entre sectores[cite: 1].</td></tr>
+                <tr><td><code>Tamaño de empresa</code></td><td>Categórica / Numérica</td><td>Analizar diferencias por tamaño[cite: 1].</td></tr>
+                <tr><td><code>Número de empleados</code></td><td>Numérica</td><td>Indicador de dimensión empresarial[cite: 1].</td></tr>
+                <tr><td><code>Antigüedad</code></td><td>Numérica</td><td>Medir supervivencia[cite: 1].</td></tr>
+                <tr><td><code>País</code></td><td>Geográfica / Categórica</td><td>Nivel global[cite: 1].</td></tr>
+                <tr><td><code>Departamento</code></td><td>Geográfica / Categórica</td><td>Nivel nacional / regional[cite: 1].</td></tr>
+                <tr><td><code>Municipio o ciudad</code></td><td>Geográfica</td><td>Mayor granularidad[cite: 1].</td></tr>
+                <tr><td><code>Año de observación</code></td><td>Temporal</td><td>Analizar evolución[cite: 1].</td></tr>
+                <tr><td><code>Ingresos o indicador económico</code></td><td>Numérica</td><td>Analizar relación con permanencia[cite: 1].</td></tr>
+                <tr><td><code>PIB / indicador territorial</code></td><td>Numérica</td><td>Contextualizar condiciones económicas[cite: 1].</td></tr>
             </tbody>
         </table>
     </div>

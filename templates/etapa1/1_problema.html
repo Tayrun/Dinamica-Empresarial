@@ -2,46 +2,60 @@
 
 {% block content %}
 <div class="bg-white p-4 rounded shadow-sm border">
-    <h2 class="mb-3 text-primary">1. Problema y Contexto</h2>
+    <h2 class="mb-3 text-primary">1. Definición del Problema y Contexto</h2>
     <hr>
     
     <div class="card mb-4 border-0 bg-light">
         <div class="card-body">
             <h4 class="card-title text-dark">Contexto General del Tema</h4>
             <p class="card-text">
-                La creación y supervivencia de empresas es un motor esencial para el desarrollo económico y la generación de empleo. No obstante, el fenómeno conocido como el <strong>"Valle de la Muerte"</strong> provoca que un alto porcentaje de Mipymes fracasen en sus primeros 3 a 5 años de operación. Analizar las causas detrás de la liquidez, cancelación mercantil o insolvencia requiere una perspectiva integral que combine datos financieros, variables macroeconómicas y factores geográficos.
+                La dinámica empresarial es fundamental para el desarrollo económico porque constantemente se crean, transforman y desaparecen empresas[cite: 1]. Sin embargo, la creación de una empresa no garantiza su permanencia en el mercado[cite: 1].
             </p>
+            <p class="card-text">
+                La supervivencia empresarial puede variar según factores clave como: sector económico, ubicación geográfica, tamaño de la empresa, antigüedad, condiciones económicas, acceso a financiamiento, características del territorio y año de creación[cite: 1].
+            </p>
+            <div class="alert alert-warning mb-0" role="alert">
+                <strong>Enfoque analítico:</strong> Se busca identificar qué características y condiciones están relacionadas con la creación, permanencia, crecimiento y cierre de las empresas[cite: 1]. El objetivo va más allá de un análisis descriptivo de contar cuántas empresas existen, buscando en su lugar descubrir patrones y relaciones subyacentes con minería de datos[cite: 1].
+            </div>
         </div>
     </div>
 
-    <h4 class="mt-4 mb-3">Análisis Multi-Escala del Fenómeno</h4>
+    <h4 class="mt-4 mb-3">Problema Específico de Investigación</h4>
+    <p>
+        La dinámica empresarial presenta diferencias relevantes entre territorios, sectores económicos y tipos de empresa[cite: 1]. Mientras que algunas empresas logran mantenerse activas durante largos periodos, otras desaparecen pocos años después de su creación[cite: 1].
+    </p>
+    <p>
+        La relación entre las características empresariales, el contexto geográfico y temporal con la supervivencia de las empresas requiere ser analizada mediante datos que permitan identificar patrones asociados con la permanencia o desaparición empresarial[cite: 1]. Por ello, se aborda la dinámica de creación, permanencia y cierre de empresas en diferentes escalas geográficas (global, nacional y regional) para construir modelos de análisis multidimensional, reglas de asociación, clustering, predicción y comparaciones territoriales[cite: 1].
+    </p>
+
+    <h4 class="mt-4 mb-3">Análisis del Fenómeno en Tres Niveles Geográficos</h4>
     <div class="row g-3">
         <div class="col-md-4">
             <div class="card border-info h-100 shadow-sm">
-                <div class="card-header bg-info text-white fw-bold">Nivel Global</div>
+                <div class="card-header bg-info text-white fw-bold">1. Nivel Global</div>
                 <div class="card-body">
                     <p class="card-text small">
-                        Según la OECD y el Banco Mundial, la tasa de supervivencia global a 5 años ronda entre el 40% y 50%. La adopción tecnológica, choques de cadenas de suministro y el acceso a financiamiento internacional determinan la tasa de supervivencia de firmas en mercados emergentes.
+                        Evaluación de indicadores internacionales sobre creación, densidad empresarial, supervivencia, actividad emprendedora e indicadores económicos globales[cite: 1].
                     </p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card border-warning h-100 shadow-sm">
-                <div class="card-header bg-warning text-dark fw-bold">Nivel Nacional (Colombia)</div>
+                <div class="card-header bg-warning text-dark fw-bold">2. Nivel Nacional (Colombia)</div>
                 <div class="card-body">
                     <p class="card-text small">
-                        De acuerdo con Confecámaras y Supersociedades, aproximadamente el 70% de las microempresas en Colombia se liquida antes del quinto año. Altas tasas de informalidad, la carga tributaria y la volatilidad del dólar (TRM) condicionan la durabilidad del tejido empresarial.
+                        Análisis con datos oficiales sobre registros de aperturas, cierres/cancelaciones, sector económico, ubicación y tamaño a nivel país[cite: 1].
                     </p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card border-success h-100 shadow-sm">
-                <div class="card-header bg-success text-white fw-bold">Nivel Regional (Bogotá - Sabana)</div>
+                <div class="card-header bg-success text-white fw-bold">3. Nivel Regional (Cundinamarca - Bogotá)</div>
                 <div class="card-body">
                     <p class="card-text small">
-                        En la región Bogotá y Cundinamarca (Chía, Cota, Tocancipá, Zipaquirá), la concentración de empresas genera un ecosistema dinámico pero competitivo, existiendo brechas profundas de supervivencia entre municipios agroindustriales y polos de desarrollo de servicios.
+                        Estudio detallado del comportamiento empresarial local en el ecosistema regional Cundinamarca y Bogotá[cite: 1].
                     </p>
                 </div>
             </div>
