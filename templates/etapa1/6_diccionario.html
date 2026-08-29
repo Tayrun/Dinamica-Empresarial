@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="bg-white p-4 rounded shadow-sm border">
+    <h2 class="mb-3 text-primary">6. Diccionario de Datos</h2>
+    <hr>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-sm align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Variable</th>
+                    <th>Tipo</th>
+                    <th>¿Por qué la necesitamos?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>ID empresa</code></td><td>Categórica / identificador</td><td>Identificar cada registro</td></tr>
+                <tr><td><code>Año de creación</code></td><td>Temporal</td><td>Calcular antigüedad y analizar tendencias</td></tr>
+                <tr><td><code>Año de cierre</code></td><td>Temporal</td><td>Analizar supervivencia</td></tr>
+                <tr><td><code>Estado de la empresa</code></td><td>Categórica</td><td>Activa, cerrada, etc.</td></tr>
+                <tr><td><code>Sector económico</code></td><td>Categórica</td><td>Comparar comportamiento entre sectores</td></tr>
+                <tr><td><code>Tamaño de empresa</code></td><td>Categórica / numérica</td><td>Analizar diferencias por tamaño</td></tr>
+                <tr><td><code>Número de empleados</code></td><td>Numérica</td><td>Indicador de dimensión empresarial</td></tr>
+                <tr><td><code>Antigüedad</code></td><td>Numérica</td><td>Medir supervivencia</td></tr>
+                <tr><td><code>País</code></td><td>Geográfica / categórica</td><td>Nivel global</td></tr>
+                <tr><td><code>Departamento</code></td><td>Geográfica / categórica</td><td>Nivel nacional / regional</td></tr>
+                <tr><td><code>Municipio o ciudad</code></td><td>Geográfica</td><td>Mayor granularidad</td></tr>
+                <tr><td><code>Año de observación</code></td><td>Temporal</td><td>Analizar evolución</td></tr>
+                <tr><td><code>Ingresos o indicador económico</code></td><td>Numérica</td><td>Analizar relación con permanencia</td></tr>
+                <tr><td><code>PIB / indicador territorial</code></td><td>Numérica</td><td>Contextualizar condiciones económicas</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

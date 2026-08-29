@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="bg-white p-4 rounded shadow-sm border">
+    <h2 class="mb-3 text-primary">4. Recolección y Selección de Fuentes</h2>
+    <hr>
+
+    <div class="card mb-4 border-primary shadow-sm">
+        <div class="card-header bg-primary text-white fw-bold">Clasificación de Fuentes</div>
+        <div class="card-body">
+            <div class="mb-3">
+                <h6 class="fw-bold text-primary">Primarias:</h6>
+                <p class="mb-1">Obtenidas directamente por ustedes, por ejemplo una encuesta personal:</p>
+                <ul>
+                    <li>Año de creación</li>
+                    <li>Sector</li>
+                    <li>Número de empleados</li>
+                    <li>Tiempo de funcionamiento</li>
+                    <li>Dificultades</li>
+                    <li>Acceso a financiación</li>
+                    <li>Estado actual del negocio</li>
+                    <li>Factores percibidos para la supervivencia</li>
+                </ul>
+            </div>
+            <div class="mb-3">
+                <h6 class="fw-bold text-primary">Secundarias:</h6>
+                <p class="mb-1">Datos ya recolectados por entidades u organizaciones como:</p>
+                <ul>
+                    <li>DANE</li>
+                    <li>Confecámaras</li>
+                    <li>Cámaras de Comercio</li>
+                    <li>Datos Abiertos Colombia</li>
+                    <li>Banco Mundial</li>
+                    <li>OCDE</li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="fw-bold text-primary">Terciarias:</h6>
+                <p class="mb-0">Plataformas o fuentes que recopilan/integran datos de terceros.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-secondary">
+        <div class="card-header bg-secondary text-white fw-bold">Documentación Requerida para Cada Fuente</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul>
+                        <li>Nombre</li>
+                        <li>Institución responsable</li>
+                        <li>URL</li>
+                        <li>Tipo de fuente</li>
+                        <li>Cobertura geográfica</li>
+                        <li>Periodo</li>
+                        <li>Formato</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul>
+                        <li>Método de adquisición</li>
+                        <li>Número aproximado de registros</li>
+                        <li>Variables</li>
+                        <li>Fecha de descarga</li>
+                        <li>Restricciones de uso</li>
+                        <li>Pertinencia / Confiabilidad / Actualidad / Cobertura</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

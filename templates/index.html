@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card shadow-lg border-0 p-4 bg-white text-center">
+    <!-- Logo Institucional -->
+    <div class="mb-3">
+        <img src="{{ url_for('static', filename='img/logo_udec.png') }}" alt="Universidad de Cundinamarca" class="img-fluid" style="max-height: 180px;">
+    </div>
+
+    <!-- Encabezado del Proyecto -->
+    <h1 class="fw-bold text-success mb-2">Dinámica empresarial y supervivencia de empresas</h1>
+    <h5 class="text-muted mb-4">Bitácora Técnica - Dinámica Empresarial</h5>
+
+    <hr class="my-4">
+
+    <!-- Información Académica -->
+    <div class="row text-start justify-content-center g-4">
+        <div class="col-md-5">
+            <div class="p-3 bg-light rounded border h-100">
+                <h5 class="fw-bold text-dark border-bottom pb-2">Estudiantes</h5>
+                <p class="mb-1"><strong>Ingrid Katherin Caicedo Rodríguez</strong></p>
+                <p class="text-muted mb-3">Código: 561222108</p>
+                <p class="mb-1"><strong>Juan José Ibáñez Martínez</strong></p>
+                <p class="text-muted mb-0">Código: 561222129</p>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="p-3 bg-light rounded border h-100">
+                <h5 class="fw-bold text-dark border-bottom pb-2">Detalles del CADI</h5>
+                <p class="mb-1"><strong>Gestor del Conocimiento:</strong> Edison Gustavo Canon Varela</p>
+                <p class="mb-1"><strong>CADI:</strong> Minería de datos</p>
+                <p class="mb-1"><strong>Grupo:</strong> 901T</p>
+                <p class="mb-0"><strong>Programa:</strong> Ingeniería de Sistemas y Computación</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enlaces del Proyecto -->
+    <div class="mt-4 pt-3 border-top">
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="https://github.com/Tayrun/Dinamica-Empresarial" target="_blank" class="btn btn-outline-dark">
+                <i class="bi bi-github"></i> Repositorio GitHub
+            </a>
+
+            </a>
+        </div>
+    </div>
+
+    <!-- Pie de Portada -->
+    <div class="mt-4 text-muted small">
+        <p class="mb-0">Universidad de Cundinamarca - Extensión Chía</p>
+        <p class="mb-0">Facultad de Ingeniería &bull; 2026</p>
+    </div>
+</div>
+{% endblock %}
