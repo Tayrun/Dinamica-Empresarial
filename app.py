@@ -25,6 +25,10 @@ def etapa1_fuentes():
 @app.route('/etapa1/5-dataset')
 def etapa1_dataset():
     return render_template('etapa1/5_dataset.html')
+#AGREGADO PARA DESCARGA DE DATASET
+@app.route('/descargas/dataset-r1')
+def descargar_dataset():
+    return send_from_directory('data/processed', 'dataset_consolidado_r1.csv', as_attachment=True)
 
 @app.route('/etapa1/6-diccionario-datos')
 def etapa1_diccionario():
