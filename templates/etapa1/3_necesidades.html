@@ -42,26 +42,30 @@
                 <tr>
                     <th>Variable</th>
                     <th>Tipo</th>
-                    <th>¿Por qué la necesitamos?</th>
+                    <th>Nivel</th>
+                    <th>Justificación Analítica</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td><code>ID empresa</code></td><td>Categórica / identificador</td><td>Identificar cada registro</td></tr>
-                <tr><td><code>Año de creación</code></td><td>Temporal</td><td>Calcular antigüedad y analizar tendencias</td></tr>
-                <tr><td><code>Año de cierre</code></td><td>Temporal</td><td>Analizar supervivencia</td></tr>
-                <tr><td><code>Estado de la empresa</code></td><td>Categórica</td><td>Activa, cerrada, etc.</td></tr>
-                <tr><td><code>Sector económico</code></td><td>Categórica</td><td>Comparar comportamiento entre sectores</td></tr>
-                <tr><td><code>Tamaño de empresa</code></td><td>Categórica / numérica</td><td>Analizar diferencias por tamaño</td></tr>
-                <tr><td><code>Número de empleados</code></td><td>Numérica</td><td>Indicador de dimensión empresarial</td></tr>
-                <tr><td><code>Antigüedad</code></td><td>Numérica</td><td>Medir supervivencia</td></tr>
-                <tr><td><code>País</code></td><td>Geográfica / categórica</td><td>Nivel global</td></tr>
-                <tr><td><code>Departamento</code></td><td>Geográfica / categórica</td><td>Nivel nacional / regional</td></tr>
-                <tr><td><code>Municipio o ciudad</code></td><td>Geográfica</td><td>Mayor granularidad</td></tr>
-                <tr><td><code>Año de observación</code></td><td>Temporal</td><td>Analizar evolución</td></tr>
-                <tr><td><code>Ingresos o indicador económico</code></td><td>Numérica</td><td>Analizar relación con permanencia</td></tr>
-                <tr><td><code>PIB / indicador territorial</code></td><td>Numérica</td><td>Contextualizar condiciones económicas</td></tr>
+                <tr><td><code>ID_Empresa</code></td><td>Identificador</td><td>Nacional / Regional</td><td>Permite distinguir cada registro individual y evitar duplicidad al integrar fuentes</td></tr>
+                <tr><td><code>Fecha_Constitucion</code></td><td>Temporal</td><td>Global / Nac / Reg</td><td>Define la cohorte de creación y permite calcular la antigüedad, variable clave para medir supervivencia</td></tr>
+                <tr><td><code>Ano_Corte</code></td><td>Temporal</td><td>Nacional / Regional</td><td>Identifica el periodo del reporte financiero, necesario para series de tiempo y comparación pre/post pandemia</td></tr>
+                <tr><td><code>Estado_Mercantil</code></td><td>Categórica</td><td>Nacional / Regional</td><td>Variable objetivo (target): indica si la empresa está activa, cancelada o liquidada</td></tr>
+                <tr><td><code>Sector_CIIU</code></td><td>Categórica</td><td>Global / Nac / Reg</td><td>Permite comparar la dinámica de supervivencia entre sectores económicos</td></tr>
+                <tr><td><code>Tamano_Empresa</code></td><td>Categórica ordinal</td><td>Nacional / Regional</td><td>Clasifica micro, pequeña, mediana y grande empresa; asociado a la probabilidad de cierre</td></tr>
+                <tr><td><code>Activo_Total</code></td><td>Numérica continua</td><td>Nacional / Regional</td><td>Mide la escala financiera inicial de la empresa, relevante para el análisis de riesgo</td></tr>
+                <tr><td><code>Pasivo_Total</code></td><td>Numérica continua</td><td>Nacional / Regional</td><td>Junto con el activo, permite calcular el nivel de endeudamiento y apalancamiento</td></tr>
+                <tr><td><code>Razon_Endeudamiento</code></td><td>Numérica continua (calculada: Pasivo/Activo)</td><td>Global / Nacional</td><td>Mide riesgo de insolvencia; responde directamente la pregunta secundaria 1</td></tr>
+                <tr><td><code>Ingresos_Operacionales</code></td><td>Numérica continua</td><td>Nacional / Regional</td><td>Indicador de desempeño y capacidad de generación de caja de la empresa</td></tr>
+                <tr><td><code>Numero_Empleados</code></td><td>Numérica discreta</td><td>Nacional / Regional</td><td>Proxy adicional del tamaño empresarial y de su impacto en el empleo local</td></tr>
+                <tr><td><code>Cod_Municipio_DANE</code></td><td>Geográfica</td><td>Nacional / Regional</td><td>Clave para agregación espacial y comparación entre municipios de Cundinamarca</td></tr>
+                <tr><td><code>Pais_Matriz</code></td><td>Geográfica</td><td>Global</td><td>Permite contextualizar la empresa frente a indicadores internacionales (Banco Mundial, GEM)</td></tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="alert alert-light border mt-3 mb-0">
+        <strong>Nota metodológica:</strong> no todas las variables están disponibles en todos los niveles geográficos. Las variables financieras detalladas (activo, pasivo, ingresos) solo existen en fuentes nacionales/regionales (Supersociedades, DANE), mientras que a nivel global solo se dispone de indicadores agregados por país (tasa de creación, tasa de discontinuación). Esta diferencia de granularidad se documenta como limitación en la sección 8.
     </div>
 </div>
 {% endblock %}
