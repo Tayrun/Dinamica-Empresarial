@@ -20,27 +20,28 @@
                 <tr><th>Requisito</th><th>Estado en Dataset</th><th>Cumplimiento</th></tr>
             </thead>
             <tbody>
-                <tr><td>Mínimo 10.000 Registros</td><td>25.430 registros consolidados (2016-2025)</td><td>✅ Cumplido</td></tr>
-                <tr><td>Mínimo 10 Variables</td><td>11 variables seleccionadas</td><td>✅ Cumplido</td></tr>
-                <tr><td>Mínimo 3 Variables Numéricas</td><td><code>Activo_Total</code>, <code>Pasivo_Total</code>, <code>Patrimonio_Total</code>, <code>Razon_Endeudamiento</code></td><td>✅ Cumplido</td></tr>
-                <tr><td>Mínimo 3 Variables Categóricas</td><td><code>Tamano_Empresa</code>, <code>Insolvencia_Tecnica</code>, <code>Fuente</code></td><td>✅ Cumplido</td></tr>
-                <tr><td>Mínimo 1 Variable Temporal</td><td><code>fecha_corte</code>, <code>Ano_Corte</code></td><td>✅ Cumplido</td></tr>
-                <tr><td>Mínimo 1 Variable Geográfica</td><td><code>Pais_Matriz</code></td><td>✅ Cumplido</td></tr>
+                <tr><td>Mínimo 10.000 Registros</td><td>25.430 registros consolidados (2016-2025)</td><td>✅</td></tr>
+                <tr><td>Mínimo 10 Variables</td><td>11 variables seleccionadas</td><td>✅</td></tr>
+                <tr><td>Mínimo 3 Variables Numéricas</td><td><code>Activo_Total</code>, <code>Pasivo_Total</code>, <code>Patrimonio_Total</code>, <code>Razon_Endeudamiento</code></td><td>✅</td></tr>
+                <tr><td>Mínimo 3 Variables Categóricas</td><td><code>Tamano_Empresa</code>, <code>Insolvencia_Tecnica</code>, <code>Fuente</code></td><td>✅</td></tr>
+                <tr><td>Mínimo 1 Variable Temporal</td><td><code>fecha_corte</code>, <code>Ano_Corte</code></td><td>✅</td></tr>
+                <tr><td>Mínimo 1 Variable Geográfica</td><td><code>Pais_Matriz</code></td><td>✅</td></tr>
             </tbody>
         </table>
     </div>
 
     <h4 class="mt-4 mb-3">Origen y Trazabilidad</h4>
     <p>El dataset se construyó a partir de una extracción de 300.000 registros del dataset público
-        <strong>"Estados Financieros NIIF - Estado de Situación Financiera"</strong> (Superintendencia de Sociedades,
-        vía datos.gov.co), en formato largo (un concepto contable por fila). Se filtraron los conceptos
+        <strong>"Estados Financieros NIIF - Estado de Situación Financiera"</strong> <em>(Superintendencia de Sociedades,
+        vía datos.gov.co)</em>, en formato largo <em>(un concepto contable por fila)</em>. Se filtraron los conceptos
         <em>Total de activos</em>, <em>Total pasivos</em> y <em>Patrimonio total</em>, y se transformaron
-        a formato ancho (una fila por empresa + fecha de corte) mediante un proceso de pivoteo en Python (pandas).</p>
+        a formato ancho <em>(una fila por empresa + fecha de corte)</em> mediante un proceso de pivoteo en Python <em>(pandas).</em></p>
 
     <div class="alert alert-warning">
-        <strong>Nota metodológica:</strong> este dataset es una muestra representativa de 300.000 filas del
+        <strong>Nota metodológica:</strong> 
+        <br>Este dataset es una muestra representativa de 300.000 filas del
         universo total disponible en SIREM (que contiene varios millones de registros históricos desde 1995).
-        Se planea ampliar la muestra en etapas posteriores del proyecto.
+        Se planea ampliar la muestra en etapas posteriores del proyecto.</div></br>
     </div>
 </div>
 {% endblock %}
