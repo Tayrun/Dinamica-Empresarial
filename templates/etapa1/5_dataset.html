@@ -5,13 +5,43 @@
     <h2 class="text-primary text-start mb-3">5. Dataset Inicial</h2>
     <hr>
     
-    <div class="py-5">
-        <div class="display-1 mb-3">perrito</div>
-        <h3 class="fw-bold text-dark mb-2">Sección en Construcción</h3>
-        <p class="text-muted fs-5">
-            Aquí cargaremos la vista previa del dataset inicial una vez completada la recolección de datos.
-        </p>
-        <span class="badge bg-warning text-dark fs-6 px-3 py-2">Pendiente de Contenido</span>
+
+    <div class="row text-center mb-4">
+        <div class="col-md-3"><h3>25.430</h3><p>Registros Consolidados</p></div>
+        <div class="col-md-3"><h3>11</h3><p>Variables Totales</p></div>
+        <div class="col-md-3"><h3>4</h3><p>Variables Numéricas</p></div>
+        <div class="col-md-3"><h3>7</h3><p>Categóricas / Temp / Geog</p></div>
+    </div>
+
+    <h4 class="mb-3">Verificación de Requisitos Mínimos</h4>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr><th>Requisito</th><th>Estado en Dataset</th><th>Cumplimiento</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Mínimo 10.000 Registros</td><td>25.430 registros consolidados (2016-2025)</td><td>✅</td></tr>
+                <tr><td>Mínimo 10 Variables</td><td>11 variables seleccionadas</td><td>✅</td></tr>
+                <tr><td>Mínimo 3 Variables Numéricas</td><td><code>Activo_Total</code>, <code>Pasivo_Total</code>, <code>Patrimonio_Total</code>, <code>Razon_Endeudamiento</code></td><td>✅</td></tr>
+                <tr><td>Mínimo 3 Variables Categóricas</td><td><code>Tamano_Empresa</code>, <code>Insolvencia_Tecnica</code>, <code>Fuente</code></td><td>✅</td></tr>
+                <tr><td>Mínimo 1 Variable Temporal</td><td><code>fecha_corte</code>, <code>Ano_Corte</code></td><td>✅</td></tr>
+                <tr><td>Mínimo 1 Variable Geográfica</td><td><code>Pais_Matriz</code></td><td>✅</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h4 class="mt-4 mb-3">Origen y Trazabilidad</h4>
+    <p>El dataset se construyó a partir de una extracción de 300.000 registros del dataset público
+        <strong>"Estados Financieros NIIF - Estado de Situación Financiera"</strong> <em>(Superintendencia de Sociedades,
+        vía datos.gov.co)</em>, en formato largo <em>(un concepto contable por fila)</em>. Se filtraron los conceptos
+        <em>Total de activos</em>, <em>Total pasivos</em> y <em>Patrimonio total</em>, y se transformaron
+        a formato ancho <em>(una fila por empresa + fecha de corte)</em> mediante un proceso de pivoteo en Python <em>(pandas).</em></p>
+
+    <div class="alert alert-warning">
+        <strong>Nota metodológica:</strong> 
+        <br>Este dataset es una muestra representativa de 300.000 filas del
+        universo total disponible en SIREM (que contiene varios millones de registros históricos desde 1995).
+        Se planea ampliar la muestra en etapas posteriores del proyecto.</div></br>
     </div>
 </div>
 {% endblock %}
