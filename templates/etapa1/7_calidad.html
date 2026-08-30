@@ -7,43 +7,49 @@
     
     <h5 class="fw-bold">Valores Faltantes (Nulos)</h5>
     <ul>
-        <li><code>Activo_Total</code>: 62.84% de nulos</li>
-        <li><code>Pasivo_Total</code>: 63.07% de nulos</li>
-        <li><code>Patrimonio_Total</code>: 62.59% de nulos</li>
-        <li><code>Tamano_Empresa</code>: 62.84% de nulos (variable derivada de Activo_Total)</li>
-        <li><code>Razon_Endeudamiento</code>: 95.51% de nulos (variable calculada; requiere Activo y Pasivo simultáneamente)</li>
+        <br><code>Activo_Total</code>: 62.84% de nulos
+        <br><code>Pasivo_Total</code>: 63.07% de nulos
+        <br><code>Patrimonio_Total</code>: 62.59% de nulos
+        <br><code>Tamano_Empresa</code>: 62.84% de nulos (variable derivada de Activo_Total)
+        <br><code>Razon_Endeudamiento</code>: 95.51% de nulos (variable calculada; requiere Activo y Pasivo simultáneamente)
     </ul>
-    <p class="text-muted">Causa probable: el dataset original reporta cada concepto contable (activo, pasivo, patrimonio)
+    <p class="text-muted"><strong>Causa probable:</strong> El dataset original reporta cada concepto contable (activo, pasivo, patrimonio)
         como una fila independiente. Al tomar una muestra parcial de 300.000 filas del total disponible, no todas
         las combinaciones empresa-periodo capturaron los tres conceptos de forma simultánea.</p>
 
     <h5 class="fw-bold mt-4">Registros Duplicados</h5>
     <ul>
-        <li>Duplicados exactos: <strong>0</strong></li>
-        <li>Duplicados por NIT + fecha de corte: <strong>0</strong> (ya consolidados en el proceso de pivoteo)</li>
+        <br>Duplicados exactos: 0
+        <br>Duplicados por NIT + fecha de corte: 0 <em>(Ya consolidados en el proceso de pivoteo)</em>
     </ul>
 
-    <h5 class="fw-bold mt-4">Diferencias de Formato (detectadas y corregidas)</h5>
+    <h5 class="fw-bold mt-4">Diferencias de Formato <em>(detectadas y corregidas)</em></h5>
     <p>La columna original <code>periodo</code> mezclaba formatos heterogéneos en el mismo campo:
-        valores como <code>"Periodo Actual"</code>, <code>"Periodo Anterior"</code> y fechas explícitas
-        (<code>"2016-dic-31"</code>). Se resolvió estandarizando la agregación por la columna
-        <code>fecha_corte</code> (formato ISO), que sí es consistente en todo el dataset.</p>
+        valores como:
+        <li><code>"Periodo Actual"</code></li>
+        <li><code>"Periodo Anterior"</code>
+        <li>fechas explícitas (<code>"2016-dic-31"</code>).</li> 
+        <br>Se resolvió estandarizando la agregación por la columna
+        <code>fecha_corte</code> (formato ISO), que sí es consistente en todo el dataset.</p></div></br>
 
     <h5 class="fw-bold mt-4">Valores Fuera de Dominio / Inconsistencias</h5>
     <ul>
-        <li>Activos o pasivos negativos: <strong>0 registros</strong> (no se detectaron valores contables inválidos)</li>
-        <li>Empresas con insolvencia técnica (patrimonio negativo): <strong>347 registros</strong> (1.36% del total) — dato válido, no un error, indica riesgo financiero real</li>
-        <li>Valores de <code>Activo_Total</code> idénticos entre distintos años para la misma empresa: <strong>2.509 empresas</strong> (9.87%) — posible ausencia de actualización del reporte entre periodos, pendiente de verificar contra la fuente original</li>
+        <br>Activos o pasivos negativos: 0 registros <em>(No se detectaron valores contables inválidos)</em>
+        <br>Empresas con insolvencia técnica (patrimonio negativo): 347 registros (1.36% del total) 
+        <br><em>— Dato válido, no un error, indica riesgo financiero real</em></br>
+        <br>Valores de <code>Activo_Total</code> idénticos entre distintos años para la misma empresa: 2.509 empresas (9.87%) 
+        <br><em>— Posible ausencia de actualización del reporte entre periodos, pendiente de verificar contra la fuente original</em></br>
     </ul>
 
     <h5 class="fw-bold mt-4">Problemas de Integración entre Fuentes</h5>
-    <p>Se intentó cruzar este dataset financiero (NITs de empresas grandes/medianas vigiladas, prefijo 800...)
-        con una base de datos de actividad económica (CIIU) de una Cámara de Comercio regional. El cruce por
-        NIT arrojó <strong>0% de coincidencias</strong>, evidenciando que ambas fuentes cubren universos
-        empresariales distintos (Supersociedades vigila sociedades comerciales de mayor tamaño a nivel nacional,
+    <p>Se intentó cruzar este dataset financiero <em>(NITs de empresas grandes/medianas vigiladas, prefijo 800...)</em>
+        con una base de datos de actividad económica (CIIU) de una Cámara de Comercio regional. 
+        <br>El cruce por NIT arrojó <strong>0% de coincidencias</strong>, evidenciando que ambas fuentes cubren universos
+        empresariales distintos <em>(Supersociedades vigila sociedades comerciales de mayor tamaño a nivel nacional,
         mientras que el registro de Cámara de Comercio consultado corresponde a comerciantes de una región específica
-        distinta a Cundinamarca). Se documenta como limitación y se buscará una fuente de clasificación sectorial
-        de cobertura nacional en la siguiente etapa.</p>
+        distinta a Cundinamarca).</em>
+        <br>Se documenta como limitación y se buscará una fuente de clasificación sectorial
+         de cobertura nacional en la siguiente etapa.</p></br>
 
     <h5 class="fw-bold mt-4">Trazabilidad de la Información</h5>
     <p class="mb-0">Los datos originales no fueron alterados en la fuente. Se conservó el archivo crudo
