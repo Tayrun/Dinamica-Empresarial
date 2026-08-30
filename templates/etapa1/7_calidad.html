@@ -20,19 +20,22 @@
     </ul>
 
     <h5 class="fw-bold mt-4">Diferencias de Formato <em>(detectadas y corregidas)</em></h5>
-    <p class="text-start">La columna original <code>periodo</code> mezclaba formatos heterogéneos en el mismo campo, con valores como:</p>
+    <p class="text-center">La columna original <code>periodo</code> mezclaba formatos heterogéneos en el mismo campo, con valores como:</p>
     <ul class="text-start">
         <p class="text-center mb-1"><code>"Periodo Actual"</code></p>
         <p class="text-center mb-1"><code>"Periodo Anterior"</code></p>
         <p class="text-center mb-1">Fechas explícitas (<code>"2016-dic-31"</code>)</p>
     </ul>
-    <p class="text-start">Se resolvió estandarizando la agregación por la columna <code>fecha_corte</code> (formato ISO), que sí es consistente en todo el dataset.</p>
+    <p class="text-center">Se resolvió estandarizando la agregación por la columna <code>fecha_corte</code> (formato ISO), que sí es consistente en todo el dataset.</p>
 
     <h5 class="fw-bold mt-4">Valores Fuera de Dominio / Inconsistencias</h5>
     <ul class="text-start list-unstyled">
-        <p class="text-center mb-1">Activos o pasivos negativos: 0 registros <em>(No se detectaron valores contables inválidos)</em></p>
-        <p class="text-center mb-1">Empresas con insolvencia técnica (patrimonio negativo): 347 registros (1.36% del total) <br><em>— Dato válido, no un error, indica riesgo financiero real</em></p>
-        <p class="text-center mb-1">Valores de <code>Activo_Total</code> idénticos entre distintos años para la misma empresa: 2.509 empresas (9.87%) <br><em>— Posible ausencia de actualización del reporte entre periodos, pendiente de verificar contra la fuente original</em></p>
+        <p class="text-center mb-1"><strong>Activos o pasivos negativos:</strong> 0 registros 
+            <br><em>(No se detectaron valores contables inválidos)</em></br></p>
+        <p class="text-center mb-1"><strong>Empresas con insolvencia técnica (patrimonio negativo):</strong> 347 registros (1.36% del total) 
+            <br><em>— Dato válido, no un error, indica riesgo financiero real</em></p>
+        <p class="text-center mb-1"><strong>Valores de <code>Activo_Total</code> idénticos entre distintos años para la misma empresa:</strong> 2.509 empresas (9.87%) 
+            <br><em>— Posible ausencia de actualización del reporte entre periodos, pendiente de verificar contra la fuente original</em></p>
     </ul>
 
     <h5 class="fw-bold mt-4">Problemas de Integración entre Fuentes</h5>
