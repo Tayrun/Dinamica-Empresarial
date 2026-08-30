@@ -5,68 +5,149 @@
     <h2 class="mb-3 text-primary">4. Recolección y Selección de Fuentes</h2>
     <hr>
 
-    <div class="card mb-4 border-primary shadow-sm">
-        <div class="card-header bg-primary text-white fw-bold">Clasificación de Fuentes</div>
-        <div class="card-body">
-            <div class="mb-3">
-                <h6 class="fw-bold text-primary">Primarias:</h6>
-                <p class="mb-1">Obtenidas directamente por ustedes, por ejemplo una encuesta personal:</p>
-                <ul>
-                    <li>Año de creación</li>
-                    <li>Sector</li>
-                    <li>Número de empleados</li>
-                    <li>Tiempo de funcionamiento</li>
-                    <li>Dificultades</li>
-                    <li>Acceso a financiación</li>
-                    <li>Estado actual del negocio</li>
-                    <li>Factores percibidos para la supervivencia</li>
-                </ul>
+    <!-- PRIMARIAS -->
+    <h4 class="mb-3"> Fuentes Primarias</h4>
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="card border-success h-100">
+                <div class="card-header bg-success text-white fw-bold">3. Encuesta Directa Mipymes Sabana Centro</div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li><strong>Responsable:</strong> Trabajo de campo del grupo (formulario digital)</li>
+                        <li><strong>URL:</strong> N/A (formulario propio)</li>
+                        <li><strong>Tipo de fuente:</strong> Primaria (encuesta)</li>
+                        <li><strong>Cobertura geográfica:</strong> Regional (Chía, Cota, Tocancipá, Zipaquirá)</li>
+                        <li><strong>Periodo disponible:</strong> 2026</li>
+                        <li><strong>Formato:</strong> JSON / REST API</li>
+                        <li><strong>Método de adquisición:</strong> Aplicación directa del formulario a empresarios de la región</li>
+                        <li><strong>Registros aprox.:</strong> ~350 muestras</li>
+                        <li><strong>Variables:</strong> Causal de riesgo, acceso a crédito, uso de canal digital, año de creación, sector</li>
+                        <li><strong>Fecha de consulta:</strong> <em>[fecha de aplicación]</em></li>
+                        <li class="mb-0"><strong>Restricciones:</strong> Consentimiento informado, datos anonimizados</li>
+                    </ul>
+                </div>
             </div>
-            <div class="mb-3">
-                <h6 class="fw-bold text-primary">Secundarias:</h6>
-                <p class="mb-1">Datos ya recolectados por entidades u organizaciones como:</p>
-                <ul>
-                    <li>DANE</li>
-                    <li>Confecámaras</li>
-                    <li>Cámaras de Comercio</li>
-                    <li>Datos Abiertos Colombia</li>
-                    <li>Banco Mundial</li>
-                    <li>OCDE</li>
-                </ul>
-            </div>
-            <div>
-                <h6 class="fw-bold text-primary">Terciarias:</h6>
-                <p class="mb-0">Plataformas o fuentes que recopilan/integran datos de terceros.</p>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-success h-100">
+                <div class="card-header bg-success text-white fw-bold">4. Entrevistas a Gremios (Fenalco / ACOPI Cundinamarca)</div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li><strong>Responsable:</strong> Trabajo de campo del grupo</li>
+                        <li><strong>URL:</strong> N/A (registro propio)</li>
+                        <li><strong>Tipo de fuente:</strong> Primaria (entrevista semiestructurada)</li>
+                        <li><strong>Cobertura geográfica:</strong> Regional (Cundinamarca)</li>
+                        <li><strong>Periodo disponible:</strong> 2026</li>
+                        <li><strong>Formato:</strong> Transcripción de texto / formulario digital</li>
+                        <li><strong>Método de adquisición:</strong> Entrevistas directas concertadas con representantes gremiales</li>
+                        <li><strong>Registros aprox.:</strong> 15 – 20 entrevistas</li>
+                        <li><strong>Variables:</strong> Percepción de causas de cierre, dificultades de formalización, acceso a financiamiento</li>
+                        <li><strong>Fecha de consulta:</strong> <em>[fecha de aplicación]</em></li>
+                        <li class="mb-0"><strong>Restricciones:</strong> Consentimiento informado, uso académico, anonimización del entrevistado</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="card border-secondary">
-        <div class="card-header bg-secondary text-white fw-bold">Documentación Requerida para Cada Fuente</div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <ul>
-                        <li>Nombre</li>
-                        <li>Institución responsable</li>
-                        <li>URL</li>
-                        <li>Tipo de fuente</li>
-                        <li>Cobertura geográfica</li>
-                        <li>Periodo</li>
-                        <li>Formato</li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <ul>
-                        <li>Método de adquisición</li>
-                        <li>Número aproximado de registros</li>
-                        <li>Variables</li>
-                        <li>Fecha de descarga</li>
-                        <li>Restricciones de uso</li>
-                        <li>Pertinencia / Confiabilidad / Actualidad / Cobertura</li>
+    <!-- SECUNDARIAS -->
+    <h4 class="mb-3"> Fuentes Secundarias</h4>
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="card border-primary h-100">
+                <div class="card-header bg-primary text-white fw-bold">1. Supersociedades (SIREM)</div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li><strong>Institución responsable:</strong> Superintendencia de Sociedades</li>
+                        <li><strong>URL:</strong> <a href="https://www.datos.gov.co" target="_blank">datos.gov.co</a> / SIREM</li>
+                        <li><strong>Tipo de fuente:</strong> Secundaria</li>
+                        <li><strong>Cobertura geográfica:</strong> Nacional (Colombia), desagregable por municipio</li>
+                        <li><strong>Periodo disponible:</strong> 2018 – 2024</li>
+                        <li><strong>Formato:</strong> CSV / XLSX</li>
+                        <li><strong>Método de adquisición:</strong> Descarga directa desde el portal de datos abiertos</li>
+                        <li><strong>Registros aprox.:</strong> +45.000 estados financieros por año</li>
+                        <li><strong>Variables:</strong> NIT (anonimizado), Activos, Pasivos, Utilidad, CIIU, Ciudad</li>
+                        <li><strong>Fecha de consulta:</strong> <em>[completar con fecha real de descarga]</em></li>
+                        <li class="mb-0"><strong>Restricciones:</strong> Datos públicos, uso académico permitido, identificación anonimizada (Habeas Data)</li>
                     </ul>
                 </div>
             </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-primary h-100">
+                <div class="card-header bg-primary text-white fw-bold">2. DANE – Creación y Liquidación de Empresas</div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li><strong>Institución responsable:</strong> Departamento Administrativo Nacional de Estadística (DANE)</li>
+                        <li><strong>URL:</strong> <a href="https://www.dane.gov.co" target="_blank">dane.gov.co</a></li>
+                        <li><strong>Tipo de fuente:</strong> Secundaria</li>
+                        <li><strong>Cobertura geográfica:</strong> Nacional, con desagregación departamental/municipal</li>
+                        <li><strong>Periodo disponible:</strong> 2018 – 2025</li>
+                        <li><strong>Formato:</strong> XLSX / CSV</li>
+                        <li><strong>Método de adquisición:</strong> Descarga desde el portal oficial del DANE</li>
+                        <li><strong>Registros aprox.:</strong> ~2.000 filas agregadas (series mensuales por municipio/sector)</li>
+                        <li><strong>Variables:</strong> Constituciones, liquidaciones, capital suscrito, sector CIIU, municipio, año</li>
+                        <li><strong>Fecha de consulta:</strong> <em>[completar]</em></li>
+                        <li class="mb-0"><strong>Restricciones:</strong> Datos abiertos, uso libre citando al DANE</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- TERCIARIAS -->
+    <h4 class="mb-3"> Fuentes Terciarias</h4>
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="card border-warning h-100">
+                <div class="card-header bg-warning fw-bold">5. Banco Mundial (World Bank Open Data)</div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li><strong>Institución responsable:</strong> Banco Mundial (World Bank Group)</li>
+                        <li><strong>URL:</strong> <a href="https://databank.worldbank.org" target="_blank">databank.worldbank.org</a></li>
+                        <li><strong>Tipo de fuente:</strong> Terciaria (agregador de fuentes nacionales de terceros países)</li>
+                        <li><strong>Cobertura geográfica:</strong> Global (+120 países)</li>
+                        <li><strong>Periodo disponible:</strong> 2015 – 2024</li>
+                        <li><strong>Formato:</strong> CSV / API</li>
+                        <li><strong>Método de adquisición:</strong> Descarga vía API pública</li>
+                        <li><strong>Registros aprox.:</strong> series anuales por país</li>
+                        <li><strong>Variables:</strong> Business Entry Rate, Insolvency Index, crecimiento del PIB</li>
+                        <li><strong>Fecha de consulta:</strong> <em>[completar]</em></li>
+                        <li class="mb-0"><strong>Restricciones:</strong> Datos abiertos (Creative Commons), uso libre con atribución</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-warning h-100">
+                <div class="card-header bg-warning fw-bold">6. Global Entrepreneurship Monitor (GEM)</div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li><strong>Institución responsable:</strong> GEM Consortium (integra encuestas de +50 países)</li>
+                        <li><strong>URL:</strong> <a href="https://gemconsortium.org" target="_blank">gemconsortium.org</a></li>
+                        <li><strong>Tipo de fuente:</strong> Terciaria</li>
+                        <li><strong>Cobertura geográfica:</strong> Global (~50 países)</li>
+                        <li><strong>Periodo disponible:</strong> 2018 – 2024</li>
+                        <li><strong>Formato:</strong> CSV / reportes PDF</li>
+                        <li><strong>Método de adquisición:</strong> Descarga desde repositorio público de GEM</li>
+                        <li><strong>Registros aprox.:</strong> series anuales por país</li>
+                        <li><strong>Variables:</strong> Tasa de emprendimiento, tasa de discontinuación de negocios, motivos de cierre</li>
+                        <li><strong>Fecha de consulta:</strong> <em>[completar]</em></li>
+                        <li class="mb-0"><strong>Restricciones:</strong> Uso académico citando a GEM Consortium</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JUSTIFICACIÓN GENERAL -->
+    <div class="card border-secondary">
+        <div class="card-header bg-secondary text-white fw-bold">Justificación General de las Fuentes</div>
+        <div class="card-body mb-0">
+            <p class="mb-0">
+                Estas fuentes se seleccionaron por su <strong>pertinencia</strong> (responden directamente a las preguntas de investigación sobre supervivencia empresarial), <strong>confiabilidad</strong> (entidades oficiales con metodología documentada: DANE, Supersociedades, Banco Mundial, GEM), <strong>actualidad</strong> (cubren el periodo 2018–2025, incluyendo el escenario post-pandemia) y <strong>cobertura</strong> (permiten comparar los tres niveles: global, nacional y regional, cumpliendo el mínimo de 2 fuentes por tipo exigido).
+            </p>
         </div>
     </div>
 </div>
