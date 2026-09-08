@@ -4,57 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bitácora Técnica - Dinámica Empresarial</title>
-    <!-- Bootstrap 5 CSS -->
+
+    <!-- Bootstrap 5 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --brand-green: #008751;
+            --sidebar-bg: #0f172a;
+            --sidebar-hover: #1e293b;
+        }
+
+        body {
+            background-color: #f8fafc;
+        }
+
+        /* Layout Principal con Sidebar */
+        .wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Lateral Fijo */
+        #sidebar {
+            min-width: 280px;
+            max-width: 280px;
+            background-color: var(--sidebar-bg);
+            color: #fff;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem 1.25rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-bottom: 2px solid var(--brand-green);
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .menu-label {
+            font-size: 0.75rem;
+            text-uppercase: uppercase;
+            font-weight: 700;
+            color: #64748b;
+            padding: 0.75rem 1.25rem 0.25rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Acordeones estilizados para las Etapas */
+        .sidebar-accordion .accordion-item {
+            background: transparent;
+            border: none;
+        }
+
+        .sidebar-accordion .accordion-button {
+            background: transparent;
+            color: #cbd5e1;
+            font-weight: 600;
+            padding: 0.75rem 1.25rem;
+            box-shadow: none;
+        }
+
+        .sidebar-accordion .accordion-button:not(.collapsed) {
+            color: #ffffff;
+            background-color: var(--sidebar-hover);
+            border-left: 4px solid var(--brand-green);
+        }
+
+        .sidebar-accordion .accordion-button::after {
+            filter: invert(1);
+        }
+
+        .sidebar-subitem {
+            display: flex;
+            align-items: center;
+            padding: 0.55rem 1.25rem 0.55rem 2.5rem;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-subitem:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding-left: 2.75rem;
+        }
+
+        .sidebar-subitem.active {
+            color: var(--brand-green);
+            font-weight: 700;
+        }
+
+        .sidebar-link-direct {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .sidebar-link-direct:hover {
+            background-color: var(--sidebar-hover);
+            color: #fff;
+        }
+
+        /* Contenido Principal */
+        #content {
+            width: 100%;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
 
-    <!-- Barra de Navegación Principal -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-success" href="{{ url_for('home') }}">
-                <i class="bi bi-graph-up-arrow"></i> Dinámica Empresarial
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <!-- Inicio / Portada -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
-                    </li>
-
-                    <!-- Menú Desplegable Etapa 1 -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Etapa 1
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <li><a class="dropdown-item" href="{{ url_for('etapa1_problema') }}">1. Definición del Problema</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('etapa1_preguntas') }}">2. Preguntas de Investigación</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('etapa1_necesidades') }}">3. Necesidades de Información</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('etapa1_fuentes') }}">4. Fuentes de Datos</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('etapa1_dataset') }}">5. Dataset Inicial</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('etapa1_diccionario') }}">6. Diccionario de Datos</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('etapa1_calidad') }}">7. Diagnóstico de Calidad</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('etapa1_limitaciones') }}">8. Limitaciones y Consideraciones</a></li>
-                        </ul>
-                    </li>
-                </ul>
+<div class="wrapper">
+    <!-- Sidebar Navegación Lateral -->
+    <nav id="sidebar">
+        <div class="sidebar-header d-flex align-items-center">
+            <i class="bi bi-cpu-fill text-success fs-2 me-2"></i>
+            <div>
+                <h5 class="m-0 fw-bold">Bitácora CADI</h5>
+                <small class="text-muted">Dinámica Empresarial</small>
             </div>
+        </div>
+
+        <div class="sidebar-menu">
+            <a href="{{ url_for('home') }}" class="sidebar-link-direct">
+                <i class="bi bi-house-door me-2 fs-5"></i> Inicio / Portada
+            </a>
+
+            <div class="menu-label">Navegación del Proyecto</div>
+
+            <div class="accordion sidebar-accordion" id="accordionEtapas">
+                
+                <!-- Acordeón Etapa 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEtapa1">
+                            <i class="bi bi-1-circle-fill me-2 text-success"></i> Etapa 1: Definición
+                        </button>
+                    </h2>
+                    <div id="collapseEtapa1" class="accordion-collapse collapse" data-bs-parent="#accordionEtapas">
+                        <div class="accordion-body p-0">
+                            <a href="{{ url_for('etapa1_problema') }}" class="sidebar-subitem"><i class="bi bi-file-earmark-text me-2"></i>1. Problema</a>
+                            <a href="{{ url_for('etapa1_preguntas') }}" class="sidebar-subitem"><i class="bi bi-question-circle me-2"></i>2. Preguntas</a>
+                            <a href="{{ url_for('etapa1_necesidades') }}" class="sidebar-subitem"><i class="bi bi-list-check me-2"></i>3. Necesidades</a>
+                            <a href="{{ url_for('etapa1_fuentes') }}" class="sidebar-subitem"><i class="bi bi-database-gear me-2"></i>4. Fuentes</a>
+                            <a href="{{ url_for('etapa1_dataset') }}" class="sidebar-subitem"><i class="bi bi-table me-2"></i>5. Dataset</a>
+                            <a href="{{ url_for('etapa1_diccionario') }}" class="sidebar-subitem"><i class="bi bi-book me-2"></i>6. Diccionario</a>
+                            <a href="{{ url_for('etapa1_calidad') }}" class="sidebar-subitem"><i class="bi bi-shield-check me-2"></i>7. Calidad</a>
+                            <a href="{{ url_for('etapa1_limitaciones') }}" class="sidebar-subitem"><i class="bi bi-exclamation-triangle me-2"></i>8. Limitaciones</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acordeón Etapa 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEtapa2">
+                            <i class="bi bi-2-circle-fill me-2 text-success"></i> Etapa 2: Procesamiento
+                        </button>
+                    </h2>
+                    <div id="collapseEtapa2" class="accordion-collapse collapse show" data-bs-parent="#accordionEtapas">
+                        <div class="accordion-body p-0">
+                            <a href="{{ url_for('etapa2_limpieza') if 'etapa2_limpieza' in endpoints else '#' }}" class="sidebar-subitem active">
+                                <i class="bi bi-funnel me-2"></i>1. Limpieza
+                            </a>
+                            <a href="{{ url_for('etapa2_transformacion') if 'etapa2_transformacion' in endpoints else '#' }}" class="sidebar-subitem">
+                                <i class="bi bi-diagram-3 me-2"></i>2. Transformación
+                            </a>
+                            <a href="{{ url_for('etapa2_eda') if 'etapa2_eda' in endpoints else '#' }}" class="sidebar-subitem">
+                                <i class="bi bi-bar-chart-line me-2"></i>3. Análisis EDA
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="p-3 bg-black bg-opacity-25 border-top border-secondary">
+            <small class="text-muted d-block">UDEC - Chía 2026</small>
         </div>
     </nav>
 
-    <!-- Contenido Dinámico de cada Vista -->
-    <main class="container my-4">
+    <!-- Área de Contenido -->
+    <div id="content">
         {% block content %}{% endblock %}
-    </main>
+    </div>
+</div>
 
-    <!-- Bootstrap 5 JS Bundle (Requerido para el menú desplegable) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

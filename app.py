@@ -44,3 +44,17 @@ def etapa1_limitaciones():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+# --- RUTAS ETAPA 2 ---
+@app.route('/etapa2/limpieza')
+def etapa2_limpieza():
+    return render_template('etapa2/1_limpieza.html')
+
+@app.route('/etapa2/transformacion')
+def etapa2_transformacion():
+    return render_template('etapa2/2_transformacion.html')
+
+@app.route('/etapa2/eda')
+def etapa2_eda():
+    return render_template('etapa2/3_eda.html')
