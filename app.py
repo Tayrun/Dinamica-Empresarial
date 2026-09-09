@@ -1,4 +1,5 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, Response, render_template, send_from_directory
+from data_quality import build_report, treated_csv
 
 app = Flask(__name__)
 
@@ -41,6 +42,17 @@ def etapa1_calidad():
 @app.route('/etapa1/8-limitaciones-consideraciones')
 def etapa1_limitaciones():
     return render_template('etapa1/8_limitaciones.html')
+
+@app.route('/calidad-datos')
+def calidad_datos():
+    return render_template('calidad_datos.html', report=build_report())
+
+@app.route('/descargas/dataset-tratado')
+def descargar_dataset_tratado():
+    return Response(
+        treated_csv(), mimetype='text/csv; charset=utf-8',
+        headers={'Content-Disposition': 'attachment; filename=dataset_consolidado_tratado.csv'},
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)

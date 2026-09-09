@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+    <div><h1 class="h2 mb-1">Calidad de Datos</h1><p class="text-muted mb-0">Perfilamiento, métricas y tratamiento reproducible del conjunto consolidado.</p></div>
+    <a href="{{ url_for('descargar_dataset_tratado') }}" class="btn btn-success"><i class="bi bi-download me-1"></i> Descargar copia tratada</a>
+</div>
+
+<div class="alert alert-info border-0 shadow-sm"><strong>Propósito:</strong> evaluar la calidad de la información financiera empresarial para analizar la dinámica e insolvencia técnica. El archivo fuente no se modifica: la descarga aplica solo ajustes conservadores y trazables.</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3"><div class="card h-100 shadow-sm border-0"><div class="card-body"><small class="text-muted">Registros</small><div class="fs-3 fw-bold">{{ '{:,}'.format(report.records) }}</div></div></div></div>
+    <div class="col-md-3"><div class="card h-100 shadow-sm border-0"><div class="card-body"><small class="text-muted">Variables</small><div class="fs-3 fw-bold">{{ report.variables }}</div></div></div></div>
+    <div class="col-md-3"><div class="card h-100 shadow-sm border-0"><div class="card-body"><small class="text-muted">Duplicados exactos</small><div class="fs-3 fw-bold">{{ report.before.duplicates }}</div></div></div></div>
+    <div class="col-md-3"><div class="card h-100 shadow-sm border-0"><div class="card-body"><small class="text-muted">Último período</small><div class="fs-3 fw-bold">2025</div></div></div></div>
+</div>
+
+<section class="card shadow-sm border-0 mb-4"><div class="card-body"><h2 class="h4">Perfilamiento</h2><div class="table-responsive"><table class="table table-sm align-middle"><thead><tr><th>Variable</th><th>Tipo</th><th>Únicos</th><th>Nulos</th><th>Mínimo</th><th>Máximo</th><th>Promedio</th><th>Atípicos IQR</th></tr></thead><tbody>{% for item in report.profiles %}<tr><td><code>{{ item.name }}</code></td><td>{{ item.type }}</td><td>{{ '{:,}'.format(item.unique) }}</td><td>{{ '{:,}'.format(item.nulls) }} <span class="text-muted">({{ item.null_percent }}%)</span></td><td>{{ item.minimum }}</td><td>{{ item.maximum }}</td><td>{{ item.average }}</td><td>{{ item.outliers }}</td></tr>{% endfor %}</tbody></table></div></div></section>
+
+<section class="card shadow-sm border-0 mb-4"><div class="card-body"><h2 class="h4">Dimensiones y métricas</h2><div class="row g-3">{% for measure in report.measures %}<div class="col-lg-4"><div class="border rounded p-3 h-100"><div class="d-flex justify-content-between"><strong>{{ measure.dimension }}</strong><span class="badge text-bg-{% if measure.value >= 95 %}success{% elif measure.value >= 60 %}warning{% else %}danger{% endif %}">{{ measure.value }}%</span></div><small class="d-block text-muted mt-2">{{ measure.formula }}</small><p class="small mb-0 mt-2">{{ measure.detail }}</p></div></div>{% endfor %}</div></div></section>
+
+<section class="card shadow-sm border-0 mb-4"><div class="card-body"><h2 class="h4">Inventario de problemas</h2><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Campo</th><th>Descripción y evidencia</th><th>Registros</th><th>Dimensión</th><th>Impacto</th></tr></thead><tbody>{% for problem in report.problems %}<tr><td><code>{{ problem.field }}</code></td><td>{{ problem.description }}</td><td>{{ '{:,}'.format(problem.count) }}</td><td>{{ problem.dimension }}</td><td><span class="badge text-bg-{% if problem.impact == 'Alto' %}danger{% elif problem.impact == 'Medio' %}warning{% else %}secondary{% endif %}">{{ problem.impact }}</span></td></tr>{% endfor %}</tbody></table></div></div></section>
+
+<section class="card shadow-sm border-0"><div class="card-body"><h2 class="h4">Tratamiento y comparación</h2><p>La copia tratada elimina los 2 valores infinitos de <code>Razon_Endeudamiento</code> y normaliza espacios al inicio/final de los textos. Los nulos se conservan como ausencia de reporte; imputarlos alteraría los indicadores financieros. No se eliminan atípicos ni filas, pues podrían representar empresas reales.</p><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Indicador</th><th>Antes</th><th>Después</th></tr></thead><tbody><tr><td>Razones de endeudamiento infinitas</td><td>{{ report.before.infinite_ratio }}</td><td>{{ report.after.infinite_ratio }}</td></tr><tr><td>Duplicados exactos</td><td>{{ report.before.duplicates }}</td><td>{{ report.after.duplicates }}</td></tr></tbody></table></div><p class="small text-muted mb-0"><strong>Causas probables:</strong> nulos por cobertura parcial o ausencia de reporte; razones infinitas por división entre cero; y diferencias de balance que requieren contrastarse con la fuente primaria antes de corregirlas.</p></div></section>
+{% endblock %}
