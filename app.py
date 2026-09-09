@@ -43,7 +43,7 @@ def etapa1_calidad():
 def etapa1_limitaciones():
     return render_template('etapa1/8_limitaciones.html')
 
-@app.route('/calidad-datos')
+@app.route('/etapa2/calidad-datos')
 def calidad_datos():
     return render_template('calidad_datos.html', report=build_report())
 
@@ -53,10 +53,6 @@ def descargar_dataset_tratado():
         treated_csv(), mimetype='text/csv; charset=utf-8',
         headers={'Content-Disposition': 'attachment; filename=dataset_consolidado_tratado.csv'},
     )
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
 
 # --- RUTAS ETAPA 2 ---
 @app.route('/etapa2/limpieza')
@@ -70,3 +66,6 @@ def etapa2_transformacion():
 @app.route('/etapa2/eda')
 def etapa2_eda():
     return render_template('etapa2/3_eda.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card shadow-sm border-0"><div class="card-body p-4">
+  <h1 class="h3">Comparación antes y después</h1>
+  <p>La copia tratada conserva el número de registros y los valores faltantes. Solo reemplaza los dos valores infinitos de <code>Razon_Endeudamiento</code> por ausencia de valor, para impedir análisis numéricos inválidos.</p>
+  <a class="btn btn-success" href="{{ url_for('calidad_datos') }}">Ver indicadores comparativos</a>
+</div></div>
+{% endblock %}

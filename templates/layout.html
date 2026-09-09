@@ -147,10 +147,6 @@
 
             <div class="menu-label">Navegación del Proyecto</div>
 
-            <a href="{{ url_for('calidad_datos') }}" class="sidebar-link-direct">
-                <i class="bi bi-clipboard2-data me-2 fs-5"></i> Calidad de Datos
-            </a>
-
             <div class="accordion sidebar-accordion" id="accordionEtapas">
                 
                 <!-- Acordeón Etapa 1 -->
@@ -178,19 +174,22 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEtapa2">
-                            <i class="bi bi-2-circle-fill me-2 text-success"></i> Etapa 2: Procesamiento
+                            <i class="bi bi-2-circle-fill me-2 text-success"></i> Etapa 2: Calidad de Datos
                         </button>
                     </h2>
                     <div id="collapseEtapa2" class="accordion-collapse collapse show" data-bs-parent="#accordionEtapas">
                         <div class="accordion-body p-0">
-                            <a href="{{ url_for('etapa2_limpieza') if 'etapa2_limpieza' in endpoints else '#' }}" class="sidebar-subitem active">
-                                <i class="bi bi-funnel me-2"></i>1. Limpieza
+                            <a href="{{ url_for('calidad_datos') }}" class="sidebar-subitem active">
+                                <i class="bi bi-clipboard2-data me-2"></i>1. Perfilamiento y métricas
                             </a>
-                            <a href="{{ url_for('etapa2_transformacion') if 'etapa2_transformacion' in endpoints else '#' }}" class="sidebar-subitem">
-                                <i class="bi bi-diagram-3 me-2"></i>2. Transformación
+                            <a href="{{ url_for('etapa2_limpieza') }}" class="sidebar-subitem">
+                                <i class="bi bi-funnel me-2"></i>2. Tratamiento
                             </a>
-                            <a href="{{ url_for('etapa2_eda') if 'etapa2_eda' in endpoints else '#' }}" class="sidebar-subitem">
-                                <i class="bi bi-bar-chart-line me-2"></i>3. Análisis EDA
+                            <a href="{{ url_for('etapa2_transformacion') }}" class="sidebar-subitem">
+                                <i class="bi bi-diagram-3 me-2"></i>3. Homologación
+                            </a>
+                            <a href="{{ url_for('etapa2_eda') }}" class="sidebar-subitem">
+                                <i class="bi bi-bar-chart-line me-2"></i>4. Comparación antes/después
                             </a>
                         </div>
                     </div>

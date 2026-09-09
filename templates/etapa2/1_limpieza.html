@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card shadow-sm border-0"><div class="card-body p-4">
+  <h1 class="h3">Tratamiento de datos</h1>
+  <p>Se aplican solamente correcciones conservadoras: eliminación de espacios externos y conversión de razones de endeudamiento infinitas a valores no calculables.</p>
+  <p>Los valores faltantes, atípicos y diferencias contables no se alteran automáticamente: representan ausencia de reporte o casos reales posibles y deben conservarse como evidencia.</p>
+  <a class="btn btn-success" href="{{ url_for('calidad_datos') }}">Ver inventario y descarga tratada</a>
+</div></div>
+{% endblock %}
