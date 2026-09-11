@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="card shadow-sm border-0"><div class="card-body p-4">
-  <h1 class="h3">Integración y homologación</h1>
-  <p>El conjunto consolidado usa <code>nit</code> y <code>fecha_corte</code> como clave, fecha ISO y categorías homologadas para tamaño, insolvencia y país.</p>
-  <p>La integración con una fuente sectorial externa queda pendiente de una fuente nacional con coincidencias verificables de NIT.</p>
-</div></div>
+<div class="mb-4"><h1 class="h2 mb-1">Integración y homologación</h1><p class="text-muted mb-0">Reglas que permiten interpretar las variables bajo formatos y categorías consistentes.</p></div>
+
+<section class="card shadow-sm border-0 mb-4"><div class="card-body"><h2 class="h4">Reglas de integración y estandarización</h2><div class="table-responsive"><table class="table table-sm align-middle mb-0"><thead><tr><th>Elemento</th><th>Regla aplicada</th><th>Resultado</th></tr></thead><tbody><tr><td>Clave de integración</td><td><code>nit</code> + <code>fecha_corte</code></td><td>Identifica una empresa en un período específico.</td></tr><tr><td>Fechas</td><td>Formato ISO <code>YYYY-MM-DD</code> y contraste con <code>Ano_Corte</code>.</td><td>Fechas comparables en la serie temporal.</td></tr><tr><td>Categorías</td><td>Dominios definidos para tamaño, insolvencia técnica y país.</td><td>Valores comparables y controlados.</td></tr><tr><td>Fuente externa sectorial</td><td>Cruce por NIT con Cámara de Comercio regional.</td><td>No se integra: no hubo coincidencias verificables y los universos son distintos.</td></tr></tbody></table></div></div></section>
+
+<section class="card shadow-sm border-0"><div class="card-body"><h2 class="h4">Validación de dominios categóricos</h2><div class="table-responsive"><table class="table table-sm align-middle mb-0"><thead><tr><th>Campo</th><th>Dominio permitido</th><th>Valores evaluados</th><th>Fuera de dominio</th><th>Evidencia</th></tr></thead><tbody>{% for check in report.domain_checks %}<tr><td><code>{{ check.field }}</code></td><td>{{ check.allowed }}</td><td>{{ '{:,}'.format(check.evaluated) }}</td><td>{{ '{:,}'.format(check.invalid) }}</td><td>{{ check.invalid_values }}</td></tr>{% endfor %}</tbody></table></div></div></section>
 {% endblock %}
