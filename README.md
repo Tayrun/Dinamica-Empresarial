@@ -1,6 +1,6 @@
 # Dinamica Empresarial
 
-Aplicacion Flask para documentar el analisis de dinamica financiera e insolvencia tecnica de empresas colombianas. El proyecto incorpora el perfilamiento, diagnostico y tratamiento conservador de calidad de datos de la Etapa 2.
+Aplicacion Flask para documentar el analisis de dinamica financiera e insolvencia tecnica de empresas colombianas. El proyecto incorpora el perfilamiento, diagnostico y tratamiento conservador de calidad de datos de la Etapa 2, ademas de la definicion del problema, preguntas de investigacion, necesidades de informacion y diccionario de datos de la Etapa 1.
 
 ## Requisitos
 
@@ -31,6 +31,22 @@ La aplicacion queda disponible en `http://127.0.0.1:5000`.
 - Periodo: 2016 a 2025.
 - Variables principales: activos, pasivos, patrimonio, tamano de empresa, razon de endeudamiento e insolvencia tecnica.
 
+## Etapa 1: Definicion del Problema
+
+La Etapa 1 organiza las siguientes rutas:
+
+| Ruta | Contenido |
+| --- | --- |
+| `/etapa1/1-problema-contexto` | Definicion del problema y contexto del proyecto |
+| `/etapa1/2-preguntas-investigacion` | Preguntas de investigacion y conocimientos esperados |
+| `/etapa1/3-necesidades-informacion` | Necesidades de informacion para el analisis |
+| `/etapa1/4-fuentes-datos` | Recoleccion y seleccion de fuentes de datos |
+| `/etapa1/5-dataset` | Dataset inicial y descripcion de la fuente |
+| `/descargas/dataset-r1` | Descarga del dataset consolidado original (r1) |
+| `/etapa1/6-diccionario-datos` | Diccionario de datos y variables principales |
+| `/etapa1/7-calidad-inicial` | Diagnostico de calidad inicial del dataset |
+| `/etapa1/8-limitaciones-consideraciones` | Limitaciones y consideraciones del proyecto |
+
 ## Calidad de Datos
 
 La Etapa 2 se organiza en las siguientes rutas:
@@ -48,9 +64,11 @@ El perfilamiento evalua completitud, exactitud, consistencia, unicidad, validez 
 ## Estructura
 
 ```text
-app.py                 Aplicacion y rutas Flask
+app.py                 Aplicacion y rutas Flask (Etapa 1 y Etapa 2)
 data_quality.py        Perfilamiento, metricas y tratamiento reproducible
 data/processed/        Dataset consolidado
 templates/             Vistas HTML de las etapas del proyecto
+  etapa1/              Plantillas de la Etapa 1 (8 secciones)
+  etapa2/              Plantillas de la Etapa 2 (4 secciones)
 requirements.txt       Dependencias de ejecucion
 ```
