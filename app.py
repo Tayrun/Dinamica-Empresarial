@@ -63,9 +63,7 @@ def etapa2_limpieza():
 def etapa2_transformacion():
     return render_template('etapa2/2_transformacion.html', report=build_report())
 
-@app.route('/etapa2/eda')
-def etapa2_eda():
-    return render_template('etapa2/3_eda.html', report=build_report())
+
 
 if __name__ == '__main__':
     app.run(debug=True)

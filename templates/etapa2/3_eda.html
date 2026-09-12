@@ -1,9 +1,0 @@
-{% extends "layout.html" %}
-
-{% block content %}
-<div class="d-flex justify-content-between align-items-start mb-4"><div><h1 class="h2 mb-1">Comparación antes/después</h1><p class="text-muted mb-0">Efecto verificable de los tratamientos aplicados a la copia descargable.</p></div><a class="btn btn-success" href="{{ url_for('descargar_dataset_tratado') }}"><i class="bi bi-download me-1"></i> Descargar copia tratada</a></div>
-
-<section class="card shadow-sm border-0 mb-4"><div class="card-body"><h2 class="h4">Indicadores comparativos</h2><div class="table-responsive"><table class="table table-sm align-middle mb-0"><thead><tr><th>Indicador</th><th>Antes</th><th>Después</th><th>Resultado</th></tr></thead><tbody><tr><td>Razones de endeudamiento infinitas</td><td>{{ report.before.infinite_ratio }}</td><td>{{ report.after.infinite_ratio }}</td><td>Se eliminan de la copia tratada para evitar análisis numéricos inválidos.</td></tr><tr><td>Duplicados exactos</td><td>{{ report.before.duplicates }}</td><td>{{ report.after.duplicates }}</td><td>Se conservan los registros porque no se detectaron duplicados.</td></tr><tr><td>Número de registros</td><td>{{ '{:,}'.format(report.records) }}</td><td>{{ '{:,}'.format(report.records) }}</td><td>No se eliminan filas.</td></tr></tbody></table></div></div></section>
-
-<section class="card shadow-sm border-0"><div class="card-body"><h2 class="h4">Interpretación</h2><p class="mb-2">El tratamiento no altera el archivo fuente ni reduce el tamaño del conjunto. Solo convierte las razones infinitas en valores no calculables y normaliza espacios externos en textos.</p><p class="mb-0 text-muted">Los nulos, atípicos y diferencias de balance permanecen visibles para no ocultar limitaciones ni modificar posibles casos empresariales reales.</p></div></section>
-{% endblock %}
