@@ -102,6 +102,25 @@ def build_report():
         for row in rows
     )
     ratio_present = record_count - null_counts["Razon_Endeudamiento"]
+    domain_checks = []
+    for field, allowed_values in DOMAINS.items():
+        values = [row[field].strip() for row in rows if row[field].strip()]
+        invalid_values = Counter(value for value in values if value not in allowed_values)
+        domain_checks.append({
+            "field": field,
+            "allowed": ", ".join(sorted(allowed_values)),
+            "evaluated": len(values),
+            "valid": len(values) - sum(invalid_values.values()),
+            "invalid": sum(invalid_values.values()),
+            "invalid_values": ", ".join(
+                f"{value} ({count})" for value, count in sorted(invalid_values.items())
+            ) or "Sin valores fuera de dominio",
+        })
+    ratio_validity = _percent(valid_ratio, ratio_present)
+    domain_validity = min(
+        (_percent(check["valid"], check["evaluated"]) for check in domain_checks),
+        default=100.0,
+    )
     nonempty_cells = sum(record_count - count for count in null_counts.values())
     recent_records = sum(int(row["Ano_Corte"]) >= 2024 for row in rows)
     measures = [
@@ -109,20 +128,25 @@ def build_report():
         {"dimension": "Exactitud (balance)", "formula": "balances que cumplen A = P + Patrimonio / balances completos", "value": _percent(balance_valid, balance_rows), "detail": f"{balance_valid:,} de {balance_rows:,} registros con los tres valores financieros concuerdan (tolerancia 1%)."},
         {"dimension": "Consistencia temporal", "formula": "fecha_corte coherente con Ano_Corte / registros", "value": _percent(record_count - date_year_errors, record_count), "detail": f"{date_year_errors:,} diferencias entre año y fecha."},
         {"dimension": "Unicidad", "formula": "claves nit + fecha_corte no repetidas / registros", "value": _percent(record_count - key_duplicates, record_count), "detail": f"{key_duplicates:,} claves duplicadas; {exact_duplicates:,} filas idénticas."},
-        {"dimension": "Validez", "formula": "razones de endeudamiento finitas / razones informadas", "value": _percent(valid_ratio, ratio_present), "detail": f"{ratio_infinite:,} valores infinitos por activo igual a cero."},
+        {"dimension": "Validez", "formula": "mínimo cumplimiento entre razones finitas y dominios categóricos", "value": min(ratio_validity, domain_validity), "detail": f"Razones finitas: {ratio_validity}%; dominios categóricos: {domain_validity}%. Se detectaron {ratio_infinite:,} razones infinitas y {sum(check['invalid'] for check in domain_checks):,} categorías fuera de dominio."},
         {"dimension": "Actualidad", "formula": "registros de 2024–2025 / registros", "value": _percent(recent_records, record_count), "detail": f"{recent_records:,} registros recientes; el último período disponible es 2025."},
     ]
     problems = [
-        {"field": column, "description": "Valores ausentes; se conservarán como 'sin reporte' para no inventar información financiera.", "count": count, "dimension": "Completitud", "impact": "Alto" if _percent(count, record_count) > 50 else "Medio"}
+        {"field": column, "description": "Valores ausentes; se conservarán como 'sin reporte' para no inventar información financiera.", "count": count, "dimension": "Completitud", "impact": "Alto" if _percent(count, record_count) > 50 else "Medio", "evidence": f"{count:,} de {record_count:,} registros ({_percent(count, record_count)}%)."}
         for column, count in null_counts.items() if count
     ]
     problems.extend([
-        {"field": "Razon_Endeudamiento", "description": "Valor infinito: activo total igual a cero y pasivo positivo; la razón no es interpretable.", "count": ratio_infinite, "dimension": "Validez", "impact": "Medio"},
-        {"field": "fecha_corte", "description": "Fechas distintas al cierre anual 31 de diciembre; requieren validación contra la fuente.", "count": unexpected_dates, "dimension": "Consistencia", "impact": "Bajo"},
-        {"field": "Activo_Total, Pasivo_Total, Patrimonio_Total", "description": "El balance contable no concuerda dentro de una tolerancia de 1% cuando los tres valores están disponibles.", "count": balance_rows - balance_valid, "dimension": "Exactitud", "impact": "Alto"},
+        {"field": "Razon_Endeudamiento", "description": "Valor infinito: activo total igual a cero y pasivo positivo; la razón no es interpretable.", "count": ratio_infinite, "dimension": "Validez", "impact": "Medio", "evidence": f"{ratio_infinite:,} de {ratio_present:,} razones informadas son inf o -inf."},
+        {"field": "fecha_corte", "description": "Fechas distintas al cierre anual 31 de diciembre; requieren validación contra la fuente.", "count": unexpected_dates, "dimension": "Consistencia", "impact": "Bajo", "evidence": f"{unexpected_dates:,} de {record_count:,} fechas no corresponden al cierre anual."},
+        {"field": "Activo_Total, Pasivo_Total, Patrimonio_Total", "description": "El balance contable no concuerda dentro de una tolerancia de 1% cuando los tres valores están disponibles.", "count": balance_rows - balance_valid, "dimension": "Exactitud", "impact": "Alto", "evidence": f"{balance_rows - balance_valid:,} de {balance_rows:,} balances completos no cumplen A = P + Patrimonio."},
     ])
+    problems.extend(
+        {"field": check["field"], "description": "Categorías fuera del dominio homologado.", "count": check["invalid"], "dimension": "Validez", "impact": "Medio", "evidence": check["invalid_values"]}
+        for check in domain_checks if check["invalid"]
+    )
     return {"records": record_count, "variables": len(columns), "profiles": profiles, "measures": measures,
             "problems": [problem for problem in problems if problem["count"]],
+            "domain_checks": domain_checks,
             "before": {"infinite_ratio": ratio_infinite, "duplicates": exact_duplicates, "trimmed_text": 0},
             "after": {"infinite_ratio": 0, "duplicates": exact_duplicates, "trimmed_text": 0}}
 
