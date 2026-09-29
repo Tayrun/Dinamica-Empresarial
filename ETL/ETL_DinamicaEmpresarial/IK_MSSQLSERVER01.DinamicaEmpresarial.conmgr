@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="IK_MSSQLSERVER01.DinamicaEmpresarial"
+  DTS:DTSID="{50DC1924-9267-4CFD-BB5E-6D7C4DC2A3A9}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=IK\MSSQLSERVER01;Initial Catalog=DinamicaEmpresarial;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-ETL_DinamicaEmpresarial-{50DC1924-9267-4CFD-BB5E-6D7C4DC2A3A9}IK\MSSQLSERVER01.DinamicaEmpresarial;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

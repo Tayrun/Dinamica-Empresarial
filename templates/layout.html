@@ -196,6 +196,22 @@
                     </div>
                 </div>
 
+                <!-- Acordeón Etapa 3 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEtapa3">
+                            <i class="bi bi-3-circle-fill me-2 text-success"></i> Etapa 3: Tratamiento ETL con SSIS
+                        </button>
+                    </h2>
+                    <div id="collapseEtapa3" class="accordion-collapse collapse" data-bs-parent="#accordionEtapas">
+                        <div class="accordion-body p-0">
+                            <a href="{{ url_for('etapa3_resultados') }}" class="sidebar-subitem {% if request.endpoint == 'etapa3_resultados' %}active{% endif %}">
+                                <i class="bi bi-gear-wide-connected me-2"></i>1. Resultados del ETL
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
