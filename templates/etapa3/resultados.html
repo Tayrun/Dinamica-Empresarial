@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="mb-4"><h1 class="h2 mb-1">Resultados del ETL</h1><p class="text-muted mb-0">Tratamiento ETL con SSIS aplicado a los problemas de calidad detectados en la Etapa 2.</p></div>
+
+<section class="card shadow-sm border-0 mb-4"><div class="card-body"><h2 class="h4">Introducción</h2><p class="mb-0">Se implementó un proceso ETL (Extract, Transform, Load) con SQL Server Integration Services (SSIS) para tratar los problemas de calidad detectados en la Etapa 2. El paquete SSIS recibe el dataset consolidado, aplica las reglas de limpieza, validación y homologación definidas en las fases anteriores, y escribe el resultado en SQL Server separando los registros aceptados de los que requieren revisión. A continuación se presentan las iteraciones ejecutadas durante la puesta a punto del paquete.</p></div></section>
+
+<section class="card shadow-sm border-0 mb-4"><div class="card-body"><h2 class="h4">Iteraciones del proceso ETL</h2><div class="table-responsive"><table class="table table-sm align-middle mb-0"><thead><tr><th>Iteración</th><th>Ajuste aplicado</th><th>Registros recibidos</th><th>Aceptados</th><th>A revisión</th></tr></thead><tbody><tr><td>Iteración 1</td><td>Limpieza básica de vacíos + detección de infinitos</td><td>25.430</td><td>25.428</td><td>2</td></tr><tr><td>Iteración 2</td><td>+ Recalcular Tamano_Empresa + detección de diferencia contable</td><td>25.430</td><td>25.164</td><td>266</td></tr><tr><td>Iteración 3</td><td>+ Componente Lookup anti-duplicados</td><td>25.430</td><td>25.164</td><td>266</td></tr></tbody></table></div></div></section>
+
+<div class="alert alert-success border-0 shadow-sm">Se verificó que reejecutar el mismo lote no genera registros duplicados: en dos ejecuciones consecutivas, Datos_Tratados mantuvo 25.164 registros.</div>
+
+<div class="mb-4"><a href="/descargas/informe-etapa3" class="btn btn-primary">Descargar Informe Técnico (PDF)</a></div>
+
+<section class="card shadow-sm border-0"><div class="card-body"><h2 class="h4">Video</h2>
+    <!-- AQUÍ VA EL VIDEO -->
+</div></section>
+{% endblock %}

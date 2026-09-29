@@ -63,7 +63,14 @@ def etapa2_limpieza():
 def etapa2_transformacion():
     return render_template('etapa2/2_transformacion.html', report=build_report())
 
+# --- RUTAS ETAPA 3 ---
+@app.route('/etapa3/resultados')
+def etapa3_resultados():
+    return render_template('etapa3/resultados.html')
 
+@app.route('/descargas/informe-etapa3')
+def descargar_informe_etapa3():
+    return send_from_directory('data/informes', 'informe_tecnico_etapa3.pdf', as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
