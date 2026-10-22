@@ -90,10 +90,48 @@ Enlaces:
 - Seccion Etapa 3: `https://dinamica-empresarial.onrender.com/etapa3/resultados`
 - Video de demostracion: `https://youtu.be/2rTh9h73rkk`
 
+## Etapa 4: Conocimiento Evidente
+
+La Etapa 4 realiza un analisis exploratorio (Conocimiento Evidente) sobre los datos tratados en la Etapa 3 (25.164 registros, empresa–año). Se formulan 4 preguntas de análisis y se construyen 4 tableros en Power BI con 12 indicadores, 12 visualizaciones, 12 conocimientos evidentes, 8 segmentadores, interpretaciones, limitaciones y decisiones sustentadas.
+
+### Preguntas de análisis
+
+| # | Pregunta | Enfoque |
+|---|----------|---------|
+| 1 | ¿Cómo se distribuyen las empresas por tamaño, insolvencia técnica y sector en el periodo 2016–2025? | Composición y distribución de la población |
+| 2 | ¿Existen diferencias en endeudamiento, patrimonio y activos entre empresas de distinto tamaño o condición de insolvencia? | Comparación entre grupos |
+| 3 | ¿Cómo evolucionan los indicadores financieros entre 2016 y 2025? | Comportamiento temporal |
+| 4 | ¿Qué perfiles emergen al cruzar tamaño, insolvencia, año y variables financieras? | Análisis multivariado (3+ variables) |
+
+### Tableros Power BI
+
+- **Archivo PBIX:** `powerbi/Conocimiento_Evidente.pbix` (o enlace de descarga si >100 MB)
+- **Medidas DAX documentadas:** `powerbi/DAX_Medidas.md`
+- **4 páginas de análisis** (una por pregunta) con: título, pregunta, variables, 3 KPIs, 3 visualizaciones, 2 segmentadores, interpretación, 3 conocimientos evidentes (8 elementos cada uno), 1 limitación, 1 decisión sustentada
+- **Total:** 12 indicadores, 12 visualizaciones, 12 conocimientos evidentes, 8 segmentadores
+
+### Acceso al informe
+
+| Recurso | Enlace / Ubicación |
+|---------|-------------------|
+| Informe interactivo (embed) | `https://app.powerbi.com/reportEmbed?reportId=REPLACE_WITH_REPORT_ID` |
+| Abrir en Power BI Service | `https://app.powerbi.com/groups/me/reports/REPLACE_WITH_REPORT_ID` |
+| PBIX (descarga) | `powerbi/Conocimiento_Evidente.pbix` o enlace en Releases |
+| Sección en la app Flask | `/etapa4/conocimiento-evidente` |
+| App publicada | `https://dinamica-empresarial.onrender.com/etapa4/conocimiento-evidente` |
+
+### Datos utilizados
+
+- **Origen:** `data/processed/dataset_consolidado_r1.csv` (dataset crudo)
+- **Tratado:** Resultado del ETL Etapa 3 (SSIS) → 25.164 registros aceptados, 266 en revisión
+- **Unidad de análisis:** empresa–año (`nit` + `fecha_corte`)
+- **Periodo:** 2016–2025
+- **Variables clave:** `Activo_Total`, `Pasivo_Total`, `Patrimonio_Total`, `Razon_Endeudamiento`, `Tamano_Empresa`, `Insolvencia_Tecnica`, `Ano_Corte`, `Pais_Matriz`
+
 ## Estructura
 
 ```text
-app.py                 Aplicacion y rutas Flask (Etapa 1, Etapa 2 y Etapa 3)
+app.py                 Aplicacion y rutas Flask (Etapa 1, Etapa 2, Etapa 3 y Etapa 4)
 data_quality.py        Perfilamiento, metricas y tratamiento reproducible
 data/processed/        Dataset consolidado
 data/informes/         Informe tecnico de la Etapa 3 en PDF
@@ -101,7 +139,9 @@ templates/             Vistas HTML de las etapas del proyecto
   etapa1/              Plantillas de la Etapa 1 (8 secciones)
   etapa2/              Plantillas de la Etapa 2 (4 secciones)
   etapa3/              Plantilla de la Etapa 3 (resultados del ETL)
+  etapa4/              Plantilla de la Etapa 4 (conocimiento evidente)
   scripts_sql/         Scripts SQL de tablas del ETL
+powerbi/               Archivo PBIX y documentacion de medidas DAX
 ETL/                   Proyecto SSIS (paquete .dtsx y solucion)
 requirements.txt       Dependencias de ejecucion
 ```
