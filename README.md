@@ -90,44 +90,23 @@ Enlaces:
 - Seccion Etapa 3: `https://dinamica-empresarial.onrender.com/etapa3/resultados`
 - Video de demostracion: `https://youtu.be/2rTh9h73rkk`
 
-## Etapa 4: Conocimiento Evidente
+## Etapa 4 - Conocimiento evidente (Power BI)
 
-La Etapa 4 realiza un analisis exploratorio (Conocimiento Evidente) sobre los datos tratados en la Etapa 3 (25.164 registros, empresa–año). Se formulan 4 preguntas de análisis y se construyen 4 tableros en Power BI con 12 indicadores, 12 visualizaciones, 12 conocimientos evidentes, 8 segmentadores, interpretaciones, limitaciones y decisiones sustentadas.
+Informe de Power BI con 4 tableros que responden preguntas de negocio sobre tamaño de empresa, insolvencia técnica y endeudamiento (2016-2025).
 
-### Preguntas de análisis
+- Archivo: `DinamicaEmpresarial.pbix` (raíz del repositorio).
+- Informe público: https://app.powerbi.com/view?r=eyJrIjoiZDNjMjczZjQtY2M1OC00MWU0LTlkMjgtZWIxZGFhZjdiYzEyIiwidCI6IjA3ZGE2N2EwLTFmNDMtNGU4Yy05NzdmLTVmODhiNjQ3MGVlNiIsImMiOjR9
+- Fuente de datos: SIREM - Superintendencia de Sociedades, tratada en la Etapa 3 (tabla `Datos_Tratados`, exportada como `dataset tratado.csv`).
+- Tableros: 1. Composición, 2. Comparación entre grupos, 3. Comportamiento temporal, 4. Multivariado.
+- Medidas DAX: ver `docs/medidas_DAX.md`.
 
-| # | Pregunta | Enfoque |
-|---|----------|---------|
-| 1 | ¿Cómo se distribuyen las empresas por tamaño, insolvencia técnica y sector en el periodo 2016–2025? | Composición y distribución de la población |
-| 2 | ¿Existen diferencias en endeudamiento, patrimonio y activos entre empresas de distinto tamaño o condición de insolvencia? | Comparación entre grupos |
-| 3 | ¿Cómo evolucionan los indicadores financieros entre 2016 y 2025? | Comportamiento temporal |
-| 4 | ¿Qué perfiles emergen al cruzar tamaño, insolvencia, año y variables financieras? | Análisis multivariado (3+ variables) |
+### Cómo abrir y actualizar el informe
+1. Abrir `DinamicaEmpresarial.pbix` con Power BI Desktop.
+2. En Inicio > Transformar datos > Configuración de origen de datos, apuntar al archivo `dataset tratado.csv` en su equipo.
+3. Pulsar Actualizar para recargar los datos.
 
-### Tableros Power BI
-
-- **Archivo PBIX:** `powerbi/Conocimiento_Evidente.pbix` (o enlace de descarga si >100 MB)
-- **Medidas DAX documentadas:** `powerbi/DAX_Medidas.md`
-- **4 páginas de análisis** (una por pregunta) con: título, pregunta, variables, 3 KPIs, 3 visualizaciones, 2 segmentadores, interpretación, 3 conocimientos evidentes (8 elementos cada uno), 1 limitación, 1 decisión sustentada
-- **Total:** 12 indicadores, 12 visualizaciones, 12 conocimientos evidentes, 8 segmentadores
-
-### Acceso al informe
-
-| Recurso | Enlace / Ubicación |
-|---------|-------------------|
-| Informe interactivo (embed) | `https://app.powerbi.com/reportEmbed?reportId=REPLACE_WITH_REPORT_ID` |
-| Abrir en Power BI Service | `https://app.powerbi.com/groups/me/reports/REPLACE_WITH_REPORT_ID` |
-| PBIX (descarga) | `powerbi/Conocimiento_Evidente.pbix` o enlace en Releases |
-| Sección en la app Flask | `/etapa4/conocimiento-evidente` |
-| App publicada | `https://dinamica-empresarial.onrender.com/etapa4/conocimiento-evidente` |
-
-### Datos utilizados
-
-- **Origen:** `data/processed/dataset_consolidado_r1.csv` (dataset crudo)
-- **Tratado:** Resultado del ETL Etapa 3 (SSIS) → 25.164 registros aceptados, 266 en revisión
-- **Unidad de análisis:** empresa–año (`nit` + `fecha_corte`)
-- **Periodo:** 2016–2025
-- **Variables clave:** `Activo_Total`, `Pasivo_Total`, `Patrimonio_Total`, `Razon_Endeudamiento`, `Tamano_Empresa`, `Insolvencia_Tecnica`, `Ano_Corte`, `Pais_Matriz`
-
+### Nota
+Power BI carga 25.163 filas frente a 25.164 de la base de datos: la primera fila de datos se promovió a encabezado al cargar el CSV.
 ## Estructura
 
 ```text
