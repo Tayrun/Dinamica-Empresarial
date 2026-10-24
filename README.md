@@ -98,15 +98,18 @@ Informe de Power BI con 4 tableros que responden preguntas de negocio sobre tama
 - Informe público: https://app.powerbi.com/view?r=eyJrIjoiZDNjMjczZjQtY2M1OC00MWU0LTlkMjgtZWIxZGFhZjdiYzEyIiwidCI6IjA3ZGE2N2EwLTFmNDMtNGU4Yy05NzdmLTVmODhiNjQ3MGVlNiIsImMiOjR9
 - Fuente de datos: SIREM - Superintendencia de Sociedades, tratada en la Etapa 3 (tabla `Datos_Tratados`, exportada como `dataset tratado.csv`).
 - Tableros: 1. Composición, 2. Comparación entre grupos, 3. Comportamiento temporal, 4. Multivariado.
-- Medidas DAX: ver `docs/medidas_DAX.md`.
+- Medidas DAX: ver `powerbi/DAX_Medidas.md`.
 
 ### Cómo abrir y actualizar el informe
+
 1. Abrir `DinamicaEmpresarial.pbix` con Power BI Desktop.
 2. En Inicio > Transformar datos > Configuración de origen de datos, apuntar al archivo `dataset tratado.csv` en su equipo.
 3. Pulsar Actualizar para recargar los datos.
 
 ### Nota
+
 Power BI carga 25.163 filas frente a 25.164 de la base de datos: la primera fila de datos se promovió a encabezado al cargar el CSV.
+
 ## Estructura
 
 ```text
@@ -120,7 +123,7 @@ templates/             Vistas HTML de las etapas del proyecto
   etapa3/              Plantilla de la Etapa 3 (resultados del ETL)
   etapa4/              Plantilla de la Etapa 4 (conocimiento evidente)
   scripts_sql/         Scripts SQL de tablas del ETL
-powerbi/               Archivo PBIX y documentacion de medidas DAX
+powerbi/               Documentacion de medidas DAX (DAX_Medidas.md)
 ETL/                   Proyecto SSIS (paquete .dtsx y solucion)
 requirements.txt       Dependencias de ejecucion
 ```
