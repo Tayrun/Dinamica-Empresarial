@@ -74,27 +74,23 @@ def descargar_informe_etapa3():
     return send_from_directory('data/informes', 'informe_tecnico_etapa3.pdf', as_attachment=True)
 
 # --- RUTAS ETAPA 4 ---
+PBIX_NAME = "DinamicaEmpresarial.pbix"  # archivo en la raiz del repositorio
+POWERBI_URL = "https://app.powerbi.com/view?r=eyJrIjoiZDNjMjczZjQtY2M1OC00MWU0LTlkMjgtZWIxZGFhZjdiYzEyIiwidCI6IjA3ZGE2N2EwLTFmNDMtNGU4Yy05NzdmLTVmODhiNjQ3MGVlNiIsImMiOjR9"
+
 @app.route('/etapa4/conocimiento-evidente')
 def etapa4_conocimiento():
-    pbix_path = Path(__file__).parent / "powerbi" / "Conocimiento_Evidente.pbix"
+    pbix_path = Path(__file__).parent / PBIX_NAME
     pbix_exists = pbix_path.exists() and pbix_path.stat().st_size > 0
-    
-    # Configura tu URL de inserción (embed) de Power BI aquí:
-    # Opción A: Publicar en web (gratis, público) -> Archivo > Insertar informe > Publicar en web
-    # Opción B: Incrustar en SharePoint/Teams (requiere licencia Pro/Premium)
-    # powerbi_embed_url = "https://app.powerbi.com/reportEmbed?reportId=TU_REPORT_ID&autoAuth=true&ctid=TU_TENANT_ID"
-    powerbi_embed_url = "REPLACE_WITH_REPORT_ID"  # ← Cambia esto por tu URL real
-    
-    return render_template('etapa4/conocimiento.html', 
-                           powerbi_embed_url=powerbi_embed_url,
+    return render_template('etapa4/conocimiento.html',
+                           powerbi_embed_url=POWERBI_URL,
                            pbix_exists=pbix_exists)
 
 @app.route('/descargas/pbix')
 def descargar_pbix():
-    pbix_path = Path(__file__).parent / "powerbi" / "Conocimiento_Evidente.pbix"
+    pbix_path = Path(__file__).parent / PBIX_NAME
     if pbix_path.exists():
-        return send_from_directory('powerbi', 'Conocimiento_Evidente.pbix', as_attachment=True)
-    return "Archivo PBIX no encontrado. Sube el archivo a powerbi/Conocimiento_Evidente.pbix", 404
+        return send_from_directory(Path(__file__).parent, PBIX_NAME, as_attachment=True)
+    return "Archivo PBIX no encontrado.", 404
 
 @app.route('/descargas/dax-medidas')
 def descargar_dax_md():
