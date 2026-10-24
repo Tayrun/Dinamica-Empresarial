@@ -208,9 +208,9 @@
                             <a href="{{ url_for('etapa3_resultados') }}" class="sidebar-subitem {% if request.endpoint == 'etapa3_resultados' %}active{% endif %}">
                                 <i class="bi bi-gear-wide-connected me-2"></i>1. Resultados del ETL
                             </a>
-</div>
-            </div>
-        </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Acordeón Etapa 4 -->
                 <div class="accordion-item">
@@ -223,6 +223,9 @@
                         <div class="accordion-body p-0">
                             <a href="{{ url_for('etapa4_conocimiento') }}" class="sidebar-subitem {% if request.endpoint == 'etapa4_conocimiento' %}active{% endif %}">
                                 <i class="bi bi-lightbulb me-2"></i>Conocimiento evidente
+                            </a>
+                            <a href="{{ url_for('etapa4_adicionales') }}" class="sidebar-subitem {% if request.endpoint == 'etapa4_adicionales' %}active{% endif %}">
+                                <i class="bi bi-folder-plus me-2"></i>Adicionales
                             </a>
                         </div>
                     </div>
