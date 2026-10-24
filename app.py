@@ -13,6 +13,7 @@ POWERBI_DEFAULT_REPORT_URL = (
     "ZWIxZGFhZjdiYzEyIiwidCI6IjA3ZGE2N2EwLTFmNDMtNGU4Yy05NzdmLTVmODhiNjQ3"
     "MGVlNiIsImMiOjR9"
 )
+PBIX_NAME = "DinamicaEmpresarial.pbix"
 
 def powerbi_url(setting_name):
     """Returns only a valid HTTPS Power BI URL configured in the environment."""
@@ -94,7 +95,7 @@ def descargar_informe_etapa3():
 # --- RUTAS ETAPA 4 ---
 @app.route('/etapa4/conocimiento-evidente')
 def etapa4_conocimiento():
-    pbix_path = Path(__file__).parent / "powerbi" / "Conocimiento_Evidente.pbix"
+    pbix_path = Path(__file__).parent / PBIX_NAME
     pbix_exists = pbix_path.exists() and pbix_path.stat().st_size > 0
     
     # En local use .env o variables del sistema; en Render configúralas como variables de entorno.
@@ -109,10 +110,10 @@ def etapa4_conocimiento():
 
 @app.route('/descargas/pbix')
 def descargar_pbix():
-    pbix_path = Path(__file__).parent / "powerbi" / "Conocimiento_Evidente.pbix"
+    pbix_path = Path(__file__).parent / PBIX_NAME
     if pbix_path.exists():
-        return send_from_directory('powerbi', 'Conocimiento_Evidente.pbix', as_attachment=True)
-    return "Archivo PBIX no encontrado. Sube el archivo a powerbi/Conocimiento_Evidente.pbix", 404
+        return send_from_directory(Path(__file__).parent, PBIX_NAME, as_attachment=True)
+    return "Archivo PBIX no encontrado.", 404
 
 @app.route('/descargas/dax-medidas')
 def descargar_dax_md():
