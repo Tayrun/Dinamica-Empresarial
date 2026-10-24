@@ -1,0 +1,281 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="h2 mb-1"><i class="bi bi-folder-plus text-success me-2"></i>Etapa 4: Adicionales</h1>
+    <p class="text-muted mb-0">Recursos complementarios, anexos y materiales de apoyo para el análisis de Conocimiento Evidente</p>
+</div>
+
+<!-- Documentación técnica -->
+<section class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0"><i class="bi bi-file-earmark-text me-2"></i>Documentación del modelo Power BI</h5>
+    </div>
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm bg-light">
+                    <div class="card-body">
+                        <h6 class="card-title"><i class="bi bi-code-square text-primary me-2"></i>Medidas DAX</h6>
+                        <p class="small text-muted mb-2">Documentación completa de las 12 medidas DAX utilizadas en los 4 tableros.</p>
+                        <a href="{{ url_for('descargar_dax_md') }}" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-download me-1"></i>Descargar DAX_Medidas.md
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm bg-light">
+                    <div class="card-body">
+                        <h6 class="card-title"><i class="bi bi-diagram-3 text-info me-2"></i>Modelo de datos</h6>
+                        <p class="small text-muted mb-2">Estructura estrella plano: tabla de hechos única con clave compuesta <code>nit + fecha_corte</code>.</p>
+                        <ul class="small text-muted mb-0">
+                            <li>Sin tablas de dimensión separadas</li>
+                            <li>Relaciones 1:1 implícitas</li>
+                            <li>25.164 filas, 11 columnas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Diccionario de variables utilizadas -->
+<section class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0"><i class="bi bi-book me-2"></i>Diccionario de variables (Etapa 4)</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Variable</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Uso en preguntas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>nit</code></td>
+                        <td>Texto</td>
+                        <td>Identificador único de empresa (NIT)</td>
+                        <td>Clave primaria, conteo distinto</td>
+                    </tr>
+                    <tr>
+                        <td><code>fecha_corte</code></td>
+                        <td>Fecha</td>
+                        <td>Fecha de corte del estado financiero (31 dic)</td>
+                        <td>Clave primaria, eje temporal</td>
+                    </tr>
+                    <tr>
+                        <td><code>Ano_Corte</code></td>
+                        <td>Entero</td>
+                        <td>Año del reporte (2016–2025)</td>
+                        <td>P3 Temporal, P4 Multivariado, Slicers</td>
+                    </tr>
+                    <tr>
+                        <td><code>Tamano_Empresa</code></td>
+                        <td>Categoría</td>
+                        <td>Micro, Pequeña, Mediana, Grande (según activos)</td>
+                        <td>P1, P2, P4, Slicers</td>
+                    </tr>
+                    <tr>
+                        <td><code>Insolvencia_Tecnica</code></td>
+                        <td>Binaria</td>
+                        <td>Sí / No (Patrimonio < 0)</td>
+                        <td>P1, P2, P4, Slicers</td>
+                    </tr>
+                    <tr>
+                        <td><code>Activo_Total</code></td>
+                        <td>Numérico</td>
+                        <td>Total de activos en miles de COP</td>
+                        <td>P2, P3, P4 (KPIs, visualizaciones)</td>
+                    </tr>
+                    <tr>
+                        <td><code>Pasivo_Total</code></td>
+                        <td>Numérico</td>
+                        <td>Total de pasivos en miles de COP</td>
+                        <td>P2, P3, P4</td>
+                    </tr>
+                    <tr>
+                        <td><code>Patrimonio_Total</code></td>
+                        <td>Numérico</td>
+                        <td>Patrimonio neto en miles de COP</td>
+                        <td>P2, P3, P4</td>
+                    </tr>
+                    <tr>
+                        <td><code>Razon_Endeudamiento</code></td>
+                        <td>Numérico</td>
+                        <td>Pasivo / Activo (ratio)</td>
+                        <td>P2, P3, P4 (KPIs principales)</td>
+                    </tr>
+                    <tr>
+                        <td><code>Pais_Matriz</code></td>
+                        <td>Texto</td>
+                        <td>País de la matriz (COL)</td>
+                        <td>P1, Slicer</td>
+                    </tr>
+                    <tr>
+                        <td><code>Fuente</code></td>
+                        <td>Texto</td>
+                        <td>Origen del registro (SIREM)</td>
+                        <td>Documentación</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Tratamiento de datos previo (Etapa 3) -->
+<section class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0"><i class="bi bi-gear-wide-connected me-2"></i>Resumen del tratamiento ETL (Etapa 3)</h5>
+    </div>
+    <div class="card-body">
+        <p class="mb-3">El dataset utilizado en Etapa 4 proviene del proceso ETL con SSIS (Etapa 3), que aplicó 3 iteraciones sobre los 25.430 registros originales:</p>
+        
+        <div class="table-responsive mb-3">
+            <table class="table table-sm table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Iteración</th>
+                        <th>Ajuste aplicado</th>
+                        <th>Aceptados</th>
+                        <th>A revisión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Limpieza básica de vacíos + detección de infinitos</td>
+                        <td>25.428</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>+ Recálculo <code>Tamano_Empresa</code> + detección diferencia contable</td>
+                        <td>25.164</td>
+                        <td>266</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>+ Componente Lookup anti-duplicados</td>
+                        <td>25.164</td>
+                        <td>266</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="alert alert-success border-0 py-2 px-3 mb-0">
+                    <i class="bi bi-check-circle me-1"></i>
+                    <strong>Registros para análisis:</strong> 25.164 (empresa–año únicos)
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="alert alert-warning border-0 py-2 px-3 mb-0">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    <strong>En revisión:</strong> 266 (balances incompletos, categorías inválidas)
+                </div>
+            </div>
+        </div>
+
+        <h6 class="mt-3 mb-2">Problemas de calidad pendientes que afectan resultados:</h6>
+        <ul class="small mb-0">
+            <li>266 registros sin balance contable válido (A ≠ P + PN ±1%)</li>
+            <li>Valores nulos en variables financieras (no imputados para no inventar datos)</li>
+            <li>Razones de endeudamiento infinitas convertidas a null</li>
+            <li>Categorías fuera de dominio en <code>Tamano_Empresa</code> corregidas en iteración 2</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Descargas y recursos -->
+<section class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0"><i class="bi bi-download me-2"></i>Descargas disponibles</h5>
+    </div>
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-3">
+                    <i class="bi bi-file-earmark-ppt text-success fs-1"></i>
+                    <h6 class="mt-2">PBIX Power BI</h6>
+                    <p class="small text-muted">Archivo completo con 4 páginas de análisis</p>
+                    <a href="{{ url_for('descargar_pbix') }}" class="btn btn-sm btn-success" {% if not pbix_exists %}disabled{% endif %}>
+                        <i class="bi bi-download me-1"></i>Descargar
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-3">
+                    <i class="bi bi-file-earmark-code text-primary fs-1"></i>
+                    <h6 class="mt-2">Medidas DAX</h6>
+                    <p class="small text-muted">Documentación Markdown de 12 medidas</p>
+                    <a href="{{ url_for('descargar_dax_md') }}" class="btn btn-sm btn-primary">
+                        <i class="bi bi-download me-1"></i>Descargar
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-3">
+                    <i class="bi bi-file-earmark-spreadsheet text-info fs-1"></i>
+                    <h6 class="mt-2">Dataset Tratado</h6>
+                    <p class="small text-muted">CSV con 25.164 registros limpios</p>
+                    <a href="{{ url_for('descargar_dataset_tratado') }}" class="btn btn-sm btn-info">
+                        <i class="bi bi-download me-1"></i>Descargar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Instrucciones para replicar -->
+<section class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-light">
+        <h5 class="mb-0"><i class="bi bi-play-circle me-2"></i>Instrucciones para replicar el análisis</h5>
+    </div>
+    <div class="card-body">
+        <ol class="mb-0">
+            <li><strong>Datos:</strong> Usar <code>data/processed/dataset_consolidado_r1.csv</code> (origen) o descargar dataset tratado</li>
+            <li><strong>Power BI Desktop:</strong> Abrir → Obtener datos → CSV → Transformar (ver limpieza en <code>data_quality.py</code>)</li>
+            <li><strong>Modelo:</strong> Tabla única <code>Datos</code>, sin relaciones adicionales</li>
+            <li><strong>Medidas:</strong> Crear 12 medidas DAX según <code>powerbi/DAX_Medidas.md</code></li>
+            <li><strong>Páginas:</strong> Crear 4 páginas con visualizaciones, KPIs y slicers por pregunta</li>
+            <li><strong>Conocimientos:</strong> Agregar 3 cuadros de texto por página con 8 elementos cada uno</li>
+            <li><strong>Publicar:</strong> Power BI Service → Insertar informe → Copiar URL embed</li>
+            <li><strong>Integrar:</strong> Actualizar <code>powerbi_embed_url</code> en <code>app.py</code> línea ~86</li>
+        </ol>
+    </div>
+</section>
+
+<!-- Enlaces externos -->
+<section class="card shadow-sm border-0">
+    <div class="card-header bg-light">
+        <h5 class="mb-0"><i class="bi bi-link-45deg me-2"></i>Enlaces de referencia</h5>
+    </div>
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <ul class="list-unstyled mb-0 small">
+                    <li><i class="bi bi-globe text-success me-2"></i><strong>App publicada:</strong> <a href="https://dinamica-empresarial.onrender.com/etapa4/conocimiento-evidente" target="_blank">Etapa 4 en Render</a></li>
+                    <li><i class="bi bi-youtube text-danger me-2"></i><strong>Video demo Etapa 3:</strong> <a href="https://youtu.be/2rTh9h73rkk" target="_blank">YouTube</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-unstyled mb-0 small">
+                    <li><i class="bi bi-github text-dark me-2"></i><strong>Repositorio:</strong> <a href="https://github.com/tu-usuario/Dinamica-Empresarial" target="_blank">GitHub</a></li>
+                    <li><i class="bi bi-box-arrow-up-right text-primary me-2"></i><strong>Power BI Service:</strong> <a href="https://app.powerbi.com" target="_blank">app.powerbi.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

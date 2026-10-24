@@ -90,10 +90,30 @@ Enlaces:
 - Seccion Etapa 3: `https://dinamica-empresarial.onrender.com/etapa3/resultados`
 - Video de demostracion: `https://youtu.be/2rTh9h73rkk`
 
+## Etapa 4 - Conocimiento evidente (Power BI)
+
+Informe de Power BI con 4 tableros que responden preguntas de negocio sobre tamaño de empresa, insolvencia técnica y endeudamiento (2016-2025).
+
+- Archivo: `DinamicaEmpresarial.pbix` (raíz del repositorio).
+- Informe público: https://app.powerbi.com/view?r=eyJrIjoiZDNjMjczZjQtY2M1OC00MWU0LTlkMjgtZWIxZGFhZjdiYzEyIiwidCI6IjA3ZGE2N2EwLTFmNDMtNGU4Yy05NzdmLTVmODhiNjQ3MGVlNiIsImMiOjR9
+- Fuente de datos: SIREM - Superintendencia de Sociedades, tratada en la Etapa 3 (tabla `Datos_Tratados`, exportada como `dataset tratado.csv`).
+- Tableros: 1. Composición, 2. Comparación entre grupos, 3. Comportamiento temporal, 4. Multivariado.
+- Medidas DAX: ver `powerbi/DAX_Medidas.md`.
+
+### Cómo abrir y actualizar el informe
+
+1. Abrir `DinamicaEmpresarial.pbix` con Power BI Desktop.
+2. En Inicio > Transformar datos > Configuración de origen de datos, apuntar al archivo `dataset tratado.csv` en su equipo.
+3. Pulsar Actualizar para recargar los datos.
+
+### Nota
+
+Power BI carga 25.163 filas frente a 25.164 de la base de datos: la primera fila de datos se promovió a encabezado al cargar el CSV.
+
 ## Estructura
 
 ```text
-app.py                 Aplicacion y rutas Flask (Etapa 1, Etapa 2 y Etapa 3)
+app.py                 Aplicacion y rutas Flask (Etapa 1, Etapa 2, Etapa 3 y Etapa 4)
 data_quality.py        Perfilamiento, metricas y tratamiento reproducible
 data/processed/        Dataset consolidado
 data/informes/         Informe tecnico de la Etapa 3 en PDF
@@ -101,7 +121,9 @@ templates/             Vistas HTML de las etapas del proyecto
   etapa1/              Plantillas de la Etapa 1 (8 secciones)
   etapa2/              Plantillas de la Etapa 2 (4 secciones)
   etapa3/              Plantilla de la Etapa 3 (resultados del ETL)
+  etapa4/              Plantilla de la Etapa 4 (conocimiento evidente)
   scripts_sql/         Scripts SQL de tablas del ETL
+powerbi/               Documentacion de medidas DAX (DAX_Medidas.md)
 ETL/                   Proyecto SSIS (paquete .dtsx y solucion)
 requirements.txt       Dependencias de ejecucion
 ```

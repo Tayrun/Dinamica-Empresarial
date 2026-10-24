@@ -1,5 +1,6 @@
 from flask import Flask, Response, render_template, send_from_directory
 from data_quality import build_report, treated_csv
+from pathlib import Path
 
 app = Flask(__name__)
 
@@ -71,6 +72,33 @@ def etapa3_resultados():
 @app.route('/descargas/informe-etapa3')
 def descargar_informe_etapa3():
     return send_from_directory('data/informes', 'informe_tecnico_etapa3.pdf', as_attachment=True)
+
+# --- RUTAS ETAPA 4 ---
+PBIX_NAME = "DinamicaEmpresarial.pbix"  # archivo en la raiz del repositorio
+POWERBI_URL = "https://app.powerbi.com/view?r=eyJrIjoiZDNjMjczZjQtY2M1OC00MWU0LTlkMjgtZWIxZGFhZjdiYzEyIiwidCI6IjA3ZGE2N2EwLTFmNDMtNGU4Yy05NzdmLTVmODhiNjQ3MGVlNiIsImMiOjR9"
+
+@app.route('/etapa4/conocimiento-evidente')
+def etapa4_conocimiento():
+    pbix_path = Path(__file__).parent / PBIX_NAME
+    pbix_exists = pbix_path.exists() and pbix_path.stat().st_size > 0
+    return render_template('etapa4/conocimiento.html',
+                           powerbi_embed_url=POWERBI_URL,
+                           pbix_exists=pbix_exists)
+
+@app.route('/descargas/pbix')
+def descargar_pbix():
+    pbix_path = Path(__file__).parent / PBIX_NAME
+    if pbix_path.exists():
+        return send_from_directory(Path(__file__).parent, PBIX_NAME, as_attachment=True)
+    return "Archivo PBIX no encontrado.", 404
+
+@app.route('/descargas/dax-medidas')
+def descargar_dax_md():
+    return send_from_directory('powerbi', 'DAX_Medidas.md', as_attachment=True)
+
+@app.route('/etapa4/adicionales')
+def etapa4_adicionales():
+    return render_template('etapa4/adicionales.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
