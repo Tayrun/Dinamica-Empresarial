@@ -1,7 +1,25 @@
 from flask import Flask, Response, render_template, send_from_directory
 from data_quality import build_report, treated_csv
+from os import environ
+from pathlib import Path
+from urllib.parse import urlparse
 
 app = Flask(__name__)
+
+# Enlace actual del informe del equipo. Puede sustituirse sin cambiar código
+# mediante POWERBI_EMBED_URL y POWERBI_REPORT_URL en el entorno de despliegue.
+POWERBI_DEFAULT_REPORT_URL = (
+    "https://app.powerbi.com/groups/me/reports/cc00096f-ad18-4649-a0f1-ef263b9e4382/"
+    "9afe59f513c8d6170768?experience=power-bi"
+)
+
+def powerbi_url(setting_name):
+    """Returns only a valid HTTPS Power BI URL configured in the environment."""
+    url = environ.get(setting_name, "").strip()
+    parsed = urlparse(url)
+    if parsed.scheme == "https" and parsed.netloc == "app.powerbi.com":
+        return url
+    return ""
 
 @app.route('/')
 def home():
@@ -71,6 +89,33 @@ def etapa3_resultados():
 @app.route('/descargas/informe-etapa3')
 def descargar_informe_etapa3():
     return send_from_directory('data/informes', 'informe_tecnico_etapa3.pdf', as_attachment=True)
+
+# --- RUTAS ETAPA 4 ---
+@app.route('/etapa4/conocimiento-evidente')
+def etapa4_conocimiento():
+    pbix_path = Path(__file__).parent / "powerbi" / "Conocimiento_Evidente.pbix"
+    pbix_exists = pbix_path.exists() and pbix_path.stat().st_size > 0
+    
+    # En local use .env o variables del sistema; en Render configúralas como variables de entorno.
+    # POWERBI_EMBED_URL debe ser una URL HTTPS de app.powerbi.com apta para iframe.
+    powerbi_embed_url = powerbi_url("POWERBI_EMBED_URL") or POWERBI_DEFAULT_REPORT_URL
+    powerbi_report_url = powerbi_url("POWERBI_REPORT_URL") or powerbi_embed_url
+    
+    return render_template('etapa4/conocimiento.html', 
+                           powerbi_embed_url=powerbi_embed_url,
+                           powerbi_report_url=powerbi_report_url,
+                           pbix_exists=pbix_exists)
+
+@app.route('/descargas/pbix')
+def descargar_pbix():
+    pbix_path = Path(__file__).parent / "powerbi" / "Conocimiento_Evidente.pbix"
+    if pbix_path.exists():
+        return send_from_directory('powerbi', 'Conocimiento_Evidente.pbix', as_attachment=True)
+    return "Archivo PBIX no encontrado. Sube el archivo a powerbi/Conocimiento_Evidente.pbix", 404
+
+@app.route('/descargas/dax-medidas')
+def descargar_dax_md():
+    return send_from_directory('powerbi', 'DAX_Medidas.md', as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
