@@ -9,8 +9,9 @@ app = Flask(__name__)
 # Enlace actual del informe del equipo. Puede sustituirse sin cambiar código
 # mediante POWERBI_EMBED_URL y POWERBI_REPORT_URL en el entorno de despliegue.
 POWERBI_DEFAULT_REPORT_URL = (
-    "https://app.powerbi.com/groups/me/reports/cc00096f-ad18-4649-a0f1-ef263b9e4382/"
-    "9afe59f513c8d6170768?experience=power-bi"
+    "https://app.powerbi.com/view?r=eyJrIjoiZDNjMjczZjQtY2M1OC00MWU0LTlkMjgt"
+    "ZWIxZGFhZjdiYzEyIiwidCI6IjA3ZGE2N2EwLTFmNDMtNGU4Yy05NzdmLTVmODhiNjQ3"
+    "MGVlNiIsImMiOjR9"
 )
 
 def powerbi_url(setting_name):
