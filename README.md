@@ -172,10 +172,10 @@ Las bandas de endeudamiento se definen sobre la razón pasivo/activo: Baja ≤ 0
 
 | Vista | Pregunta | Dimensiones | Operaciones disponibles |
 | --- | --- | --- | --- |
-| 1 | ¿Cambió el porcentaje de empresas con patrimonio negativo entre periodos equivalentes y entre segmentos de tamaño? | Tiempo × Tamaño | Drill-down y roll-up por tiempo (año, bloque, periodo) y tamaño (tamaño, segmento); slice y dice con filtros de periodo y segmento; pivot de la matriz. |
-| 2 | ¿En qué bandas de endeudamiento se concentra cada tamaño de empresa y cuánta información falta para saberlo? | Tamaño × Condición financiera | Niveles de tamaño, medida de la matriz (registros o porcentaje por fila) y pivot. |
-| 3 | ¿Las empresas que aparecen más años se diferencian en solvencia y tamaño de las que aparecen un solo año? | Empresa × Condición financiera | Filtro de cohorte de ingreso, años observados, medida y pivot. |
-| 4 | ¿Cuántas empresas de cada año de ingreso reaparecen en los años siguientes? | Empresa (cohorte) × Tiempo | Filtro de cohorte, medida de reaparición, matriz cohorte × año y pivot. |
+| 1 | ¿Cambió el porcentaje de empresas con patrimonio negativo entre periodos equivalentes y entre segmentos de tamaño? | Tiempo × Tamaño | Filtros de periodo y segmento; drill-down y roll-up por tiempo (año, bloque, periodo) y tamaño (tamaño, segmento); slice y dice al combinar filtros; pivot de la matriz. |
+| 2 | ¿En qué bandas de endeudamiento se concentra cada tamaño de empresa y cuánta información falta para saberlo? | Tamaño × Condición financiera | Filtros de periodo y estado del patrimonio; nivel de tamaño, medida de la matriz (registros o porcentaje por fila) y pivot. |
+| 3 | ¿Las empresas que aparecen más años se diferencian en solvencia y tamaño de las que aparecen un solo año? | Empresa × Condición financiera | Filtros de cohorte de ingreso, periodo y segmento; nivel de años observados, medida (registros o porcentaje por fila) y pivot. |
+| 4 | ¿Cuántas empresas de cada año de ingreso reaparecen en los años siguientes? | Empresa (cohorte) × Tiempo | Filtros de segmento y estado; niveles de tiempo y cohorte, medida (empresas o % de reaparición) y pivot. |
 
 Cada vista incluye filtros, controles de nivel y medida, selección activa, indicadores, gráficas, matriz de resultados con su base (n), interpretación, dos conocimientos con evidencia y consulta SQL, limitación y decisión sustentada. En total son **ocho conocimientos** (dos por vista).
 
