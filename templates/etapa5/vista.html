@@ -1,0 +1,214 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    .viz { margin: 0; }
+    .viz figcaption { display: flex; flex-direction: column; margin-bottom: .35rem; }
+    .viz figcaption strong { font-size: .95rem; color: #0f172a; }
+    .viz figcaption span { font-size: .8rem; color: #64748b; }
+    .viz svg { width: 100%; height: auto; display: block; }
+    .viz .mark:hover { opacity: .8; }
+    .viz-legend { display: flex; flex-wrap: wrap; gap: .25rem 1rem; font-size: .8rem; color: #475569; margin-bottom: .25rem; }
+    .viz-key i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; }
+    .viz-note { font-size: .75rem; color: #64748b; margin: .35rem 0 0; }
+    .viz-table summary { font-size: .8rem; color: #008751; cursor: pointer; margin-top: .4rem; }
+    .viz-table table { font-size: .8rem; }
+    .kpi-valor { font-size: 1.9rem; font-weight: 700; color: #0f172a; line-height: 1.1; }
+    .matriz th, .matriz td { white-space: nowrap; vertical-align: middle; }
+    .matriz td small { display: block; font-size: .7rem; opacity: .85; }
+    .matriz thead th { background: #f1f5f9; }
+    .matriz tfoot th, .matriz tfoot td, .matriz .col-total { background: #f8fafc; font-weight: 600; }
+    .kn dt { font-size: .75rem; text-transform: uppercase; letter-spacing: .4px; color: #008751; margin-top: .6rem; }
+    .kn dd { margin-bottom: 0; font-size: .9rem; }
+    pre.sql { background: #0f172a; color: #e2e8f0; font-size: .75rem; padding: .75rem; border-radius: .4rem; white-space: pre-wrap; margin: 0; }
+</style>
+
+<div class="mb-3">
+    <a href="{{ url_for('etapa5_inicio') }}" class="small text-decoration-none"><i class="bi bi-arrow-left me-1"></i>Análisis multidimensional</a>
+    <h1 class="h2 mt-1 mb-1"><i class="bi bi-{{ v.n }}-square text-success me-2"></i>Vista {{ v.n }}: {{ v.titulo }}</h1>
+    <p class="mb-0 fs-5 text-dark">{{ v.pregunta }}</p>
+    <p class="text-muted small mb-0">Fuente: SIREM – Superintendencia de Sociedades (vía datos.gov.co) · {{ resumen.registros }} registros empresa–año, {{ resumen.empresas }} empresas, {{ resumen.ano_min }}–{{ resumen.ano_max }} · Modelo estrella <code>dw.sqlite</code></p>
+</div>
+
+<!-- Ficha de la pregunta -->
+<section class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm"><div class="card-body">
+            <h6 class="text-success"><i class="bi bi-diagram-3 me-1"></i>Dimensiones</h6>
+            <ul class="small mb-0">{% for d in v.dimensiones %}<li>{{ d }}</li>{% endfor %}</ul>
+            <h6 class="text-success mt-3"><i class="bi bi-rulers me-1"></i>Medidas</h6>
+            <ul class="small mb-0">{% for d in v.medidas %}<li>{{ d }}</li>{% endfor %}</ul>
+        </div></div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm"><div class="card-body">
+            <h6 class="text-success"><i class="bi bi-layers me-1"></i>Jerarquías</h6>
+            <ul class="small mb-0">{% for d in v.jerarquias %}<li>{{ d }}</li>{% endfor %}</ul>
+        </div></div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm"><div class="card-body">
+            <h6 class="text-success"><i class="bi bi-lightbulb me-1"></i>Cómo profundiza la etapa 4</h6>
+            <p class="small mb-0">{{ v.profundiza }}</p>
+        </div></div>
+    </div>
+</section>
+
+<!-- Filtros y controles OLAP -->
+<section class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-sliders me-2"></i>Filtros y operaciones multidimensionales</h5></div>
+    <div class="card-body">
+        <form method="get" action="{{ url_for('etapa5_vista', n=v.n) }}" class="row g-3 align-items-end">
+            {% for c in v.filtros %}
+            <div class="col-md-4 col-lg-3">
+                <label class="form-label small mb-1 fw-semibold"><span class="badge bg-secondary me-1">Filtro</span>{{ c.label }}</label>
+                <select name="{{ c.name }}" class="form-select form-select-sm" onchange="this.form.submit()">
+                    {% for val, etq in c.options %}<option value="{{ val }}" {% if val == c.selected %}selected{% endif %}>{{ etq }}</option>{% endfor %}
+                </select>
+            </div>
+            {% endfor %}
+            {% for c in v.controles %}
+            <div class="col-md-4 col-lg-3">
+                <label class="form-label small mb-1 fw-semibold">
+                    <span class="badge {% if c.kind == 'nivel' %}bg-success{% elif c.kind == 'pivot' %}bg-warning text-dark{% else %}bg-primary{% endif %} me-1">
+                        {% if c.kind == 'nivel' %}Nivel{% elif c.kind == 'pivot' %}Pivot{% else %}Medida{% endif %}</span>{{ c.label }}</label>
+                <select name="{{ c.name }}" class="form-select form-select-sm" onchange="this.form.submit()">
+                    {% for val, etq in c.options %}<option value="{{ val }}" {% if val == c.selected %}selected{% endif %}>{{ etq }}</option>{% endfor %}
+                </select>
+            </div>
+            {% endfor %}
+            <div class="col-auto">
+                <noscript><button class="btn btn-success btn-sm" type="submit">Aplicar</button></noscript>
+                <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('etapa5_vista', n=v.n) }}"><i class="bi bi-arrow-counterclockwise me-1"></i>Restablecer</a>
+            </div>
+        </form>
+        <hr>
+        <div class="small mb-2"><strong>Selección activa:</strong>
+            {% for p in v.seleccion %}<span class="badge bg-light text-dark border me-1">{{ p }}</span>{% endfor %}
+        </div>
+        <div class="small"><strong>Operaciones en uso:</strong>
+            {% for op, det in v.operaciones %}<span class="badge bg-success me-1" title="{{ det }}">{{ op }}</span><span class="text-muted me-2">{{ det }}</span>{% else %}<span class="text-muted">ninguna</span>{% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Indicadores -->
+<section class="row g-3 mb-4">
+    {% for i in v.indicadores %}
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <div class="small text-muted"><i class="bi {{ i.icono }} text-success me-1"></i>{{ i.titulo }}</div>
+                <div class="kpi-valor my-1">{{ i.valor }}</div>
+                <div class="small text-muted">{{ i.detalle }}</div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+<!-- Visualizaciones -->
+<section class="row g-3 mb-4">
+    {% for g in v.graficos %}
+    <div class="col-lg-6">
+        <div class="card h-100 border-0 shadow-sm"><div class="card-body">{{ g }}</div></div>
+    </div>
+    {% endfor %}
+</section>
+
+<!-- Matriz de resultados -->
+{% set mt = v.matriz %}
+<section class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-grid-3x3 me-2"></i>Matriz de resultados</h5></div>
+    <div class="card-body">
+        <p class="small fw-semibold mb-1">{{ v.matriz_titulo }}</p>
+        <p class="small text-muted">Filas: {{ mt.row_label }} · Columnas: {{ mt.col_label }}</p>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered text-center matriz mb-2">
+                <thead>
+                    <tr>
+                        <th class="text-start">{{ mt.row_label }} ╲ {{ mt.col_label }}</th>
+                        {% for c in mt.cols %}<th>{{ c }}</th>{% endfor %}
+                        <th>{{ mt.total_label }}</th>
+                        {% if mt.extra_label %}<th>{{ mt.extra_label }}</th>{% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in mt.rows %}
+                    <tr>
+                        <th class="text-start">{{ f.label }}</th>
+                        {% for c in f.cells %}
+                        <td style="{% if c.bg %}background:{{ c.bg }};color:{{ c.fg }}{% endif %}">{{ c.t }}{% if c.sub %}<small>{{ c.sub }}</small>{% endif %}</td>
+                        {% endfor %}
+                        <td class="col-total">{{ f.total.t }}{% if f.total.sub %}<small>{{ f.total.sub }}</small>{% endif %}</td>
+                        {% if mt.extra_label %}<td class="col-total">{{ f.extra if f.extra else '—' }}</td>{% endif %}
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="{{ mt.cols|length + 2 }}" class="text-muted">La selección no devuelve registros.</td></tr>
+                    {% endfor %}
+                </tbody>
+                {% if mt.rows %}
+                <tfoot>
+                    <tr>
+                        <th class="text-start">{{ mt.total_label }}</th>
+                        {% for c in mt.col_totals %}<td>{{ c.t }}{% if c.sub %}<small>{{ c.sub }}</small>{% endif %}</td>{% endfor %}
+                        <td>{{ mt.grand.t }}{% if mt.grand.sub %}<small>{{ mt.grand.sub }}</small>{% endif %}</td>
+                        {% if mt.extra_label %}<td>{{ mt.extra_total }}</td>{% endif %}
+                    </tr>
+                </tfoot>
+                {% endif %}
+            </table>
+        </div>
+        <p class="small text-muted mb-0">{{ v.matriz_nota }}</p>
+    </div>
+</section>
+
+<!-- Interpretación -->
+<section class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-chat-square-text me-2"></i>Interpretación de los resultados</h5></div>
+    <div class="card-body"><p class="mb-0">{{ v.interpretacion }}</p></div>
+</section>
+
+<!-- Conocimientos multidimensionales -->
+<section class="mb-4">
+    <h5 class="mb-3"><i class="bi bi-stars text-success me-2"></i>Conocimientos multidimensionales de esta vista</h5>
+    {% for k in v.conocimientos %}
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h6 class="mb-0">Conocimiento {{ v.n }}.{{ loop.index }}: {{ k.titulo }}</h6>
+            <a class="btn btn-sm btn-outline-success" href="{{ url_for('etapa5_vista', n=k.vista, **k.params) }}"><i class="bi bi-box-arrow-up-right me-1"></i>Abrir la vista con esta selección</a>
+        </div>
+        <div class="card-body">
+            <dl class="kn mb-0">
+                <dt>Pregunta</dt><dd>{{ k.pregunta }}</dd>
+                <dt>Dimensiones y medidas</dt><dd>{{ k.dimensiones }}</dd>
+                <dt>Procedimiento</dt><dd>{{ k.procedimiento }}</dd>
+                <dt>Evidencia</dt>
+                <dd>{{ k.evidencia }}
+                    <details class="mt-2"><summary class="small text-success" style="cursor:pointer">Ver la consulta SQL</summary><pre class="sql mt-2">{{ k.sql }}</pre></details>
+                </dd>
+                <dt>Hallazgo</dt><dd>{{ k.hallazgo }}</dd>
+                <dt>Interpretación</dt><dd>{{ k.interpretacion }}</dd>
+                <dt>Utilidad</dt><dd>{{ k.utilidad }}</dd>
+                <dt>Limitación</dt><dd>{{ k.limitacion }}</dd>
+            </dl>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+<!-- Limitación y decisión -->
+<section class="row g-3 mb-4">
+    <div class="col-md-6">
+        <div class="alert alert-warning h-100 mb-0"><h6><i class="bi bi-exclamation-triangle me-1"></i>Limitación del análisis</h6><p class="small mb-0">{{ v.limitacion }}</p></div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-success h-100 mb-0"><h6><i class="bi bi-check2-circle me-1"></i>Decisión sustentada en los datos</h6><p class="small mb-0">{{ v.decision }}</p></div>
+    </div>
+</section>
+
+<nav class="d-flex justify-content-between mb-4">
+    {% if v.n > 1 %}<a class="btn btn-outline-secondary btn-sm" href="{{ url_for('etapa5_vista', n=v.n - 1) }}"><i class="bi bi-arrow-left me-1"></i>Vista {{ v.n - 1 }}</a>{% else %}<span></span>{% endif %}
+    {% if v.n < 4 %}<a class="btn btn-outline-secondary btn-sm" href="{{ url_for('etapa5_vista', n=v.n + 1) }}">Vista {{ v.n + 1 }}<i class="bi bi-arrow-right ms-1"></i></a>{% endif %}
+</nav>
+{% endblock %}
