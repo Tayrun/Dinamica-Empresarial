@@ -240,19 +240,19 @@
                     <div id="collapseEtapa5" class="accordion-collapse collapse {% if e5 %}show{% endif %}" data-bs-parent="#accordionEtapas">
                         <div class="accordion-body p-0">
                             <a href="{{ url_for('etapa5_inicio') }}" class="sidebar-subitem {% if request.endpoint == 'etapa5_inicio' %}active{% endif %}">
-                                <i class="bi bi-diagram-3 me-2"></i>Análisis multidimensional
+                                <i class="bi bi-cube me-2"></i>Análisis multidimensional
                             </a>
                             <a href="{{ url_for('etapa5_vista', n=1) }}" class="sidebar-subitem {% if e5 and n5 == 1 %}active{% endif %}">
-                                <i class="bi bi-1-square me-2"></i>Insolvencia por tiempo y tamaño
+                                <i class="bi bi-graph-down-arrow me-2"></i>1. Insolvencia por tiempo y tamaño
                             </a>
                             <a href="{{ url_for('etapa5_vista', n=2) }}" class="sidebar-subitem {% if e5 and n5 == 2 %}active{% endif %}">
-                                <i class="bi bi-2-square me-2"></i>Endeudamiento por tamaño
+                                <i class="bi bi-percent me-2"></i>2. Endeudamiento por tamaño
                             </a>
                             <a href="{{ url_for('etapa5_vista', n=3) }}" class="sidebar-subitem {% if e5 and n5 == 3 %}active{% endif %}">
-                                <i class="bi bi-3-square me-2"></i>Años observados y solvencia
+                                <i class="bi bi-calendar-check me-2"></i>3. Años observados y solvencia
                             </a>
                             <a href="{{ url_for('etapa5_vista', n=4) }}" class="sidebar-subitem {% if e5 and n5 == 4 %}active{% endif %}">
-                                <i class="bi bi-4-square me-2"></i>Cohortes y reaparición
+                                <i class="bi bi-arrow-repeat me-2"></i>4. Cohortes y reaparición
                             </a>
                         </div>
                     </div>
