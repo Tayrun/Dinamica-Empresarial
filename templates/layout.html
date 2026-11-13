@@ -228,6 +228,36 @@
                     </div>
                 </div>
 
+                <!-- Acordeón Etapa 5 -->
+                {% set e5 = request.endpoint in ['etapa5_inicio', 'etapa5_vista'] %}
+                {% set n5 = request.view_args.get('n') if request.view_args else None %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button {% if not e5 %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEtapa5">
+                            <i class="bi bi-5-circle-fill me-2 text-success"></i> Etapa 5: Análisis multidimensional
+                        </button>
+                    </h2>
+                    <div id="collapseEtapa5" class="accordion-collapse collapse {% if e5 %}show{% endif %}" data-bs-parent="#accordionEtapas">
+                        <div class="accordion-body p-0">
+                            <a href="{{ url_for('etapa5_inicio') }}" class="sidebar-subitem {% if request.endpoint == 'etapa5_inicio' %}active{% endif %}">
+                                <i class="bi bi-diagram-3 me-2"></i>Análisis multidimensional
+                            </a>
+                            <a href="{{ url_for('etapa5_vista', n=1) }}" class="sidebar-subitem {% if e5 and n5 == 1 %}active{% endif %}">
+                                <i class="bi bi-1-square me-2"></i>Insolvencia por tiempo y tamaño
+                            </a>
+                            <a href="{{ url_for('etapa5_vista', n=2) }}" class="sidebar-subitem {% if e5 and n5 == 2 %}active{% endif %}">
+                                <i class="bi bi-2-square me-2"></i>Endeudamiento por tamaño
+                            </a>
+                            <a href="{{ url_for('etapa5_vista', n=3) }}" class="sidebar-subitem {% if e5 and n5 == 3 %}active{% endif %}">
+                                <i class="bi bi-3-square me-2"></i>Años observados y solvencia
+                            </a>
+                            <a href="{{ url_for('etapa5_vista', n=4) }}" class="sidebar-subitem {% if e5 and n5 == 4 %}active{% endif %}">
+                                <i class="bi bi-4-square me-2"></i>Cohortes y reaparición
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
