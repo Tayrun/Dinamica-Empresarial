@@ -1,8 +1,10 @@
-from flask import Flask, Response, render_template, send_from_directory
+from flask import Flask, Response, abort, render_template, request, send_from_directory
 from data_quality import build_report, treated_csv
 from os import environ
 from pathlib import Path
 from urllib.parse import urlparse
+import multidim
+import vistas_multidim
 
 app = Flask(__name__)
 
@@ -118,6 +120,39 @@ def descargar_pbix():
 @app.route('/descargas/dax-medidas')
 def descargar_dax_md():
     return send_from_directory('powerbi', 'DAX_Medidas.md', as_attachment=True)
+
+# --- RUTAS ETAPA 5: ANÁLISIS MULTIDIMENSIONAL ---
+# El modelo estrella vive en data/dw.sqlite (copia del esquema dw de SQL Server).
+def _abrir_modelo():
+    if not multidim.DB_PATH.exists():
+        abort(503, description="No se encontró data/dw.sqlite (modelo estrella de la etapa 5).")
+    return multidim.connect()
+
+@app.route('/etapa5/analisis-multidimensional')
+def etapa5_inicio():
+    con = _abrir_modelo()
+    try:
+        return render_template(
+            'etapa5/inicio.html',
+            resumen=vistas_multidim.resumen(con),
+            conocimientos=vistas_multidim.conocimientos(con),
+            ejemplos=vistas_multidim.ejemplos(con),
+            validaciones=vistas_multidim.validaciones(con),
+        )
+    finally:
+        con.close()
+
+@app.route('/etapa5/analisis-multidimensional/vista/<int:n>')
+def etapa5_vista(n):
+    if n not in vistas_multidim.VISTAS:
+        abort(404)
+    con = _abrir_modelo()
+    try:
+        vista = vistas_multidim.VISTAS[n](con, request.args)
+        vista['conocimientos'] = vistas_multidim.conocimientos(con)[n]
+        return render_template('etapa5/vista.html', v=vista, resumen=vistas_multidim.resumen(con))
+    finally:
+        con.close()
 
 if __name__ == '__main__':
     app.run(debug=True)
