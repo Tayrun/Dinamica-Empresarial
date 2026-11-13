@@ -1,6 +1,6 @@
 # Dinamica Empresarial
 
-Aplicacion Flask para documentar el analisis de dinamica financiera e insolvencia tecnica de empresas colombianas. El proyecto incorpora el perfilamiento, diagnostico y tratamiento conservador de calidad de datos de la Etapa 2, ademas de la definicion del problema, preguntas de investigacion, necesidades de informacion y diccionario de datos de la Etapa 1, y el tratamiento ETL con SSIS de la Etapa 3.
+Aplicacion Flask para documentar el analisis de dinamica financiera e insolvencia tecnica de empresas colombianas. El proyecto incorpora la definicion del problema, preguntas de investigacion, necesidades de informacion y diccionario de datos de la Etapa 1; el perfilamiento, diagnostico y tratamiento conservador de calidad de datos de la Etapa 2; el tratamiento ETL con SSIS de la Etapa 3; el analisis exploratorio con Power BI de la Etapa 4; y el analisis multidimensional sobre un modelo estrella de la Etapa 5.
 
 ## Requisitos
 
@@ -140,20 +140,90 @@ POWERBI_REPORT_URL=https://app.powerbi.com/view?r=...
 
 La aplicación solo incrusta URLs HTTPS del dominio `app.powerbi.com`. La URL de inserción se muestra dentro de la Etapa 4 y la segunda, si se configura, ofrece un acceso directo al informe.
 
+## Etapa 5: Analisis Multidimensional
+
+La Etapa 5 organiza los datos tratados en un **modelo estrella** (esquema `dw`) y aplica las cinco operaciones OLAP para responder preguntas desde varias perspectivas a la vez: tiempo, tamaño, empresa y condición financiera. No repite las consultas de la Etapa 4: recalcula los porcentajes con su base real (registros con patrimonio conocido), compara periodos equivalentes y permite subir y bajar por las jerarquías.
+
+### Rutas
+
+| Ruta | Contenido |
+| --- | --- |
+| `/etapa5/analisis-multidimensional` | Propósito, relación con la Etapa 4, diagrama del modelo estrella, diccionario de dimensiones y medidas, ejemplos de las cinco operaciones OLAP, los ocho conocimientos y las validaciones del modelo. |
+| `/etapa5/analisis-multidimensional/vista/1` | Insolvencia patrimonial en el tiempo y por tamaño (Tiempo × Tamaño). |
+| `/etapa5/analisis-multidimensional/vista/2` | Perfil de endeudamiento por tamaño (Tamaño × Condición financiera). |
+| `/etapa5/analisis-multidimensional/vista/3` | Años observados y solvencia de las empresas (Empresa × Condición financiera). |
+| `/etapa5/analisis-multidimensional/vista/4` | Cohortes de ingreso y reaparición de empresas (Empresa/cohorte × Tiempo). |
+
+### Modelo estrella
+
+El modelo se construye en SQL Server y se publica en la aplicación como una copia de solo lectura en `data/dw.sqlite`. Una fila de la tabla de hechos representa una empresa (NIT) en una fecha de corte.
+
+| Tabla | Grano / contenido | Jerarquía |
+| --- | --- | --- |
+| `Fact_Estado_Financiero` | Una fila por empresa y fecha de corte; patrimonio, activo, pasivo, razón de endeudamiento e indicador `Insolvente` (0/1, vacío si no se conoce el patrimonio). | — |
+| `Dim_Tiempo` | Un año por fila. | Año → Bloque de 2 años (2018–2019, 2020–2021) → Periodo (Prepandemia, Pandemia, Posterior) |
+| `Dim_Tamano` | Tamaño, segmento y orden. | Micro, Pequeña, Mediana → Mipyme; Grande → Gran empresa; Sin clasificar |
+| `Dim_Empresa` | Una fila por NIT con primer y último año observado y años observados. | Años observados (1, 2, 3 o más); Cohorte (primer año) → Periodo de ingreso |
+| `Dim_Condicion_Financiera` | Estado del patrimonio y banda/grupo de endeudamiento. | Estado (Positivo, Negativo, Sin información); Banda → Grupo de endeudamiento |
+
+Las bandas de endeudamiento se definen sobre la razón pasivo/activo: Baja ≤ 0,30; Media hasta 0,60; Alta hasta 1,00; Crítica > 1,00. Los registros sin razón quedan en «Sin información» y no se imputan.
+
+### Vistas y operaciones OLAP
+
+| Vista | Pregunta | Dimensiones | Operaciones disponibles |
+| --- | --- | --- | --- |
+| 1 | ¿Cambió el porcentaje de empresas con patrimonio negativo entre periodos equivalentes y entre segmentos de tamaño? | Tiempo × Tamaño | Drill-down y roll-up por tiempo (año, bloque, periodo) y tamaño (tamaño, segmento); slice y dice con filtros de periodo y segmento; pivot de la matriz. |
+| 2 | ¿En qué bandas de endeudamiento se concentra cada tamaño de empresa y cuánta información falta para saberlo? | Tamaño × Condición financiera | Niveles de tamaño, medida de la matriz (registros o porcentaje por fila) y pivot. |
+| 3 | ¿Las empresas que aparecen más años se diferencian en solvencia y tamaño de las que aparecen un solo año? | Empresa × Condición financiera | Filtro de cohorte de ingreso, años observados, medida y pivot. |
+| 4 | ¿Cuántas empresas de cada año de ingreso reaparecen en los años siguientes? | Empresa (cohorte) × Tiempo | Filtro de cohorte, medida de reaparición, matriz cohorte × año y pivot. |
+
+Cada vista incluye filtros, controles de nivel y medida, selección activa, indicadores, gráficas, matriz de resultados con su base (n), interpretación, dos conocimientos con evidencia y consulta SQL, limitación y decisión sustentada. En total son **ocho conocimientos** (dos por vista).
+
+Las medidas principales son: % con patrimonio negativo (Σ insolventes / registros con patrimonio conocido), razón de endeudamiento agregada (Σ pasivos / Σ activos, no promedio de razones), % de reaparición, registros, empresas distintas y años observados.
+
+### Validaciones del modelo
+
+La página general compara el modelo con los datos tratados de la Etapa 3:
+
+| Validación | Valor esperado |
+| --- | --- |
+| Filas de la tabla de hechos | 25.164 |
+| Empresas distintas (NIT) / filas de `Dim_Empresa` | 18.652 |
+| Registros con patrimonio negativo | 335 |
+| Suma de `Activo_Total` | 570.991.663.932,36 |
+| Combinaciones (empresa, fecha) repetidas | 0 |
+| Claves foráneas sin registro relacionado | 0 |
+| `Insolvente` con patrimonio vacío | 0 |
+
+### Archivos de la Etapa 5
+
+- Modelo publicado: `data/dw.sqlite` (copia de solo lectura; la aplicación responde `503` si no existe).
+- Capa de consulta y formato: `multidim.py` (solo biblioteca estándar y `markupsafe`, sin dependencias nuevas).
+- Definición de las cuatro vistas: `vistas_multidim.py`.
+- Plantillas: `templates/etapa5/inicio.html` y `templates/etapa5/vista.html`.
+- Creación del esquema: `ETL/Modelo_estrella.sql`.
+- Carga desde `dbo.Datos_Tratados`: `ETL/Cargar_modelo_estrella.sql`.
+
+Para ejecutar la Etapa 5 basta con las dependencias actuales de `requirements.txt`; no se requieren paquetes adicionales de análisis.
+
 ## Estructura
 
 ```text
-app.py                 Aplicacion y rutas Flask (Etapa 1, Etapa 2, Etapa 3 y Etapa 4)
+app.py                 Aplicacion y rutas Flask (Etapa 1 a Etapa 5)
 data_quality.py        Perfilamiento, metricas y tratamiento reproducible
+multidim.py            Consultas, indicadores y graficas del modelo estrella (Etapa 5)
+vistas_multidim.py     Definicion de las cuatro vistas multidimensionales
 data/processed/        Dataset consolidado
 data/informes/         Informe tecnico de la Etapa 3 en PDF
+data/dw.sqlite         Modelo estrella de la Etapa 5 (copia de solo lectura)
 templates/             Vistas HTML de las etapas del proyecto
   etapa1/              Plantillas de la Etapa 1 (8 secciones)
-  etapa2/              Plantillas de la Etapa 2 (4 secciones)
+  etapa2/              Plantillas de la Etapa 2 (3 secciones)
   etapa3/              Plantilla de la Etapa 3 (resultados del ETL)
   etapa4/              Plantilla de la Etapa 4 (conocimiento evidente)
+  etapa5/              Plantillas de la Etapa 5 (inicio y cuatro vistas)
   scripts_sql/         Scripts SQL de tablas del ETL
 powerbi/               Archivo PBIX y documentacion de medidas DAX
-ETL/                   Proyecto SSIS (paquete .dtsx y solucion)
+ETL/                   Proyecto SSIS y scripts del modelo estrella de la Etapa 5
 requirements.txt       Dependencias de ejecucion
 ```
