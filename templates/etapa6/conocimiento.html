@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    .tbl-s { font-size: .85rem; }
+    .kn dt { font-size: .75rem; text-transform: uppercase; letter-spacing: .4px; color: #008751; margin-top: .5rem; }
+    .kn dd { margin-bottom: 0; font-size: .88rem; }
+</style>
+
+<div class="mb-4">
+    <h1 class="h2"><i class="bi bi-6-circle-fill text-success me-2"></i>Conocimiento oculto</h1>
+    <p class="lead mb-1">Modelos supervisados, agrupamiento y minería de texto de comentarios de YouTube, hechos con Orange Data Mining.</p>
+    <p class="text-muted small mb-0">Datos: SIREM – Superintendencia de Sociedades (datos.gov.co) y comentarios públicos de 8 videos de YouTube extraídos el 14 de noviembre de 2026.</p>
+</div>
+
+<!-- Informe y video -->
+<section class="row g-3 mb-4">
+    <div class="col-md-5">
+        <div class="card h-100 border-0 shadow-sm"><div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-file-earmark-pdf me-2"></i>Informe técnico</h5></div>
+        <div class="card-body small">
+            <p>Flujos de Orange con widgets, conexiones y parámetros, métricas, capturas explicadas, limpieza de comentarios, conclusiones y referencias.</p>
+            <a class="btn btn-success btn-sm" href="{{ url_for('descargar_informe_etapa6') }}"><i class="bi bi-download me-1"></i>Descargar el informe (PDF)</a>
+        </div></div>
+    </div>
+    <div class="col-md-7">
+        <div class="card h-100 border-0 shadow-sm"><div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-play-btn me-2"></i>Video de sustentación</h5></div>
+        <div class="card-body small">
+            {% if video_embed %}
+            <div class="ratio ratio-16x9 mb-2">
+                <iframe src="{{ video_embed }}" title="Video de sustentación de la etapa 6" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+            <a href="{{ video_url }}" target="_blank" rel="noopener noreferrer">Abrir el video en YouTube</a>
+            {% else %}
+            <p class="mb-0 text-muted">El video se publicará aquí.</p>
+            {% endif %}
+        </div></div>
+    </div>
+</section>
+
+<!-- Supervisado -->
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-bullseye me-2"></i>1. Modelos supervisados: ¿se puede anticipar el endeudamiento alto?</h5></div>
+    <div class="card-body small">
+        <p>Variable objetivo: endeudamiento alto (razón Pasivo/Activo mayor que 0,60). 875 empresas; clase «Alto» 38,2 %. Predictores: año, tamaño y activo total. Pasivo, patrimonio y razón se excluyeron porque contienen la respuesta (fuga de información). Evaluación: validación cruzada de 10 pliegues estratificada, igual para los cuatro modelos.</p>
+        <div class="table-responsive"><table class="table table-sm tbl-s">
+            <thead><tr><th>Modelo</th><th>AUC</th><th>Exactitud</th><th>F1</th><th>Precisión</th><th>Recall</th><th>MCC</th></tr></thead>
+            <tbody>
+                <tr><td>Logistic Regression</td><td>0,468</td><td>0,618</td><td>0,000</td><td>0,000</td><td>0,000</td><td>0,000</td></tr>
+                <tr><td>Tree</td><td>0,530</td><td>0,605</td><td>0,117</td><td>0,397</td><td>0,069</td><td>0,008</td></tr>
+                <tr class="table-success"><td><strong>kNN (elegido)</strong></td><td>0,543</td><td>0,578</td><td>0,376</td><td>0,432</td><td>0,332</td><td>0,067</td></tr>
+                <tr><td>Constant (línea base)</td><td>0,500</td><td>0,618</td><td>0,000</td><td>0,000</td><td>0,000</td><td>0,000</td></tr>
+            </tbody></table></div>
+        <p class="mb-1"><strong>Matriz de confusión de kNN:</strong> 111 verdaderos positivos, 223 falsos negativos, 146 falsos positivos y 395 verdaderos negativos.</p>
+        <p class="mb-0"><strong>Lectura:</strong> kNN es el único que detecta empresas con endeudamiento alto (recall 0,33), pero su AUC está casi en el azar y su exactitud queda por debajo de la línea base. Ningún modelo es útil para predecir: el tamaño, el año y el activo casi no explican el nivel de endeudamiento.</p>
+    </div>
+</section>
+
+<!-- Clustering -->
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-diagram-3 me-2"></i>2. Agrupamiento sin variable objetivo</h5></div>
+    <div class="card-body small">
+        <p>k-Means con 3 variables normalizadas (años observados, primer año observado y logaritmo del activo) sobre 9.163 empresas. La razón de endeudamiento y el patrimonio negativo no entraron: se usaron después para describir los grupos. Silueta para k = 2 a 8: de 0,318 (k = 3) a 0,369 (k = 8); se eligió k = 4 (0,341) por interpretabilidad. La estructura es débil.</p>
+        <div class="table-responsive"><table class="table table-sm tbl-s">
+            <thead><tr><th>Grupo</th><th>Empresas</th><th>Años obs. (media)</th><th>Primer año (mediana)</th><th>Tamaño más frecuente</th><th>Razón de endeudamiento (mediana)</th></tr></thead>
+            <tbody>
+                <tr><td>C1 Entrantes recientes, activo pequeño</td><td>3.426</td><td>1,19</td><td>2020</td><td>Pequeña</td><td>0,503</td></tr>
+                <tr><td>C2 Permanentes de larga trayectoria</td><td>1.189</td><td>3,15</td><td>2016</td><td>Mediana</td><td>0,470</td></tr>
+                <tr><td>C3 Cohorte 2016, pocos años</td><td>2.728</td><td>1,54</td><td>2016</td><td>Mediana</td><td>0,494</td></tr>
+                <tr><td>C4 Empresas grandes</td><td>1.820</td><td>1,60</td><td>2018</td><td>Grande</td><td>0,509</td></tr>
+            </tbody></table></div>
+        <p class="mb-0"><strong>Lectura:</strong> los grupos se separan por trayectoria y tamaño, pero el endeudamiento es casi igual en los cuatro: tampoco aquí el tamaño explica la deuda. La razón solo se conoce en 875 de las 9.163 empresas.</p>
+    </div>
+</section>
+
+<!-- Texto -->
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-chat-square-text me-2"></i>3. Minería de texto: comentarios de YouTube</h5></div>
+    <div class="card-body small">
+        <p><strong>Propósito:</strong> saber qué razones mencionan los usuarios sobre por qué las empresas colombianas se endeudan, entran en crisis, cierran o sobreviven. Se usó la API oficial de YouTube; las credenciales no se publican y no se guardan nombres ni identificadores de los autores.</p>
+        <p><strong>Cifras:</strong> 8 videos, 1.433 comentarios principales extraídos, 652 después de la limpieza (duplicados, vacíos, publicidad, comentarios demasiado cortos, sobre el formato del video y sin vocabulario económico).</p>
+        <p class="mb-1"><strong>Flujo en Orange:</strong> Corpus → Preprocess Text → Topic Modelling (LDA, 5 temas, coherencia 0,395) → Data Table y Group by por video.</p>
+        <div class="table-responsive"><table class="table table-sm tbl-s">
+            <thead><tr><th>Tema</th><th>Palabras clave</th><th>Lectura</th></tr></thead>
+            <tbody>
+                <tr><td>1</td><td>crisis, trabajo, ejemplo, empresario, gente, dinero</td><td>Experiencia y consejos de empresarios (incluye nombres de una entrevista)</td></tr>
+                <tr><td>2</td><td>impuestos, negocios, gobierno, quiebra, precios</td><td>Impuestos, precios y quiebra</td></tr>
+                <tr><td>3</td><td>país, gobierno, renta, corrupción, gasto</td><td>Política fiscal y gobierno</td></tr>
+                <tr><td>4</td><td>plata, negocio, rentable, renta, casas, rentas</td><td>Rentabilidad y negocios de renta (arriendos)</td></tr>
+                <tr><td>5</td><td>dinero, vender, negocio, trabajo, quiebra, empleo</td><td>Vender, sostener el negocio y el empleo</td></tr>
+            </tbody></table></div>
+        <div class="alert alert-warning py-2 mb-2"><i class="bi bi-exclamation-triangle me-1"></i>Los comentarios <strong>no representan a toda la población</strong>: son opiniones de quienes comentan 8 videos concretos.</div>
+        <p class="mb-1"><strong>Videos consultados:</strong></p>
+        <ul class="mb-0">
+            <li><a href="https://www.youtube.com/watch?v=pVfj46LrXGA" target="_blank" rel="noopener noreferrer">La Pulla: ¿El Gobierno se quedó sin plata?</a> (300 extraídos)</li>
+            <li><a href="https://www.youtube.com/watch?v=rW-6hpC8izw" target="_blank" rel="noopener noreferrer">Medellín cierra restaurantes por altos costos de arriendos</a> (300)</li>
+            <li><a href="https://www.youtube.com/watch?v=QvaC0FIaANk" target="_blank" rel="noopener noreferrer">3 negocios que ya no son rentables</a> (300)</li>
+            <li><a href="https://www.youtube.com/watch?v=T_Vc1YfDSwQ" target="_blank" rel="noopener noreferrer">Luis Carlos Reyes: «Colombia no está cerca de la quiebra»</a> (130)</li>
+            <li><a href="https://www.youtube.com/watch?v=N-WKlSrkdeQ" target="_blank" rel="noopener noreferrer">Tulio Gómez, La Montaña Agromercados</a> (222)</li>
+            <li><a href="https://www.youtube.com/watch?v=zm3KYUBUYnE" target="_blank" rel="noopener noreferrer">15 consejos prácticos para salir de una crisis económica</a> (60)</li>
+            <li><a href="https://www.youtube.com/watch?v=H97hH_kvyzU" target="_blank" rel="noopener noreferrer">Consejo para ser un empresario exitoso</a> (94)</li>
+            <li><a href="https://www.youtube.com/watch?v=nd0dNQrazxo" target="_blank" rel="noopener noreferrer">4 acciones para rescatar un negocio en quiebra</a> (27)</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Conclusiones -->
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-light"><h5 class="mb-0"><i class="bi bi-lightbulb me-2"></i>4. Conclusiones integradas</h5></div>
+    <div class="card-body small">
+        <dl class="kn mb-0">
+            <dt>Evidencia</dt>
+            <dd>El endeudamiento alto no se anticipa con tamaño, año y activo (mejor AUC 0,543). Los grupos por trayectoria y tamaño tienen un endeudamiento casi igual (mediana 0,47 a 0,51). Los comentarios giran alrededor de impuestos, gobierno, precios, rentabilidad, arriendos y empleo.</dd>
+            <dt>Hipótesis (no demostradas con nuestros datos)</dt>
+            <dd>Los impuestos y los arriendos aparecen como razones de cierre en los comentarios, pero el modelo no tiene variables para comprobarlo. El endeudamiento probablemente depende de la composición del pasivo y del sector, que esta muestra no trae.</dd>
+            <dt>Siguiente paso</dt>
+            <dd>Conseguir pasivo, sector y ubicación, ampliar la muestra de comentarios y validar los temas con lectura manual.</dd>
+        </dl>
+    </div>
+</section>
+{% endblock %}

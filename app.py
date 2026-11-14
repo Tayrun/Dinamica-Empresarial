@@ -5,6 +5,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 import multidim
 import vistas_multidim
+import re
 
 app = Flask(__name__)
 
@@ -153,6 +154,29 @@ def etapa5_vista(n):
         return render_template('etapa5/vista.html', v=vista, resumen=vistas_multidim.resumen(con))
     finally:
         con.close()
+
+# --- RUTAS ETAPA 6: CONOCIMIENTO OCULTO ---
+# Enlace del video de sustentacion (maximo 10 minutos). Se puede cambiar aqui o con la
+# variable de entorno VIDEO_ETAPA6_URL en Render. Solo se aceptan enlaces de YouTube.
+VIDEO_ETAPA6_URL = "PENDIENTE"
+
+def _video_youtube(url):
+    """Devuelve (enlace_normal, enlace_para_incrustar) si la URL es de YouTube; si no, ('', '')."""
+    url = (environ.get("VIDEO_ETAPA6_URL") or url or "").strip()
+    m = re.match(r"^https://(?:www\.)?(?:youtube\.com/watch\?(?:.*&)?v=|youtu\.be/)([A-Za-z0-9_-]{11})", url)
+    if not m:
+        return "", ""
+    vid = m.group(1)
+    return "https://www.youtube.com/watch?v=" + vid, "https://www.youtube.com/embed/" + vid
+
+@app.route('/etapa6/conocimiento-oculto')
+def etapa6_conocimiento():
+    video_url, video_embed = _video_youtube(VIDEO_ETAPA6_URL)
+    return render_template('etapa6/conocimiento.html', video_url=video_url, video_embed=video_embed)
+
+@app.route('/descargas/informe-etapa6')
+def descargar_informe_etapa6():
+    return send_from_directory('data/informes', 'informe_tecnico_etapa6.pdf', as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
