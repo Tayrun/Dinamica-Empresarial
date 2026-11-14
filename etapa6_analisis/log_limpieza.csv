@@ -1,0 +1,10 @@
+paso,criterio,descartados,quedan
+0. Comentarios extraidos (crudos),"Salida de la API, comentarios de primer nivel",0,1433
+1. Duplicados por comment_id,Mismo comentario descargado dos veces,0,1433
+2. Vacios o sin texto,"Solo emojis, numeros, signos o menciones",15,1418
+3. Duplicados de texto,"Mismo texto normalizado (copias, spam repetido, consignas); se conserva el de mas likes",69,1349
+4. Idioma distinto del espanol,Heuristica de palabras funcionales (>=2 ingles y mas que espanol),0,1349
+5a. Irrelevante: publicidad o enlaces,"Contiene URL, WhatsApp/Telegram o telefono",2,1347
+5b. Irrelevante: demasiado corto,"Menos de 3 palabras (saludos, aplausos, 'gracias')",66,1281
+5c. Irrelevante: comentarios sobre el formato del video,Quejas del tipo 'y el tercero?' sin contenido sobre el tema,43,1238
+5d. Irrelevante: sin vocabulario del dominio,No contiene ninguna raiz del lexico economico-empresarial,586,652
