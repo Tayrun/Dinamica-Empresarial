@@ -1,6 +1,6 @@
 # Dinamica Empresarial
 
-Aplicacion Flask para documentar el analisis de dinamica financiera e insolvencia tecnica de empresas colombianas. El proyecto incorpora la definicion del problema, preguntas de investigacion, necesidades de informacion y diccionario de datos de la Etapa 1; el perfilamiento, diagnostico y tratamiento conservador de calidad de datos de la Etapa 2; el tratamiento ETL con SSIS de la Etapa 3; el analisis exploratorio con Power BI de la Etapa 4; y el analisis multidimensional sobre un modelo estrella de la Etapa 5.
+Aplicacion Flask para documentar el analisis de dinamica financiera e insolvencia tecnica de empresas colombianas. El proyecto incorpora la definicion del problema, preguntas de investigacion, necesidades de informacion y diccionario de datos de la Etapa 1; el perfilamiento, diagnostico y tratamiento conservador de calidad de datos de la Etapa 2; el tratamiento ETL con SSIS de la Etapa 3; el analisis exploratorio con Power BI de la Etapa 4; el analisis multidimensional sobre un modelo estrella de la Etapa 5; y el conocimiento oculto con modelos supervisados, agrupamiento y mineria de texto de la Etapa 6.
 
 ## Requisitos
 
@@ -206,15 +206,87 @@ La página general compara el modelo con los datos tratados de la Etapa 3:
 
 Para ejecutar la Etapa 5 basta con las dependencias actuales de `requirements.txt`; no se requieren paquetes adicionales de análisis.
 
+## Etapa 6: Conocimiento Oculto
+
+La Etapa 6 busca conocimiento que no se ve a simple vista combinando tres técnicas de minería de datos con **Orange Data Mining**: modelos supervisados, agrupamiento sin variable objetivo y minería de texto de comentarios públicos de YouTube. Los resultados se presentan en la aplicación junto con el informe técnico y el video de sustentación.
+
+### Rutas
+
+| Ruta | Contenido |
+| --- | --- |
+| `/etapa6/conocimiento-oculto` | Informe descargable, video de sustentación y resultados de los tres análisis con sus conclusiones. |
+| `/descargas/informe-etapa6` | Descarga del informe técnico en PDF (`data/informes/informe_tecnico_etapa6.pdf`). |
+
+### 1. Modelos supervisados
+
+La variable objetivo es **endeudamiento alto** (razón Pasivo/Activo mayor que 0,60) sobre 875 empresas, con 38,2 % en la clase «Alto». Los predictores son año, tamaño y activo total; pasivo, patrimonio y razón se excluyeron para evitar fuga de información. Se evaluaron cuatro modelos con validación cruzada de 10 pliegues estratificada.
+
+| Modelo | AUC | Exactitud | F1 | Precisión | Recall | MCC |
+| --- | --- | --- | --- | --- | --- | --- |
+| Logistic Regression | 0,468 | 0,618 | 0,000 | 0,000 | 0,000 | 0,000 |
+| Tree | 0,530 | 0,605 | 0,117 | 0,397 | 0,069 | 0,008 |
+| kNN (elegido) | 0,543 | 0,578 | 0,376 | 0,432 | 0,332 | 0,067 |
+| Constant (línea base) | 0,500 | 0,618 | 0,000 | 0,000 | 0,000 | 0,000 |
+
+kNN es el único que detecta algunos casos de endeudamiento alto, pero su AUC está casi en el azar y su exactitud queda por debajo de la línea base: **ningún modelo sirve para predecir** con estas variables.
+
+### 2. Agrupamiento
+
+Se aplicó k-Means con tres variables normalizadas (años observados, primer año observado y logaritmo del activo) sobre 9.163 empresas. La silueta para k = 2 a 8 va de 0,318 a 0,369; se eligió k = 4 (0,341) por interpretabilidad, aunque la estructura es débil.
+
+| Grupo | Empresas | Años obs. (media) | Primer año (mediana) | Tamaño más frecuente | Razón de endeudamiento (mediana) |
+| --- | --- | --- | --- | --- | --- |
+| C1 Entrantes recientes, activo pequeño | 3.426 | 1,19 | 2020 | Pequeña | 0,503 |
+| C2 Permanentes de larga trayectoria | 1.189 | 3,15 | 2016 | Mediana | 0,470 |
+| C3 Cohorte 2016, pocos años | 2.728 | 1,54 | 2016 | Mediana | 0,494 |
+| C4 Empresas grandes | 1.820 | 1,60 | 2018 | Grande | 0,509 |
+
+Los grupos se separan por trayectoria y tamaño, pero el endeudamiento es casi igual en los cuatro (mediana entre 0,47 y 0,51): tampoco aquí el tamaño explica la deuda. La razón solo se conoce en 875 de las 9.163 empresas.
+
+### 3. Minería de texto
+
+Se usó la API oficial de YouTube para extraer comentarios de 8 videos: 1.433 comentarios principales, de los cuales quedaron **652** tras eliminar duplicados, vacíos, publicidad, comentarios demasiado cortos, sobre el formato del video y sin vocabulario económico. No se guardan nombres ni identificadores de los autores.
+
+Flujo en Orange: **Corpus → Preprocess Text → Topic Modelling (LDA, 5 temas, coherencia 0,395) → Data Table y Group by por video.**
+
+| Tema | Palabras clave | Lectura |
+| --- | --- | --- |
+| 1 | crisis, trabajo, ejemplo, empresario, gente, dinero | Experiencia y consejos de empresarios |
+| 2 | impuestos, negocios, gobierno, quiebra, precios | Impuestos, precios y quiebra |
+| 3 | país, gobierno, renta, corrupción, gasto | Política fiscal y gobierno |
+| 4 | plata, negocio, rentable, renta, casas, rentas | Rentabilidad y negocios de renta |
+| 5 | dinero, vender, negocio, trabajo, quiebra, empleo | Vender, sostener el negocio y el empleo |
+
+Los comentarios **no representan a toda la población**: son opiniones de quienes comentan 8 videos concretos.
+
+### 4. Conclusiones
+
+- **Evidencia:** el endeudamiento alto no se anticipa con tamaño, año y activo (mejor AUC 0,543); los grupos por trayectoria y tamaño tienen un endeudamiento casi igual; los comentarios giran alrededor de impuestos, gobierno, precios, rentabilidad, arriendos y empleo.
+- **Hipótesis:** los impuestos y los arriendos aparecen como razones de cierre en los comentarios, pero el modelo no tiene variables para comprobarlo; el endeudamiento probablemente depende de la composición del pasivo y del sector, que la muestra no trae.
+- **Siguiente paso:** conseguir pasivo, sector y ubicación, ampliar la muestra de comentarios y validar los temas con lectura manual.
+
+### Video de sustentación
+
+El video se incrusta en la página de la Etapa 6 desde `https://youtu.be/BsIGlOk2bkY`. La URL se puede cambiar sin tocar el código con la variable de entorno `VIDEO_ETAPA6_URL`; solo se aceptan enlaces de YouTube.
+
+### Archivos de la Etapa 6
+
+- Plantilla: `templates/etapa6/conocimiento.html`.
+- Informe técnico: `data/informes/informe_tecnico_etapa6.pdf`.
+- Rutas y validación del video: `app.py`.
+- Variable documentada en `.env.example`: `VIDEO_ETAPA6_URL`.
+
+Los análisis se hicieron en Orange Data Mining y sus resultados quedaron consolidados en la página; la aplicación no requiere dependencias nuevas de Python.
+
 ## Estructura
 
 ```text
-app.py                 Aplicacion y rutas Flask (Etapa 1 a Etapa 5)
+app.py                 Aplicacion y rutas Flask (Etapa 1 a Etapa 6)
 data_quality.py        Perfilamiento, metricas y tratamiento reproducible
 multidim.py            Consultas, indicadores y graficas del modelo estrella (Etapa 5)
 vistas_multidim.py     Definicion de las cuatro vistas multidimensionales
 data/processed/        Dataset consolidado
-data/informes/         Informe tecnico de la Etapa 3 en PDF
+data/informes/         Informes tecnicos de las etapas 3 y 6 en PDF
 data/dw.sqlite         Modelo estrella de la Etapa 5 (copia de solo lectura)
 templates/             Vistas HTML de las etapas del proyecto
   etapa1/              Plantillas de la Etapa 1 (8 secciones)
@@ -222,6 +294,7 @@ templates/             Vistas HTML de las etapas del proyecto
   etapa3/              Plantilla de la Etapa 3 (resultados del ETL)
   etapa4/              Plantilla de la Etapa 4 (conocimiento evidente)
   etapa5/              Plantillas de la Etapa 5 (inicio y cuatro vistas)
+  etapa6/              Plantilla de la Etapa 6 (conocimiento oculto)
   scripts_sql/         Scripts SQL de tablas del ETL
 powerbi/               Archivo PBIX y documentacion de medidas DAX
 ETL/                   Proyecto SSIS y scripts del modelo estrella de la Etapa 5
