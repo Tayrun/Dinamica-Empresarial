@@ -158,7 +158,7 @@ def etapa5_vista(n):
 # --- RUTAS ETAPA 6: CONOCIMIENTO OCULTO ---
 # Enlace del video de sustentacion (maximo 10 minutos). Se puede cambiar aqui o con la
 # variable de entorno VIDEO_ETAPA6_URL en Render. Solo se aceptan enlaces de YouTube.
-VIDEO_ETAPA6_URL = "PENDIENTE"
+VIDEO_ETAPA6_URL = "https://youtu.be/BsIGlOk2bkY"
 
 def _video_youtube(url):
     """Devuelve (enlace_normal, enlace_para_incrustar) si la URL es de YouTube; si no, ('', '')."""
