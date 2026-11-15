@@ -178,5 +178,10 @@ def etapa6_conocimiento():
 def descargar_informe_etapa6():
     return send_from_directory('data/informes', 'informe_tecnico_etapa6.pdf', as_attachment=True)
 
+# Version editable del informe (Word) para revisar o corregir el documento.
+@app.route('/descargas/informe-etapa6-word')
+def descargar_informe_etapa6_word():
+    return send_from_directory('data/informes', 'informe_tecnico_etapa6.docx', as_attachment=True)
+
 if __name__ == '__main__':
     app.run(debug=True)
