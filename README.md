@@ -216,7 +216,6 @@ La Etapa 6 busca conocimiento que no se ve a simple vista combinando tres técni
 | --- | --- |
 | `/etapa6/conocimiento-oculto` | Informe descargable, video de sustentación y resultados de los tres análisis con sus conclusiones. |
 | `/descargas/informe-etapa6` | Descarga del informe técnico en PDF (`data/informes/informe_tecnico_etapa6.pdf`). |
-| `/descargas/informe-etapa6-word` | Descarga de la versión editable en Word (`data/informes/informe_tecnico_etapa6.docx`). |
 
 ### 1. Modelos supervisados
 
@@ -274,7 +273,6 @@ El video se incrusta en la página de la Etapa 6 desde `https://youtu.be/BsIGlOk
 
 - Plantilla: `templates/etapa6/conocimiento.html`.
 - Informe técnico: `data/informes/informe_tecnico_etapa6.pdf`.
-- Versión editable del informe: `data/informes/informe_tecnico_etapa6.docx`.
 - Rutas y validación del video: `app.py`.
 - Variable documentada en `.env.example`: `VIDEO_ETAPA6_URL`.
 
@@ -288,7 +286,7 @@ data_quality.py        Perfilamiento, metricas y tratamiento reproducible
 multidim.py            Consultas, indicadores y graficas del modelo estrella (Etapa 5)
 vistas_multidim.py     Definicion de las cuatro vistas multidimensionales
 data/processed/        Dataset consolidado
-data/informes/         Informes tecnicos de las etapas 3 y 6 (PDF; etapa 6 tambien en Word)
+data/informes/         Informes tecnicos de las etapas 3 y 6 en PDF
 data/dw.sqlite         Modelo estrella de la Etapa 5 (copia de solo lectura)
 templates/             Vistas HTML de las etapas del proyecto
   etapa1/              Plantillas de la Etapa 1 (8 secciones)
